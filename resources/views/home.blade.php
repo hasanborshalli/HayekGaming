@@ -58,7 +58,7 @@
                     image="banner2.png"
                     title="EA SPORTS FC 25 STANDARD EDITION"
                     price="35.00"
-                    category="PS5"
+                    category="PS4"
                     />
                     
                     
