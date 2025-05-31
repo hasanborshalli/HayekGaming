@@ -1,0 +1,142 @@
+.carousel-wrapper {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.carousel-container {
+    width: 80%; /* Change from 70% for smaller screens */
+    max-width: 1200px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: transform 1s ease;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.order-now {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 15%;
+    min-width: 80px;
+}
+.order-now img {
+    width: 100%;
+}
+.order-now button,
+.mobile-order-btn {
+    width: 100%;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    cursor: pointer;
+}
+.order-now button:hover,
+.mobile-order-btn:hover {
+    background-color: var(--main-color);
+    color: white;
+}
+.mobile-order-btn {
+    z-index: 9;
+    position: absolute;
+    bottom: 10px;
+    left: 15%;
+    width: 70% !important;
+    height: 23px;
+    font-size: 12px;
+    display: none;
+}
+.banner {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    position: relative;
+    z-index: 1;
+}
+.image-container:nth-child(1) {
+    left: 0%;
+}
+
+.image-container:nth-child(2) {
+    left: 100%;
+}
+
+.image-container:nth-child(3) {
+    left: 200%;
+}
+.carousel-dots {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dot.active {
+    background-color: #2a2670;
+}
+@media (max-width: 768px) {
+    .carousel-wrapper {
+        height: 320px;
+    }
+
+    .order-now {
+        width: 20%;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-wrapper {
+        height: 600px;
+    }
+    .carousel-container {
+        width: 90%;
+    }
+    .banner,
+    .mobile-order-btn {
+        display: none;
+    }
+    .order-btn {
+        display: block;
+        height: 30px;
+        font-size: 14px;
+    }
+    .order-now {
+        left: 0;
+        width: 100%;
+    }
+    .mobile-img {
+        border-radius: 18px;
+    }
+    @media (max-width: 480px) {
+        .carousel-wrapper {
+            height: 520px;
+        }
+    }
+}

@@ -1,0 +1,133 @@
+body {
+    background-color: #dfdfdf;
+}
+.productDetailsPage {
+    padding: 20px;
+}
+.path {
+    margin: 30px;
+    color: rgba(235, 27, 27);
+}
+.product-box,
+.product-description {
+    background-color: white;
+    width: 100%;
+    height: fit-content;
+    padding: 20px 0;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-family: var(--main-text);
+}
+.product-description > * {
+    margin: 20px;
+}
+.product-description p,
+.product-description li {
+    line-height: 1.6;
+}
+.product-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.product-images {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.product-img img {
+    width: 100%;
+}
+.other-images {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.other-images img {
+    width: 45%;
+}
+.selected-image {
+    border: 1px solid #9747ff;
+    border-radius: 10px;
+}
+.product-detail {
+    width: 40%;
+}
+.product-detail-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+    font-family: var(--main-text);
+    font-weight: 600;
+}
+.quantity,
+.quantity-btns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.price {
+    color: #2a2670;
+}
+.quantity-btns button {
+    background: none;
+    border: 1.5px solid #2a2670;
+    font-size: 20px;
+    font-weight: 800;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.order-btns button {
+    background-color: #9747ff33;
+    border: none;
+    border-radius: 10px;
+    width: 200px;
+    height: 40px;
+    font-family: "Poppins";
+    font-weight: 600;
+}
+@media (max-width: 950px) {
+    .product-images {
+        flex-direction: column-reverse;
+    }
+    .other-images {
+        flex-direction: row;
+    }
+    .other-images img {
+        width: 60%;
+    }
+}
+@media (max-width: 768px) {
+    .product-box {
+        flex-direction: column;
+    }
+    .product-images,
+    .other-images {
+        width: 100%;
+    }
+    .product-images img {
+        max-height: 400px;
+    }
+    .other-images img {
+        max-height: 200px;
+    }
+    .product-detail {
+        width: 90%;
+    }
+    .product-description {
+        max-height: 500px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+}
+@media (max-width: 430px) {
+    .path {
+        font-size: 14px;
+    }
+}

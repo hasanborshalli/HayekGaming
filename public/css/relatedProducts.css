@@ -1,0 +1,28 @@
+.related-products {
+    background-color: white;
+    width: 100%;
+    height: 500px;
+    padding: 20px 0;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-family: var(--main-text);
+}
+.related-products > * {
+    margin: 20px;
+}
+.product {
+    color: black !important;
+}
+.product button {
+    background-color: #9747ff33 !important;
+    color: black !important;
+}
+.product button:hover {
+    background-color: var(--main-color) !important;
+    color: white !important;
+}
+@media (max-width: 480px) {
+    .related-products {
+        height: 450px;
+    }
+}
