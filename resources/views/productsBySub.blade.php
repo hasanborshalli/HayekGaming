@@ -52,7 +52,7 @@
         <button type="submit">Filter</button>
     </form>
                 @foreach ($gameTypes as $gameType)
-                    <x-related-products :products="$gameType->products"
+                    <x-related-products :products="$gameType->products->take(5)"
                     title="{{$gameType->name}}"
                     subId="{{$gameType->id}}"
                     category="{{$subCategory->category->id}}"
