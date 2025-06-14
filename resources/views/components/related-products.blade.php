@@ -1,35 +1,20 @@
 <div class="related-products">
-    <h2>Related Products</h2>
+ <h2>
+    <a href="{{ $isGames ? '/products/'.$category.'/' . $subId  : '/products/category/' . $subId }}">
+        {!! $title !!}
+    </a>
+  </h2>
     <div class="products">
+        @foreach ($products as $product)
         <x-new-product-card
-            image="banner2.png"
-            title="EA SPORTS FC 25 STANDARD EDITION"
-            price="35.00"
-            category="PS5"
+            image="{{$product->image}}"
+            title="{{$product->name}}"
+            price="{{$product->price}}"
+            category="{{$product->category->slogan}}"
+            id="{{$product->id}}"
         />
-        <x-new-product-card
-            image="banner2.png"
-            title="EA SPORTS FC 25 STANDARD EDITION"
-            price="35.00"
-            category="PS5"
-        />
-        <x-new-product-card
-            image="banner2.png"
-            title="EA SPORTS FC 25 STANDARD EDITION"
-            price="35.00"
-            category="PS5"
-        />
-        <x-new-product-card
-            image="banner2.png"
-            title="EA SPORTS FC 25 STANDARD EDITION"
-            price="35.00"
-            category="PS5"
-        />
-        <x-new-product-card
-            image="banner2.png"
-            title="EA SPORTS FC 25 STANDARD EDITION"
-            price="35.00"
-            category="PS5"
-        />
+        
+        @endforeach
+        
     </div>
 </div>

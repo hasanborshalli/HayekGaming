@@ -8,13 +8,15 @@ use Illuminate\View\Component;
 
 class navbar extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $categories;
+    public $cartQuantity;
+    public function __construct($categories, $cartQuantity)
     {
-        //
+        $this->categories=$categories;
+        $this->cartQuantity=$cartQuantity;
     }
+        
+    
 
     /**
      * Get the view / contents that represent the component.

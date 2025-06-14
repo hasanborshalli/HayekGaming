@@ -3,71 +3,25 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-close" id="sidebarClose">×</div>
     <ul class="sidebar-menu">
-        <li>Home</li>
-
-        <li class="sidebar-dropdown">
-            <div class="sidebar-toggle">PlayStation 5 <span class="arrow">˅</span></div>
+        <li><a href="/">Home</a></li>
+        @foreach ($categories as $category)
+        @if ($category->subcategories->count()>0)
+         <li class="sidebar-dropdown">
+            <div class="sidebar-toggle">{{$category->name}} <span class="arrow">˅</span></div>
             <div class="sidebar-submenu">
                 <ul>
-                    <li>Games</li>
-                    <li>Consoles</li>
-                    <li>Controllers</li>
-                    <li>Accessories</li>
+                    @foreach ($category->subcategories as $subcategory)
+                   <a href="/products/category/{{$subcategory->id}}"> <li>{{$subcategory->name}}</li></a>
+                    @endforeach
                 </ul>
-                <img src="/img/ps5.png" alt="PS5" class="sidebar-image" />
+                <img src="/img/{{$category->slogan}}.png" alt="{{$category->slogan}}" class="sidebar-image" loading="lazy"/>
             </div>
         </li>
+        @else
+        <li><a href="/products/{{$category->id}}">{{$category->name}}</a></li>
+        @endif
+       
+        @endforeach
 
-        <li class="sidebar-dropdown">
-            <div class="sidebar-toggle">PlayStation 4 <span class="arrow">˅</span></div>
-            <div class="sidebar-submenu">
-                <ul>
-                    <li>Games</li>
-                    <li>Consoles</li>
-                    <li>Controllers</li>
-                    <li>Accessories</li>
-                </ul>
-                <img src="/img/ps4.png" alt="PS4" class="sidebar-image" />
-            </div>
-        </li>
-
-        <li class="sidebar-dropdown">
-            <div class="sidebar-toggle">Nintendo Switch <span class="arrow">˅</span></div>
-            <div class="sidebar-submenu">
-                <ul>
-                    <li>Games</li>
-                    <li>Consoles</li>
-                    <li>Controllers</li>
-                    <li>Accessories</li>
-                </ul>
-                <img src="/img/switch.jpg" alt="Switch" class="sidebar-image" />
-            </div>
-        </li>
-
-        <li class="sidebar-dropdown">
-            <div class="sidebar-toggle">Gamer Setup <span class="arrow">˅</span></div>
-            <div class="sidebar-submenu">
-                <ul>
-                    <li>Monitors</li>
-                    <li>Desks</li>
-                    <li>Chairs</li>
-                    <li>Lighting</li>
-                </ul>
-                <img src="/img/gamer.png" alt="Setup" class="sidebar-image" />
-            </div>
-        </li>
-
-        <li class="sidebar-dropdown">
-            <div class="sidebar-toggle">Electronics & Gadgets <span class="arrow">˅</span></div>
-            <div class="sidebar-submenu">
-                <ul>
-                    <li>Headphones</li>
-                    <li>Smartwatches</li>
-                    <li>Drones</li>
-                    <li>Chargers</li>
-                </ul>
-                <img src="/img/electronics.png" alt="Gadgets" class="sidebar-image" />
-            </div>
-        </li>
     </ul>
 </div>

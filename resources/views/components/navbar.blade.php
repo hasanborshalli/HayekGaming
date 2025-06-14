@@ -1,99 +1,65 @@
 <nav class="navbar">
     <div class="navbar-left">
-        <div class="burger"><img src="/img/burger.svg" /></div>
-        <img src="/img/white-logo.png" alt="HGG Logo" class="logo" />
+        <div class="burger"><img src="/img/burger.svg" loading="lazy"/></div>
+        <a href="/"><img src="/img/white-logo.png" alt="HGG Logo" class="logo" loading="lazy"/></a>
     </div>
 
     <div class="navbar-center">
         <div class="logo-mobile">
-            <img src="/img/colored-logo.png" alt="HGG Logo" />
+           <a href="/"> <img src="/img/colored-logo.png" alt="HGG Logo" loading="lazy"/></a>
         </div>
-        <input type="text" placeholder="Search the store" />
+        <form action="/search/products" method="GET">
+        
+        <input type="text" placeholder="Search the store" name="search"/>
+        </form>
     </div>
 
     <div class="navbar-right web">
-        <img src="/img/cart.svg" alt="Cart Icon" class="icon" />
-        <img src="/img/heart.svg" alt="Heart Icon" class="icon" />
+        <div class="cart-wrapper" onclick="window.location.href='/cart'">
+    <img src="/img/cart.svg" alt="Cart Icon" class="icon" loading="lazy"/>
+    <div class="cart-quantity">{{$cartQuantity}}</div> 
+</div>
+        <img src="/img/heart.svg" alt="Heart Icon" class="icon" onclick="window.location.href='/admin/login'" loading="lazy"/>
     </div>
     <div class="navbar-right mobile">
-        <img src="/img/colored-cart.svg" alt="Cart Icon" class="icon" />
-        <img src="/img/colored-heart.svg" alt="Heart Icon" class="icon" />
+    <div class="cart-wrapper" onclick="window.location.href='/cart'">
+    <img src="/img/colored-cart.svg" alt="Cart Icon" class="icon" loading="lazy"/>
+    <div class="cart-quantity">{{$cartQuantity}}</div>
+</div>
+        <img src="/img/colored-heart.svg" alt="Heart Icon" class="icon" loading="lazy"/>
     </div>
 </nav>
 <div class="categories-container">
     <ul class="categories">
-        <li>Home</li>
+        <a href="/"><li>Home</li></a>
+        @foreach ($categories as $category) 
         <li>
-            <div class="dropdown">
+            @if($category->subcategories->count()>0)
+             <div class="dropdown">
                 <span class="dropdown-toggle">
-                    PlayStation 4 <span class="arrow">˅</span>
+                    <a href="/products/{{$category->id}}">{{$category->name}}</a>
+                    <span class="arrow">˅</span>
                 </span>
                 <ul class="dropdown-menu">
-                    <li>Games</li>
-                    <li>Consoles</li>
-                    <li>Controllers</li>
-                    <li>Accessories</li>
+                    @foreach ($category->subcategories as $subcategory)
+                    <a href="/products/category/{{$subcategory->id}}"><li>{{$subcategory->name}}</li></a>
+                    @endforeach
                 </ul>
             </div>
+            @endif
         </li>
-        <li>
-            <div class="dropdown">
-                <span class="dropdown-toggle">
-                    PlayStation 5 <span class="arrow">˅</span>
-                </span>
-                <ul class="dropdown-menu">
-                    <li>Games</li>
-                    <li>Consoles</li>
-                    <li>Controllers</li>
-                    <li>Accessories</li>
-                </ul>
-            </div>
-        </li>
-        <li>
-            <div class="dropdown">
-                <span class="dropdown-toggle">
-                    Nintendo Switch <span class="arrow">˅</span>
-                </span>
-                <ul class="dropdown-menu">
-                    <li>Games</li>
-                    <li>Consoles</li>
-                    <li>Controllers</li>
-                    <li>Accessories</li>
-                </ul>
-            </div>
-        </li>
-        <li>
-            <div class="dropdown">
-                <span class="dropdown-toggle">
-                    Gamer Setup <span class="arrow">˅</span>
-                </span>
-                <ul class="dropdown-menu">
-                    <li>Games</li>
-                    <li>Consoles</li>
-                    <li>Controllers</li>
-                    <li>Accessories</li>
-                </ul>
-            </div>
-        </li>
-        <li>
-            <div class="dropdown">
-                <span class="dropdown-toggle">
-                    Electronics & Gadgets <span class="arrow">˅</span>
-                </span>
-                <ul class="dropdown-menu">
-                    <li>Games</li>
-                    <li>Consoles</li>
-                    <li>Controllers</li>
-                    <li>Accessories</li>
-                </ul>
-            </div>
-        </li>
+        @endforeach
+
     </ul>
 </div>
 <div class="search-container">
-    <input type="text" placeholder="Search..." class="search-input" />
-    <button class="search-btn">
-        <img src="/img/search.svg" alt="Search Icon" class="search-icon" />
-    </button>
+    <form action="/products/search" method="GET">
+        @csrf
+        <input type="text" name="q" placeholder="Search..." class="search-input" name="search"/>
+        <button type="submit" class="search-btn">
+            <img src="/img/search.svg" alt="Search Icon" class="search-icon" loading="lazy"/>
+        </button>
+    </form>
 </div>
-<x-side-bar/>
+
+<x-side-bar :categories="$categories"/>

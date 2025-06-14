@@ -8,12 +8,20 @@ use Illuminate\View\Component;
 
 class productDescription extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $name;
+    public $headline;
+    public $description;
+    public $features;
+    public $boxContents;
+
+
+    public function __construct($headline, $description, $name, $features, $boxContents)
     {
-        //
+        $this->headline=$headline;
+        $this->description=$description;
+        $this->name=$name;
+        $this->features=$features;
+        $this->boxContents=$boxContents;
     }
 
     /**

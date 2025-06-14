@@ -114,6 +114,7 @@
     background-position: center;
     opacity: 0.1; /* Adjust opacity as needed */
     z-index: 2;
+    pointer-events: none;
 }
 .controller-card {
     position: relative;
@@ -129,8 +130,9 @@
     color: white;
     border-radius: 12px;
 }
-.controller-card h5 {
-    cursor: pointer;
+.controller-card a {
+    color: white;
+    text-decoration: none;
 }
 .controller-card img {
     width: 50%;

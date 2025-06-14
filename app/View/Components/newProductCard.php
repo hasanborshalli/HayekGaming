@@ -12,12 +12,14 @@ class newProductCard extends Component
     public $image;
     public $price;
     public $category;
-    public function __construct($title, $image, $price, $category)
+    public $id;
+    public function __construct($title, $image, $price, $category, $id)
     {
         $this->title=$title;
         $this->image=$image;
         $this->price=$price;
         $this->category=$category;
+        $this->id=$id;
     }
 
     /**

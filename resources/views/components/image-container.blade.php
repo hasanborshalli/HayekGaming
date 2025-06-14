@@ -1,8 +1,8 @@
 <div class="image-container">
-    <img src="/img/banner.png" alt="" class="banner" />
+    <img src="/storage/banners/{{$image}}" alt="Banner" class="banner" loading="lazy"/>
     <div class="order-now">
-        <img src="/img/banner2.png" alt="" class="mobile-img"/>
-        <button class="order-btn">Order Now!</button>
+        <img src="/storage/banners/{{$mobileImage}}" alt="" class="mobile-img" loading="lazy"/>
+        <button class="order-btn" onclick="window.location.href='/product/{{$id}}'">Order Now!</button>
     </div>
-    <button class="mobile-order-btn">Order Now!</button>
+    <button class="mobile-order-btn" onclick="window.location.href='/product/{{$id}}'">Order Now!</button>
 </div>

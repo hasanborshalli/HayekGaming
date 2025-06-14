@@ -1,0 +1,83 @@
+.manageComing-page {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    color: #2a2670;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    max-width: 700px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-height: 500px;
+    object-fit: contain;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.btn {
+    background-color: #2a2670;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn:hover {
+    background-color: #1e1c5a;
+}
+.image-container .btn.green {
+    background-color: #28a745;
+    color: white;
+}
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    max-width: 90%;
+    background-color: #2a2670;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 14px 20px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.5s ease, bottom 0.5s ease;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px;
+}
+@media (max-width: 600px) {
+    .btn {
+        width: 100%;
+    }
+}

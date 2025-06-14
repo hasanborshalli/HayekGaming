@@ -1,6 +1,8 @@
 <div class="box">
-    <img src="/img/{{$image}}" alt={{$title}}>
+    <a href="{{$path}}">
+    <img src="{{$image}}" alt={{$title}} loading="lazy">
      <div class="box-title">
-        <h3>{{$title}}</h3>
+        <h3>{{html_entity_decode($title)}}</h3>
     </div>
+    </a>
 </div>

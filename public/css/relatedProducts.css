@@ -10,6 +10,10 @@
 .related-products > * {
     margin: 20px;
 }
+.related-products a {
+    color: black;
+    text-decoration: none;
+}
 .product {
     color: black !important;
 }

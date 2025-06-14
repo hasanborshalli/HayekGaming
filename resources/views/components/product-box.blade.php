@@ -1,19 +1,19 @@
 <div class="product-box">
     <div class="product-images">
-        <div class="other-images"> {{-- Image 100px x 100px --}}
-            <img src="/img/product.png" alt="" id="img1" class="selected-image" onclick="changeImage('img1','/img/product.png')">
-            <img src="/img/product.png" alt="" id="img2" onclick="changeImage('img2','/img/product.png')">
-            <img src="/img/product.png" alt="" id="img3" onclick="changeImage('img3','/img/product.png')">
-            <img src="/img/product.png" alt="" id="img4" onclick="changeImage('img4','/img/product.png')">
+        <div class="other-images"> {{-- Image 400px x 400px --}}
+            <img src="/storage/products/{{$image1}}" alt="" id="img1" class="selected-image" onclick="changeImage('img1','/storage/products/{{$image1}}')" loading="lazy">
+            <img src="/storage/products/{{$image2}}" alt="" id="img2" onclick="changeImage('img2','/storage/products/{{$image2}}')" loading="lazy">
+            <img src="/storage/products/{{$image3}}" alt="" id="img3" onclick="changeImage('img3','/storage/products/{{$image3}}')" loading="lazy">
+            <img src="/storage/products/{{$image4}}" alt="" id="img4" onclick="changeImage('img4','/storage/products/{{$image4}}')" loading="lazy">
         </div>
-         <div class="product-img"><img src="/img/product.png" alt=""></div>{{-- Image 400px x 400px --}}
+         <div class="product-img"><img src="/storage/products/{{$image1}}" alt="" loading="lazy"></div>{{-- Image 400px x 400px --}}
     </div>
     <div class="product-detail">
         <div class="product-detail-list">
-            <div>PS5 - PlayStation 5  Slim 1TB Disc Edition Console European Version </div>
-            <div>Price: <span class="price">485.00$</span></div>
-            <div class="quantity">Quantity: <div class="quantity-btns"><button>+</button><span>1</span><button>-</button></div></div>
-            <div class="order-btns"><button>Add to cart</button></div>
+            <div>{{html_entity_decode($title)}} </div>
+            <div>Price: <span class="price">{{$price}}$</span></div>
+            <div class="quantity">Quantity: <div class="quantity-btns"><button onclick="updateQuantity('-')">-</button><input id="quantity" name="quantity" value="1" min="1"><button onclick="updateQuantity('+')">+</button></div></div>
+            <div class="order-btns"><button onclick="addToCart({{$id}})">Add to cart</button></div>
         </div>
     </div>
 </div>

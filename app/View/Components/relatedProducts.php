@@ -8,13 +8,21 @@ use Illuminate\View\Component;
 
 class relatedProducts extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $title;
+    public $products;
+    public $subId;
+    public $isGames;
+    public $category;
+    public function __construct($title, $products, $subId, $isGames, $category)
     {
-        //
+        $this->title=$title;
+        $this->products=$products;
+        $this->subId=$subId;
+        $this->isGames=$isGames;
+        $this->category=$category;
     }
+    //
+    
 
     /**
      * Get the view / contents that represent the component.

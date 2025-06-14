@@ -24,6 +24,29 @@ body {
     display: flex;
     align-items: center;
 }
+.cart-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-quantity {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--main-color);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 0.3px 0.3px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    box-shadow: 0 0 0 2px white;
+}
 .mobile,
 .search-container {
     display: none;
@@ -33,31 +56,40 @@ body {
     position: relative;
 }
 
-.search-input {
+.search-container form {
+    position: relative;
     width: 100%;
     max-width: 600px;
+}
+
+.search-input {
+    width: 100%;
     padding: 0.5rem;
     border: 2px solid #ccc;
     border-radius: 20px;
-    padding-right: 40px; /* Space for the button */
+    padding-right: 40px; /* space for the search button */
+    box-sizing: border-box;
 }
 
 .search-btn {
     position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
     background-color: #2a2670;
     border: none;
-    border-radius: 0 10px 10px 0;
+    border-radius: 50%;
     padding: 0.5rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .search-btn .search-icon {
     width: 20px;
     height: 20px;
-    fill: white;
+    filter: brightness(0) invert(1); /* ensure white icon on dark bg */
 }
 .categories-container {
     width: 100%;
@@ -73,6 +105,7 @@ body {
     cursor: pointer;
     font-weight: 600;
 }
+
 .categories li:hover {
     color: var(--main-color);
     opacity: 1;
@@ -91,6 +124,7 @@ body {
     justify-content: center;
 }
 
+.navbar-center form,
 .navbar-center input {
     width: 100%;
     max-width: 600px;
@@ -163,12 +197,16 @@ body {
     transform: rotate(180deg);
 }
 .sidebar-dropdown {
-    color: gray; /* default color */
+    color: gray !important; /* default color */
     transition: color 0.3s ease;
 }
 
 .sidebar-dropdown.active {
     color: black; /* the opened one */
+}
+.categories a {
+    color: black;
+    text-decoration: none;
 }
 /* Mobile styles */
 @media (max-width: 768px) {

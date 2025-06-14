@@ -8,13 +8,12 @@ use Illuminate\View\Component;
 
 class footer extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $categories;
+    public function __construct($categories)
     {
-        //
+        $this->categories=$categories;
     }
+
 
     /**
      * Get the view / contents that represent the component.

@@ -2,16 +2,178 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\banner;
+use App\Models\Category;
+use App\Models\Coming;
+use App\Models\GameType;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
     public function homePage()
     {
-        return view('home');
+        $categories=Category::all();
+        $banners=banner::all();
+        $newproducts = Product::latest()->take(5)->get();
+        $featuredProducts = Product::where('featured', true)->take(5)->get();
+        $comingSoon=Coming::first();
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        return view('home', ['categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity]);
     }
-    public function productDetailsPage()
+    
+    public function productDetailsPage(Product $product)
     {
-        return view('productDetails');
+        $categories=Category::all();
+        $relatedProducts=Product::where('category_id', $product->category_id)->take(5)->get();
+        $features=json_decode($product->features, true);
+        $boxContents=json_decode($product->box_contents, true);
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        return view('productDetails', ['categories' => $categories,'relatedProducts'=>$relatedProducts,'product'=>$product,'features'=>$features,'boxContents'=>$boxContents,'cartQuantity'=>$cartQuantity]);
+    }
+    public function productsPage(Category $category)
+    {
+        $categories=Category::all();
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        return view('productsPage', ['categories' => $categories,'category'=>$category,'cartQuantity'=>$cartQuantity]);
+    }
+    public function productsBySubPage(SubCategory $subCategory)
+    {
+        $categories=Category::all();
+        $gameTypes=GameType::all();
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        return view('productsBySub', ['categories' => $categories,'subCategory'=>$subCategory,'isGameType'=>false,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
+    }
+    public function productsByGameType(SubCategory $subCategory, GameType $gameType)
+    {
+        $categories=Category::all();
+        $products = $gameType->products()
+    ->where('sub_category_id', $subCategory->id)
+    ->paginate(10);
+        $gameTypes=GameType::all();
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        return view('productsBySub', ['categories' => $categories,'gameType'=>$gameType,'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
+    }
+    public function loginPage()
+    {
+        return view('login');
+    }
+    public function adminPage()
+    {
+        return view('admin');
+    }
+
+    public function manageProductsPage()
+    {
+        $products=Product::paginate(20);
+        $categories=Category::all();
+        $gameTypes=GameType::all();
+        return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
+    
+    }
+    public function bannersPage()
+    {
+        $banners=Banner::all();
+        return view('banners', ['banners'=>$banners]);
+    }
+    public function manageComingPage()
+    {
+        $image=Coming::first();
+        return view('manageComing', ['image' => $image]);
+    }
+    public function changePasswordPage()
+    {
+        return view('changePassword');
+    }
+    public function addProductPage()
+    {
+        $categories=Category::all();
+        $gameTypes=GameType::all();
+        return view('addProduct', ['categories'=>$categories,'gameTypes'=>$gameTypes]);
+    }
+    public function addBannerPage()
+    {
+        $products=Product::all();
+        return view('addBanner', ['products' => $products]);
+    }
+    public function editBannerPage(Banner $banner)
+    {
+        $products=Product::all();
+        return view('editBanner', ['products' => $products,'banner' => $banner]);
+
+    }
+    public function editProductPage(Product $product)
+    {
+        $categories=Category::all();
+        $gameTypes=GameType::all();
+        $features=implode("\n", json_decode($product->features, true));
+        $boxContents=implode("\n", json_decode($product->box_contents, true));
+        $product_gameTypes=$product->gameTypes->pluck('id')->toArray();
+        return view('editProduct', [
+                                                'product'=>$product,
+                                                'categories'=>$categories,
+                                                'gameTypes'=>$gameTypes,
+                                                'features'=>$features,
+                                                'boxContents'=>$boxContents,
+                                                'product_gameTypes'=>$product_gameTypes]);
+    }
+    public function cartPage()
+    {
+        $categories=Category::all();
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        $itemIds = array_column($cart, 'id');
+        $products=Product::whereIn('id', $itemIds)->get();
+        return view('cart', ['categories'=>$categories,'cartQuantity'=>$cartQuantity,'products'=>$products,'cart'=>$cart]);
+    }
+    public function checkoutPage()
+    {
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        $categories=Category::all();
+        return view('checkout', ["cartQuantity"=>$cartQuantity,'categories'=>$categories]);
+    }
+    public function ThankyouPage()
+    {
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        $categories=Category::all();
+        return view('thankyou', ["cartQuantity"=>$cartQuantity,'categories'=>$categories]);
+    }
+    public function OrdersPage()
+    {
+        $orders = Order::where('done', false)
+               ->orderBy('created_at', 'asc')
+               ->get();
+
+        return view('manageOrders', ['orders'=>$orders]);
+    }
+    public function OrderPage(order $order)
+    {
+        if($order->done==false) {
+            return view('orderDetails', ['order'=>$order]);
+
+        } else {
+            return redirect('/admin');
+
+        }
+    }
+    public function EditOrderPage(order $order)
+    {
+        if($order->done==false) {
+            return view('editOrder', ['order'=>$order]);
+
+        } else {
+            return redirect('/admin/orders');
+
+        }
     }
 }

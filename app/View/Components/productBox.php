@@ -8,12 +8,23 @@ use Illuminate\View\Component;
 
 class productBox extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $title;
+    public $price;
+    public $id;
+    public $image1;
+    public $image2;
+    public $image3;
+    public $image4;
+    
+    public function __construct($title, $price, $image1, $image2, $image3, $image4, $id)
     {
-        //
+        $this->title=$title;
+        $this->price=$price;
+        $this->id=$id;
+        $this->image1=$image1;
+        $this->image2=$image2;
+        $this->image3=$image3;
+        $this->image4=$image4;
     }
 
     /**

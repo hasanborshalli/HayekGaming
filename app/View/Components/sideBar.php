@@ -8,12 +8,10 @@ use Illuminate\View\Component;
 
 class sideBar extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $categories;
+    public function __construct($categories)
     {
-        //
+        $this->categories=$categories;
     }
 
     /**

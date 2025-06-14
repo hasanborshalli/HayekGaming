@@ -49,6 +49,7 @@
     font-weight: 600;
     border-bottom: 1px solid #ccc;
     cursor: pointer;
+    color: gray;
 }
 
 .sidebar-dropdown .sidebar-submenu {
@@ -76,7 +77,11 @@
     align-items: flex-start;
     justify-content: space-between;
 }
-
+.sidebar-menu a {
+    text-decoration: none;
+    color: #333;
+    opacity: 0.6;
+}
 .sidebar-submenu ul {
     padding: 0;
     margin: 0;

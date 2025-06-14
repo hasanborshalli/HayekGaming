@@ -1,0 +1,83 @@
+body {
+    background-color: #dfdfdf;
+}
+.productsPage {
+    padding: 20px;
+}
+.path {
+    margin: 30px;
+    color: rgba(235, 27, 27);
+}
+.path a {
+    text-decoration: none;
+    color: rgba(235, 27, 27);
+    width: fit-content;
+}
+.productsList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+.gameType-filter-form {
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    font-family: "Poppins", sans-serif;
+}
+.gameTypes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.gameType-filter-form h4 {
+    margin-bottom: 16px;
+    font-size: 18px;
+    color: #333;
+}
+
+.gameType-filter-form label {
+    display: inline-block;
+    margin: 6px 12px 6px 0;
+    font-size: 15px;
+    color: #444;
+    cursor: pointer;
+    user-select: none;
+}
+
+.gameType-filter-form input[type="checkbox"] {
+    margin-right: 6px;
+    accent-color: var(--main-color); /* modern checkbox color */
+    transform: scale(1.1);
+}
+
+.gameType-filter-form button {
+    margin-top: 14px;
+    padding: 8px 20px;
+    font-size: 15px;
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.gameType-filter-form button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 430px) {
+    .path {
+        font-size: 14px;
+    }
+}

@@ -10,11 +10,13 @@ class categoryBox extends Component
 {
     public $image;
     public $title;
+    public $path;
 
-    public function __construct($image, $title)
+    public function __construct($image, $title, $path)
     {
         $this->image=$image;
         $this->title=$title;
+        $this->path=$path;
     }
 
     /**

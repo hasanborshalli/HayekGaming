@@ -8,12 +8,14 @@ use Illuminate\View\Component;
 
 class imageContainer extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $image;
+    public $mobileImage;
+    public $id;
+    public function __construct($image, $mobileImage, $id)
     {
-        //
+        $this->image=$image;
+        $this->mobileImage=$mobileImage;
+        $this->id=$id;
     }
 
     /**

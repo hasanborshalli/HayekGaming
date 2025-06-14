@@ -8,6 +8,11 @@ body {
     margin: 30px;
     color: rgba(235, 27, 27);
 }
+.path a {
+    text-decoration: none;
+    color: rgba(235, 27, 27);
+    width: fit-content;
+}
 .product-box,
 .product-description {
     background-color: white;
@@ -91,6 +96,17 @@ body {
     height: 40px;
     font-family: "Poppins";
     font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.order-btns button:hover {
+    background-color: var(--main-color);
+    color: white;
+}
+#quantity {
+    width: 17px;
+    border: none;
+    font-size: 15px;
 }
 @media (max-width: 950px) {
     .product-images {
