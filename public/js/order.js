@@ -37,8 +37,11 @@ function showToast(message) {
     }, 3000);
 }
 let cartQuantityInput = document.getElementsByClassName("cart-quantity")[0];
+let cartQuantityMobileInput =
+    document.getElementsByClassName("cart-quantity")[1];
 let cartQuantity = cartQuantityInput.textContent;
 function updateCartQuantity() {
     cartQuantity++;
     cartQuantityInput.textContent = cartQuantity;
+    cartQuantityMobileInput.textContent = cartQuantity;
 }

@@ -18,7 +18,7 @@ class BannerController extends Controller
 ]);
         
         $image=$request->file('image');
-        $customName='Banner-'.Str::uuid().'.'.$image->getClientOriginalExtension();
+        $customName='Banner-'.Str::uuid().'.webp';
         $image->storeAs('banners', $customName);
         $fields['image']=$customName;
         
@@ -41,7 +41,7 @@ class BannerController extends Controller
                 Storage::delete('banners/' . $banner->image);
             }
             $image=$request->file('image');
-            $customName='Banner-'.Str::uuid().'.'.$image->getClientOriginalExtension();
+            $customName='Banner-'.Str::uuid().'.webp';
             $image->storeAs('banners', $customName);
             $fields['image']=$customName;
         }
@@ -51,7 +51,7 @@ class BannerController extends Controller
                 Storage::delete('banners/' . $banner->mobile_image);
             }
             $mobileImage=$request->file('mobile_image');
-            $customName='MobileBanner-'.Str::uuid().'.'.$mobileImage->getClientOriginalExtension();
+            $customName='MobileBanner-'.Str::uuid().'.webp';
             $mobileImage->storeAs('banners', $customName);
             $fields['mobile_image']=$customName;
         }
@@ -60,6 +60,12 @@ class BannerController extends Controller
     }
     public function deleteBanner(Banner $banner)
     {
+        if ($banner->mobile_image && Storage::exists('banners/' . $banner->mobile_image)) {
+                Storage::delete('banners/' . $banner->mobile_image);
+            }
+            if ($banner->image && Storage::exists('banners/' . $banner->image)) {
+                Storage::delete('banners/' . $banner->image);
+            }
         $banner->delete();
         return response()->json(['status'=>"removed"]);
     }

@@ -21,7 +21,7 @@ class ComingController extends Controller
                 Storage::delete('comingSoon/' . $currentImage->image);
             }
             $image=$request->file('image');
-            $customName='ComingSoon-'.Str::uuid().'.'.$image->getClientOriginalExtension();
+            $customName='ComingSoon-'.Str::uuid().'.webp';
             $image->storeAs('comingSoon', $customName);
             $fields['image']=$customName;
         }

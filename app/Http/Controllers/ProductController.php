@@ -34,13 +34,13 @@ class ProductController extends Controller
         'gameTypes.*' => 'string'
         ]);
         $mainImage=$request->file('image');
-        $customName='Product-'.Str::uuid().'.'.$mainImage->getClientOriginalExtension();
+        $customName='Product-'.Str::uuid().'.webp';
         $mainImage->storeAs('products', $customName);
         $fields['image']=$customName;
 
         foreach (['image1', 'image2', 'image3', 'image4'] as $img) {
             if($request[$img]) {
-                $customName='Product-'.Str::uuid().'.'.$request->file($img)->getClientOriginalExtension();
+                $customName='Product-'.Str::uuid().'.webp';
                 $request->file($img)->storeAs('products', $customName);
                 $fields[$img]=$customName;
             }
@@ -93,7 +93,7 @@ class ProductController extends Controller
                 if ($product->$img && Storage::exists('products/' . $product->image)) {
                     Storage::delete('products/' . $product->image);
                 }
-                $customName='Product-'.Str::uuid().'.'.$request->file($img)->getClientOriginalExtension();
+                $customName='Product-'.Str::uuid().'.webp';
                 $request->file($img)->storeAs('products', $customName);
                 $fields[$img]=$customName;
             }
@@ -130,6 +130,11 @@ class ProductController extends Controller
     }
     public function deleteProduct(Product $product)
     {
+        foreach ([$product->image,$product->image1,$product->image2,$product->image3,$product->image4] as $img) {
+                if ($product->$img && Storage::exists('products/' . $product->image)) {
+                    Storage::delete('products/' . $product->image);
+                }
+        }
         $product->delete();
         return response()->json(['status'=>"removed"]);
     }
@@ -138,7 +143,7 @@ class ProductController extends Controller
         $fields=$request->validate([
            'search'=>['required','max:255']
         ]);
-        $products=Product::search($fields['search'])->paginate(10);
+        $products=Product::search($fields['search'])->where('is_available',true)->paginate(10);
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
@@ -149,7 +154,7 @@ class ProductController extends Controller
         $fields=$request->validate([
            'search'=>['required','max:255']
         ]);
-        $products=Product::search($fields['search'])->paginate(20);
+        $products=Product::search($fields['search'])->where('is_available',true)->paginate(20);
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
@@ -177,7 +182,7 @@ class ProductController extends Controller
                 $q->whereIn('name', $request->gameTypes);
             });
         }
-        $products = $query->paginate(20);
+        $products = $query->where('is_available',true)->paginate(20);
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
@@ -196,14 +201,16 @@ class ProductController extends Controller
         $searchStatement = implode(', ', $selectedGameTypeNames);
 
         // Filter products by both subcategory and game types
-        $products = Product::where('sub_category_id', $subCategoryId)
+        $products = Product::where('sub_category_id', $subCategoryId)->where('is_available',true)
             ->whereHas('gameTypes', function ($query) use ($selectedGameTypeIds) {
                 $query->whereIn('game_types.id', $selectedGameTypeIds);
             })
             ->with('gameTypes', 'category')
             ->paginate(10);
         $categories=Category::all();
-        return view('productsSearch', ['products'=>$products,'categories'=>$categories,'search'=>$searchStatement]);
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        return view('productsSearch', ['products'=>$products,'categories'=>$categories,'search'=>$searchStatement,'cartQuantity'=>$cartQuantity]);
 
     }
 }
