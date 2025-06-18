@@ -27,6 +27,7 @@
                 <h2>Customer Information</h2>
                 <p><strong>Name:</strong> {{ $order->name }}</p>
                 <p><strong>Mobile Number:</strong> {{ $order->mobile }}</p>
+                <p><strong>Second Mobile Number:</strong> {{ $order->second_mobile }}</p>
                 <p><strong>City:</strong> {{ $order->city }}</p>
                 <p><strong>Street:</strong> {{ $order->street }}</p>
                 <p><strong>Building:</strong> {{ $order->building }}</p>

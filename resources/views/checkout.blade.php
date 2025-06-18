@@ -42,7 +42,14 @@
                     <p style="color:red">{{$message}}</p>
                     @enderror
                 </div>
-
+                <div class="form-group">
+                    <label for="mobile">Second Mobile Number</label>
+                    <input type="text" id="mobile" name="second_mobile" required
+                        placeholder="Enter another mobile number (optional)" value="{{old('second_mobile')}}">
+                    @error('second_mobile')
+                    <p style="color:red">{{$message}}</p>
+                    @enderror
+                </div>
                 <div class="form-group">
                     <label for="city">City</label>
                     <input type="text" id="city" name="city" required placeholder="Enter your city"

@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black &family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet" />
     <title>Hayek Gaming Ground</title>
 </head>
@@ -73,20 +73,30 @@
             </div>
         </div>
     </section>
-    <section class="controllers">
-        <div class="controller-card"><img src="/img/ps5-controller.webp" alt="" loading="lazy"><a
-                href="/products/category/5">
-                <h5>Playstation 5 Controllers</h5>
-            </a></div>
-        <div class="controller-card"><img src="/img/ps4-controller.webp" alt="" loading="lazy"><a
-                href="/products/category/10">
-                <h5>Playstation 4 Controllers</h5>
-            </a></div>
-        <div class="controller-card"><img src="/img/N-switch.webp" alt="" loading="lazy"><a
-                href="/products/category/18">
-                <h5>N-switch Controllers</h5>
-            </a></div>
+    <section class="ps5-controllers">
+        <div class="header">
+            <h2>PS5 Controllers</h2>
+            <button class="view-all" onclick="window.location.href='/products/category/5'">View All</button>
+        </div>
+        <div class="controller-carousel">
+            @foreach($controllers as $controller)
+            <div class="controller-card">
+                <a href="" style="text-decoration: none">
+                    <div>
+                        <img src="/storage/products/{{$controller->image}}"
+                            alt="{{html_entity_decode($controller->name)}}" />
+                        <h3 style="color:black">{{html_entity_decode($controller->name)}}</h3>
+                        <p class="price">${{$controller->price}}</p>
+                        <button onclick="addToCart({{$controller->id}})" style="font-family: 'Poppins', sans-serif;">Add
+                            to
+                            cart</button>
+                    </div>
+                </a>
+            </div>
+            @endforeach
+        </div>
     </section>
+
     <section class="info">
         <div class="general-info">
             <ul>
@@ -107,6 +117,29 @@
     <script src="/js/home.js"></script>
     <script src="/js/navbar.js"></script>
     <script src="/js/order.js"></script>
+    <script>
+        document.querySelector('.view-all').addEventListener('click', () => {
+  const container = document.querySelector('.controller-carousel');
+  const card = container.querySelector('.controller-card');
+  if (card) {
+    container.scrollBy({ left: card.offsetWidth * 3, behavior: 'smooth' });
+  }
+});
+
+// Add to cart feedback
+document.querySelectorAll('.controller-card button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const name = btn.closest('.controller-card').querySelector('h3').innerText;
+    alert(`${name} added to cart!`);
+  });
+});
+window.addEventListener("load", () => {
+  const carousel = document.querySelector(".controller-carousel");
+  if (window.innerWidth <= 768) {
+    carousel.scrollTo({ left: 40, behavior: "smooth" });
+  }
+});
+    </script>
 </body>
 
 </html>

@@ -3,10 +3,10 @@
         <a href="/"><img src="/img/white-logo.webp" alt="Logo"></a>
         <div class="social-media">
             <a href="https://www.tiktok.com/@hayekgamingground?_t=ZS-8wv3bWKbLqz&_r=1" traget="_blank"><img
-                    src="/img/tiktok.webp" alt="Tiktok" loading="lazy"></a>
+                    src="/img/twitter.svg" alt="Tiktok" loading="lazy"></a>
             <a href="https://www.instagram.com/hayekgaming?igsh=MW1jaG53eTM2dGZ4NQ==" traget="_blank"><img
-                    src="/img/insta.webp" alt="Instagram" loading="lazy"></a>
-            <a href="https://www.facebook.com/share/1CF7SLfHAN/" traget="_blank"><img src="/img/fb.webp" alt="Facebook"
+                    src="/img/insta.svg" alt="Instagram" loading="lazy"></a>
+            <a href="https://www.facebook.com/share/1CF7SLfHAN/" traget="_blank"><img src="/img/fb.svg" alt="Facebook"
                     loading="lazy"></a>
         </div>
     </section>
@@ -36,15 +36,16 @@
             </a>
         </ul>
     </section>
+
 </footer>
 <div style="width:100%;background-color:#2a2670; text-align:center;">
-    <p style="margin:0;font-family: 'Archivo Black';font-size:1.3rem;color:white;">
+    <p class="small-text">
         Powered By
         <a target="_blank" href="https://brndnglb.com" style="text-decoration:none;">
-            <span style="font-family: 'Archivo Black'; color: black;font-size:1.8rem;">
+            <span class="medium-text">
                 Brndng
             </span>
-            <span style="font-family: 'Archivo Black';color:#FF914D;font-size:2.5rem;">
+            <span class="large-text">
                 .
             </span>
         </a>

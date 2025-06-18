@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Coming;
@@ -9,6 +7,7 @@ use App\Models\GameType;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\SubCategory;
+use Illuminate\Http\Request;
 class PagesController extends Controller
 {
     public function homePage()
@@ -20,7 +19,8 @@ class PagesController extends Controller
         $comingSoon=Coming::first();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        return view('home', ['categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity]);
+        $controllers=Product::where('category_id',1)->where('sub_category_id',5)->take(7)->get();
+        return view('home', ['categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity,'controllers'=>$controllers]);
     }
     
     public function productDetailsPage(Product $product)
@@ -142,12 +142,13 @@ class PagesController extends Controller
         $categories=Category::all();
         return view('checkout', ["cartQuantity"=>$cartQuantity,'categories'=>$categories]);
     }
-    public function ThankyouPage()
+    public function ThankyouPage(Request $request)
     {
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $categories=Category::all();
-        return view('thankyou', ["cartQuantity"=>$cartQuantity,'categories'=>$categories]);
+        $orderNumber=$request->input('orderNumber');;
+        return view('thankyou', ["cartQuantity"=>$cartQuantity,'categories'=>$categories,'orderNumber'=>$orderNumber]);
     }
     public function OrdersPage()
     {

@@ -65,6 +65,7 @@ class OrderController extends Controller
         $fields = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'mobile' => ['required', 'string'],
+            'second_mobile' => ['required', 'string'],
             'city' => ['required', 'string', 'max:255'],
             'street' => ['required', 'string', 'max:255'],
             'building' => ['nullable', 'string', 'max:255'],
@@ -102,7 +103,9 @@ class OrderController extends Controller
             }
             session()->forget('ordered_items');
             session()->forget('cart_items');
-            return redirect('thankyou');
+            $orderNumber=$order->id;
+            return redirect('thankyou?orderNumber=' . $orderNumber);
+
         }
     
        
@@ -129,6 +132,7 @@ class OrderController extends Controller
         $fields=$request->validate([
             'name' => [ 'string', 'max:255'],
             'mobile' => [ 'string'],
+            'second_mobile' => [ 'string'],
             'city' => [ 'string', 'max:255'],
             'street' => [ 'string', 'max:255'],
             'building' => ['nullable', 'string', 'max:255'],

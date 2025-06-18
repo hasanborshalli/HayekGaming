@@ -40,10 +40,36 @@ footer ul li {
 footer ul img {
     width: 20px;
 }
+.small-text {
+    margin: 0;
+    font-family: "Archivo Black";
+    font-size: 1.3rem;
+    color: white;
+}
+.medium-text {
+    font-family: "Archivo Black";
+    color: black;
+    font-size: 1.8rem;
+}
+.large-text {
+    font-family: "Archivo Black";
+    color: #ff914d;
+    font-size: 2.5rem;
+}
 @media (max-width: 768px) {
     footer {
         flex-direction: column;
         height: auto;
         padding: 20px;
+        width: auto;
+    }
+    .small-text {
+        font-size: 1rem;
+    }
+    .medium-text {
+        font-size: 1.5rem;
+    }
+    .large-text {
+        font-size: 2.2rem;
     }
 }

@@ -6,7 +6,10 @@
     border-radius: 10px;
     margin: 20px 0;
     font-family: var(--main-text);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #ddd;
 }
+
 .related-products > * {
     margin: 20px;
 }
@@ -17,14 +20,7 @@
 .product {
     color: black !important;
 }
-.product button {
-    background-color: #9747ff33 !important;
-    color: black !important;
-}
-.product button:hover {
-    background-color: var(--main-color) !important;
-    color: white !important;
-}
+
 @media (max-width: 480px) {
     .related-products {
         height: 450px;

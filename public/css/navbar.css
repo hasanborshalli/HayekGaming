@@ -101,14 +101,13 @@ body {
     list-style-type: none;
 }
 .categories li {
-    opacity: 0.5;
     cursor: pointer;
     font-weight: 600;
 }
 
-.categories li:hover {
-    color: var(--main-color);
-    opacity: 1;
+.categories li:hover,
+.categories li a:hover {
+    color: var(--main-color) !important;
 }
 .navbar-left .logo {
     width: 130px; /* Adjust this as needed */
@@ -202,7 +201,7 @@ body {
 }
 
 .sidebar-dropdown.active {
-    color: black; /* the opened one */
+    color: var(--main-color); /* the opened one */
 }
 .categories a {
     color: black;

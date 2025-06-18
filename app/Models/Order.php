@@ -9,6 +9,7 @@ class Order extends Model
     protected $fillable = [
         'name',
         'mobile',
+        'second_mobile',
         'city',
         'street',
         'building',

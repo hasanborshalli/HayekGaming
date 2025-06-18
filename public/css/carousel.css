@@ -39,8 +39,7 @@
 .order-now img {
     width: 100%;
 }
-.order-now button,
-.mobile-order-btn {
+.order-now button {
     width: 100%;
     height: 32px;
     border-radius: 8px;
@@ -50,21 +49,11 @@
     transition: background-color 0.4s ease, color 0.4s ease;
     cursor: pointer;
 }
-.order-now button:hover,
-.mobile-order-btn:hover {
+.order-now button:hover {
     background-color: var(--main-color);
     color: white;
 }
-.mobile-order-btn {
-    z-index: 9;
-    position: absolute;
-    bottom: 10px;
-    left: 15%;
-    width: 70% !important;
-    height: 23px;
-    font-size: 12px;
-    display: none;
-}
+
 .banner {
     width: 100%;
     height: 100%;
@@ -99,7 +88,7 @@
 }
 
 .dot.active {
-    background-color: #2a2670;
+    background-color: rgba(235, 27, 27);
 }
 @media (max-width: 768px) {
     .carousel-wrapper {
@@ -118,22 +107,22 @@
     .carousel-container {
         width: 90%;
     }
-    .banner,
-    .mobile-order-btn {
+    .banner {
         display: none;
     }
-    .order-btn {
+    .order-now button {
         display: block;
         height: 30px;
         font-size: 14px;
+        position: absolute;
+        bottom: 10px;
+        width: 50%;
     }
     .order-now {
         left: 0;
         width: 100%;
     }
-    .mobile-img {
-        border-radius: 18px;
-    }
+    
     @media (max-width: 480px) {
         .carousel-wrapper {
             height: 520px;
