@@ -3,7 +3,7 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-close" id="sidebarClose">×</div>
     <ul class="sidebar-menu">
-        <li><a href="/">Home</a></li>
+        <li><a href="/" style="color:var(--main-color)">Home</a></li>
         @foreach ($categories as $category)
         @if ($category->subcategories->count()>0)
         <li class="sidebar-dropdown">
@@ -12,7 +12,7 @@
                 <ul>
                     @foreach ($category->subcategories as $subcategory)
                     <a href="/products/category/{{$subcategory->id}}">
-                        <li>{{$subcategory->name}}</li>
+                        <li class="subcategory">{{$subcategory->name}}</li>
                     </a>
                     @endforeach
                 </ul>
@@ -25,6 +25,6 @@
         @endif
 
         @endforeach
-
+        <li><a href="/coming-soon">Coming Soon</a></li>
     </ul>
 </div>

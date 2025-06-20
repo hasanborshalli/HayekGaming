@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="icon" sizes="32x32" href="/img/white-logo.webp">
+  <link rel="icon" sizes="32x32" href="/img/white-logo.svg">
   <link rel="stylesheet" href="/css/login.css">
   <title>Login Page</title>
 </head>

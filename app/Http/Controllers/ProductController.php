@@ -25,11 +25,11 @@ class ProductController extends Controller
         'description' => 'required|string',
         'features' => 'required|string',
         'box_contents' => 'nullable|string',
-        'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=700,height=880',
-        'image1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=400,height=400',
-        'image2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=400,height=400',
-        'image3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=400,height=400',
-        'image4' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=400,height=400',
+        'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image1' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image4' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'gameTypes' => 'nullable|array',
         'gameTypes.*' => 'string'
         ]);
@@ -80,11 +80,11 @@ class ProductController extends Controller
         'description' => 'required|string',
         'features' => 'required|string',
         'box_contents' => 'nullable|string',
-        'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=700,height=880',
-        'image1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=400,height=400',
-        'image2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=400,height=400',
-        'image3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=400,height=400',
-        'image4' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048|dimensions:width=400,height=400',
+        'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image1' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image4' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'gameTypes' => 'nullable|array',
         'gameTypes.*' => 'string'
         ]);
@@ -143,7 +143,7 @@ class ProductController extends Controller
         $fields=$request->validate([
            'search'=>['required','max:255']
         ]);
-        $products=Product::search($fields['search'])->where('is_available',true)->paginate(10);
+        $products=Product::search($fields['search'])->where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(10);
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
@@ -154,7 +154,7 @@ class ProductController extends Controller
         $fields=$request->validate([
            'search'=>['required','max:255']
         ]);
-        $products=Product::search($fields['search'])->where('is_available',true)->paginate(20);
+        $products=Product::search($fields['search'])->where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(20);
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
@@ -182,7 +182,7 @@ class ProductController extends Controller
                 $q->whereIn('name', $request->gameTypes);
             });
         }
-        $products = $query->where('is_available',true)->paginate(20);
+        $products = $query->where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(20);
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
@@ -206,6 +206,7 @@ class ProductController extends Controller
                 $query->whereIn('game_types.id', $selectedGameTypeIds);
             })
             ->with('gameTypes', 'category')
+             ->orderBy('created_at', 'desc') 
             ->paginate(10);
         $categories=Category::all();
         $cart = session('cart_items', []);

@@ -88,16 +88,28 @@ body {
     height: 30px;
     cursor: pointer;
 }
+.order-btns {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
 .order-btns button {
-    background-color: #9747ff33;
     border: none;
     border-radius: 10px;
-    width: 200px;
+    width: 20%;
+    min-width: 120px;
     height: 40px;
     font-family: "Poppins";
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+.add-cart {
+    background-color: #9747ff33;
+}
+.buy-now {
+    background-color: red;
 }
 .order-btns button:hover {
     background-color: var(--main-color);

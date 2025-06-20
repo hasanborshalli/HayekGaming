@@ -1,6 +1,22 @@
+.whole-carousel {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+}
+.carousel-left,
+.carousel-right {
+    width: 30%;
+    height: 200px;
+}
+.carousel-left img,
+.carousel-right img {
+    width: 100%;
+    filter: blur(2px);
+}
 .carousel-wrapper {
     width: 100%;
-    height: 400px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -74,7 +90,6 @@
 }
 .carousel-dots {
     text-align: center;
-    margin-top: 20px;
 }
 
 .dot {
@@ -98,11 +113,15 @@
     .order-now {
         width: 20%;
     }
+    .carousel-left,
+    .carousel-right {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
     .carousel-wrapper {
-        height: 600px;
+        height: 520px;
     }
     .carousel-container {
         width: 90%;
@@ -116,16 +135,14 @@
         font-size: 14px;
         position: absolute;
         bottom: 10px;
-        width: 50%;
+        width: 40%;
     }
     .order-now {
         left: 0;
         width: 100%;
     }
-    
-    @media (max-width: 480px) {
-        .carousel-wrapper {
-            height: 520px;
-        }
+    .mobile-img {
+        min-height: 470px;
+        width: 80%;
     }
 }

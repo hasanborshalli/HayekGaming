@@ -2,123 +2,150 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="icon" sizes="32x32" href="/img/white-logo.webp">
-    <link rel="stylesheet" href="/css/navbar.css" />
-    <link rel="stylesheet" href="/css/home.css" />
-    <link rel="stylesheet" href="/css/carousel.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/sidebar.css">
-    <link rel="stylesheet" href="/css/productsList.css">
-    <link rel="stylesheet" href="/css/toast.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Archivo+Black &family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet" />
-    <title>Hayek Gaming Ground</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link rel="icon" sizes="32x32" href="/img/white-logo.svg">
+	<link rel="stylesheet" href="/css/navbar.css" />
+	<link rel="stylesheet" href="/css/home.css" />
+	<link rel="stylesheet" href="/css/carousel.css">
+	<link rel="stylesheet" href="/css/footer.css">
+	<link rel="stylesheet" href="/css/sidebar.css">
+	<link rel="stylesheet" href="/css/productsList.css">
+	<link rel="stylesheet" href="/css/toast.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet" />
+	<title>Hayek Gaming Ground</title>
 </head>
 
 <body>
-    <x-navbar :categories="$categories" cartQuantity="{{$cartQuantity}}" />
-    <section class="carousel-wrapper">
-        <div class="carousel-container">
-            @foreach ($banners as $banner)
-            <x-image-container image="{{$banner->image}}" mobile-image="{{$banner->mobile_image}}"
-                id="{{$banner->product->id}}" />
-            @endforeach
+	<x-navbar :categories="$categories" cartQuantity="{{$cartQuantity}}" />
+	<div class="whole-carousel">
+		<div class="carousel-left">
+			@php
+			$prevIndex = ($activeIndex - 1 + $banners->count()) % $banners->count();
+			$prevBanner = $banners[$prevIndex];
+			@endphp
+			<img src="/storage/banners/{{$prevBanner->image}}" alt="" id="prevBanner">
+		</div>
+		<section class="carousel-wrapper">
+			<div class="carousel-container">
+				@foreach ($banners as $banner)
+				<x-image-container image="{{$banner->image}}" mobile-image="{{$banner->mobile_image}}"
+					id="{{$banner->product->id}}" />
 
-        </div>
-        <div class="carousel-dots">
-            <span class="dot active"></span>
-            @for ($i=0;$i<$banners->count()-1;$i++)
-                <span class="dot"></span>
-                @endfor
-        </div>
-    </section>
-    <section class="boxes-container">
-        <div class="boxes">
-            <x-category-box image="/storage/comingSoon/{{$comingSoon->image}}" title="Coming Soon"
-                path="/coming-soon" />
-            <x-category-box image="/img/ps.webp" title="Playstation" path="/products/1" />
-            <x-category-box image="/img/retro.webp" title="Retro" path="/products/7" />
-            <x-category-box image="/img/setup.webp" title="Gaming Setup" path="/products/5" />
-        </div>
-    </section>
-    <section class="new">
-        <div class="shadow"></div>
-        <div class="section-title">
-            <h1>New Products</h1>
-            <div class="products">
-                @foreach ($newproducts as $product)
-                <x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
-                    category="{{$product->category->slogan}}" id="{{$product->id}}" />
-                @endforeach
-            </div>
-        </div>
-    </section>
-    <section class="featured">
-        <div class="shadow"></div>
+				@endforeach
 
-        <div class="section-title">
-            <h1>Featured Products</h1>
-            <div class="products">
-                @foreach ($featuredProducts as $product)
-                <x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
-                    category="{{$product->category->slogan}}" id="{{$product->id}}" />
-                @endforeach
-            </div>
-        </div>
-    </section>
-    <section class="ps5-controllers">
-        <div class="header">
-            <h2>PS5 Controllers</h2>
-            <button class="view-all" onclick="window.location.href='/products/category/5'">View All</button>
-        </div>
-        <div class="controller-carousel">
-            @foreach($controllers as $controller)
-            <div class="controller-card">
-                <a href="" style="text-decoration: none">
-                    <div>
-                        <img src="/storage/products/{{$controller->image}}"
-                            alt="{{html_entity_decode($controller->name)}}" />
-                        <h3 style="color:black">{{html_entity_decode($controller->name)}}</h3>
-                        <p class="price">${{$controller->price}}</p>
-                        <button onclick="addToCart({{$controller->id}})" style="font-family: 'Poppins', sans-serif;">Add
-                            to
-                            cart</button>
-                    </div>
-                </a>
-            </div>
-            @endforeach
-        </div>
-    </section>
+			</div>
+			<div class="carousel-dots">
+				<span class="dot active"></span>
+				@for ($i=0;$i<$banners->count()-1;$i++)
+					<span class="dot"></span>
+					@endfor
+			</div>
+		</section>
+		<div class="carousel-right">
+			@php
+			$nextIndex = ($activeIndex + 1) % $banners->count();
+			$nextBanner = $banners[$nextIndex];
+			@endphp
+			<img src="/storage/banners/{{$nextBanner->image}}" alt="" id="nextBanner">
+		</div>
+	</div>
+	<section class="boxes-container">
+		<div class="boxes">
+			<x-category-box image="/storage/comingSoon/{{$comingSoon->image}}" title="Coming Soon"
+				path="/coming-soon" />
+			<x-category-box image="/img/ps.webp" title="Playstation" path="/products/1" />
+			<x-category-box image="/img/retro.webp" title="Retro" path="/products/7" />
+			<x-category-box image="/img/setup.webp" title="Gaming Setup" path="/products/5" />
+		</div>
+	</section>
+	<section class="new">
+		<div class="shadow"></div>
+		<div class="section-title">
+			<h1>PS5 New Products</h1>
+			<div class="products">
+				@foreach ($newproducts as $product)
+				<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
+					category="{{$product->category->slogan}}" id="{{$product->id}}" />
+				@endforeach
+			</div>
+		</div>
+	</section>
+	<section class="featured">
+		<div class="shadow"></div>
 
-    <section class="info">
-        <div class="general-info">
-            <ul>
-                <li>🛒 Hadath Beirut, Hayek Gaming Ground</li>
-                <li>🚚 Delivery all over Lebanon</li>
-                <li>⏱️ <span class="open">Currently Open</span> <span style="color:red">Close at 6:00 PM</span></li>
-            </ul>
-        </div>
-        <div class="map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d106045.32744561206!2d35.447177911202736!3d33.84026439283012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x151f190dacbe9df3%3A0x4a0513f5fbc00c9f!2shttps%3A%2F%2Fmaps.app.goo.gl%2F2wUnruz8XEdamk8DA%2C%20Hadath%200000!3m2!1d33.840291799999996!2d35.5295791!5e0!3m2!1sen!2slb!4v1746635875629!5m2!1sen!2slb"
-                height="380" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </section>
-    <x-footer :categories="$categories" />
-    <div id="toast" class="toast"></div>
-    <script src="/js/home.js"></script>
-    <script src="/js/navbar.js"></script>
-    <script src="/js/order.js"></script>
-    <script>
-        document.querySelector('.view-all').addEventListener('click', () => {
+		<div class="section-title">
+			<h1>Featured Products</h1>
+			<div class="products">
+				@foreach ($featuredProducts as $product)
+				<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
+					category="{{$product->category->slogan}}" id="{{$product->id}}" />
+				@endforeach
+			</div>
+		</div>
+	</section>
+	<section class="ps5-controllers">
+		<div class="header">
+			<h2>PS5 Controllers</h2>
+			<button class="view-all" onclick="window.location.href='/products/category/5'">View All</button>
+		</div>
+		<div class="controller-carousel">
+			@foreach($controllers as $controller)
+			<div class="controller-card">
+				<a href="/product/{{$controller->id}}" style="text-decoration: none">
+					<div>
+						<div class="controller-info-container">
+							<img src="/storage/products/{{$controller->image}}"
+								alt="{{html_entity_decode($controller->name)}}" />
+							<h3 style="color:black">{{html_entity_decode($controller->name)}}</h3>
+						</div>
+						<p class="price">${{$controller->price}}</p>
+						<button onclick="addToCart({{$controller->id}})" style="font-family: 'Poppins', sans-serif;">Add
+							to
+							cart</button>
+					</div>
+				</a>
+			</div>
+			@endforeach
+		</div>
+	</section>
+
+	<section class="info">
+		<div class="general-info">
+			<ul>
+				<li>🛒 Hadath Beirut, Hayek Gaming Ground</li>
+				<li>🚚 Delivery all over Lebanon</li>
+				<li>⏱️ <span class="open">Currently Open</span> <span style="color:red">Close at 6:00 PM</span></li>
+			</ul>
+		</div>
+		<div class="map">
+			<iframe
+				src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d106045.32744561206!2d35.447177911202736!3d33.84026439283012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x151f190dacbe9df3%3A0x4a0513f5fbc00c9f!2shttps%3A%2F%2Fmaps.app.goo.gl%2F2wUnruz8XEdamk8DA%2C%20Hadath%200000!3m2!1d33.840291799999996!2d35.5295791!5e0!3m2!1sen!2slb!4v1746635875629!5m2!1sen!2slb"
+				height="380" style="border:0;" allowfullscreen="" loading="lazy"
+				referrerpolicy="no-referrer-when-downgrade"></iframe>
+		</div>
+	</section>
+	<div class="marquee-container">
+		<marquee scrollamount="15" behavior="scroll" direction="right">
+			WE DELIVER ALL OVER
+			LEBANON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WE
+			DELIVER ALL OVER LEBANON
+		</marquee>
+	</div>
+
+	<x-footer :categories="$categories" />
+	<div id="toast" class="toast"></div>
+	<script src="/js/home.js"></script>
+	<script src="/js/navbar.js"></script>
+	<script src="/js/order.js"></script>
+	<script>
+		document.querySelector('.view-all').addEventListener('click', () => {
   const container = document.querySelector('.controller-carousel');
   const card = container.querySelector('.controller-card');
   if (card) {
@@ -139,7 +166,7 @@ window.addEventListener("load", () => {
     carousel.scrollTo({ left: 40, behavior: "smooth" });
   }
 });
-    </script>
+	</script>
 </body>
 
 </html>

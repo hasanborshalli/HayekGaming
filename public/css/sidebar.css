@@ -32,7 +32,7 @@
 }
 
 .sidebar-close {
-    font-size: 24px;
+    font-size: 50px;
     cursor: pointer;
     text-align: right;
     margin-bottom: 20px;
@@ -49,7 +49,6 @@
     font-weight: 600;
     border-bottom: 1px solid #ccc;
     cursor: pointer;
-    color: gray;
 }
 
 .sidebar-dropdown .sidebar-submenu {
@@ -65,6 +64,13 @@
     align-items: flex-start;
     justify-content: space-between;
 }
+.sidebar-menu a {
+    text-decoration: none;
+    color: black;
+}
+.subcategory{
+    color:gray;
+}
 .sidebar-submenu {
     max-height: 0;
     overflow: hidden;
@@ -77,11 +83,7 @@
     align-items: flex-start;
     justify-content: space-between;
 }
-.sidebar-menu a {
-    text-decoration: none;
-    color: #333;
-    opacity: 0.6;
-}
+
 .sidebar-submenu ul {
     padding: 0;
     margin: 0;
@@ -90,11 +92,10 @@
 
 .sidebar-submenu li {
     padding: 5px 0;
-    color: #333;
 }
 
 .sidebar-image {
-    width: 100px;
+    width: 130px;
     height: auto;
     border-radius: 8px;
 }

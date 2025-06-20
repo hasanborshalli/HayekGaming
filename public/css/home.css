@@ -21,13 +21,19 @@
     font-weight: bold;
     position: relative;
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: 8px;
 }
-
+.box a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 .box img {
     width: 100%;
     height: 100%;
     transition: transform 0.5s ease;
+    object-fit: cover;
+    object-position: center;
 }
 .box-title {
     position: absolute;
@@ -36,7 +42,7 @@
     color: white;
     background: linear-gradient(
         to bottom,
-        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.2),
         rgba(0, 0, 0, 0)
     ); /* fading shadow */
     width: 100%;
@@ -154,7 +160,8 @@
     margin-bottom: 0.5rem;
 }
 .controller-card button {
-    background: #9747ff;
+    background-color: #d8bfff;
+    font-weight: 600;
     border: none;
     padding: 0.5rem;
     border-radius: 4px;
@@ -163,6 +170,9 @@
 .controller-card button:hover {
     background: var(--main-color);
     color: white;
+}
+.controller-info-container {
+    height: 145px;
 }
 .info {
     margin-top: 50px;
@@ -189,8 +199,19 @@
     border-radius: 8px;
     color: gray;
 }
-/* Existing styles remain unchanged — additions below improve responsiveness */
-
+.marquee-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+marquee {
+    width: 70%;
+    margin: 20px auto;
+    color: var(--main-color);
+    font-weight: 600;
+    background-color: red;
+}
 @media (max-width: 1024px) {
     .ps5-controllers {
         width: 90%;
@@ -250,6 +271,13 @@
         font-size: 0.85rem;
         padding: 0.3rem 0.6rem;
     }
+    .section-title h1 {
+        font-size: 15px;
+    }
+    .new,
+    .featured {
+        height: 400px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -282,12 +310,6 @@
 @media (max-width: 480px) {
     .box {
         height: 200px;
-    }
-
-    .new,
-    .featured {
-        height: 450px;
-        padding: 10px;
     }
 
     .controller-card {

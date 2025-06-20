@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function addCart(Request $request)
+    public function addCart(Request $request,$check=false)
     {
+        
         
         $fields=$request->validate([
             'id'=>['required','int','exists:products,id'],
@@ -31,7 +32,16 @@ class OrderController extends Controller
             $cart[]=['id'=>$itemId,'quantity'=>$quantity];
         }
         session(['cart_items' => $cart]);
-        if($itemFound) {
+        if($check){
+                $orderedItems[] = [
+                    'item_id' => $itemId,
+                    'quantity' => $quantity,
+                ];
+                session()->put('ordered_items', $orderedItems);
+                        return redirect('/checkout');
+
+        }else{
+            if($itemFound) {
             return response()->json(['status'=>"addedOld"]);
 
         } elseif(!$itemFound) {
@@ -41,6 +51,8 @@ class OrderController extends Controller
             return response()->json(['status'=>"failed"]);
 
         }
+        }
+        
     }
     public function checkout(Request $request)
     {

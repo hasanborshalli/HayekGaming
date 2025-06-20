@@ -1,13 +1,13 @@
 <footer>
     <section class="left-footer">
-        <a href="/"><img src="/img/white-logo.webp" alt="Logo"></a>
+        <a href="/"><img src="/img/white-logo.svg" alt="Logo"></a>
         <div class="social-media">
             <a href="https://www.tiktok.com/@hayekgamingground?_t=ZS-8wv3bWKbLqz&_r=1" traget="_blank"><img
-                    src="/img/twitter.svg" alt="Tiktok" loading="lazy"></a>
+                    src="/img/tiktok.svg" alt="Tiktok" loading="lazy"> <span class="page-name">@hayekgaming</span></a>
             <a href="https://www.instagram.com/hayekgaming?igsh=MW1jaG53eTM2dGZ4NQ==" traget="_blank"><img
-                    src="/img/insta.svg" alt="Instagram" loading="lazy"></a>
+                    src="/img/insta.svg" alt="Instagram" loading="lazy"><span class="page-name">@hayekgaming</span></a>
             <a href="https://www.facebook.com/share/1CF7SLfHAN/" traget="_blank"><img src="/img/fb.svg" alt="Facebook"
-                    loading="lazy"></a>
+                    loading="lazy"><span class="page-name">@hayekgaming</span></a>
         </div>
     </section>
     <section class="quick-links">

@@ -19,7 +19,7 @@ Route::get('/search/products', [ProductController::class,'productsSearch']);
 Route::get('/filterProducts', [ProductController::class,'filter']);
 
 Route::get('/cart', [PagesController::class,'cartPage']);
-Route::post('/addCart', [OrderController::class,'addCart']);
+Route::post('/addCart/{check?}', [OrderController::class,'addCart']);
 Route::post('/checkout', [OrderController::class,'checkout']);
 Route::get('/checkout', [PagesController::class,'checkoutPage']);
 Route::post('/order', [OrderController::class,'order']);

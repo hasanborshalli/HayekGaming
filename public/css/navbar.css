@@ -27,6 +27,7 @@ body {
 .cart-wrapper {
     position: relative;
     display: inline-block;
+    height: 40px;
 }
 
 .cart-quantity {
@@ -65,7 +66,7 @@ body {
 .search-input {
     width: 100%;
     padding: 0.5rem;
-    border: 2px solid #ccc;
+    border: 2px solid var(--main-color);
     border-radius: 20px;
     padding-right: 40px; /* space for the search button */
     box-sizing: border-box;
@@ -74,16 +75,18 @@ body {
 .search-btn {
     position: absolute;
     top: 50%;
-    right: 5px;
+    right: 0;
     transform: translateY(-50%);
     background-color: #2a2670;
     border: none;
-    border-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
     padding: 0.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 36px;
 }
 
 .search-btn .search-icon {
@@ -143,6 +146,9 @@ body {
 .logo-mobile {
     display: none;
 }
+.logo-mobile img {
+    width: 90px;
+}
 .icon {
     width: 24px;
     height: 24px;
@@ -195,14 +201,7 @@ body {
 .dropdown:hover .arrow {
     transform: rotate(180deg);
 }
-.sidebar-dropdown {
-    color: gray !important; /* default color */
-    transition: color 0.3s ease;
-}
 
-.sidebar-dropdown.active {
-    color: var(--main-color); /* the opened one */
-}
 .categories a {
     color: black;
     text-decoration: none;
@@ -242,7 +241,9 @@ body {
     .logo-mobile {
         display: block;
     }
-
+    .navbar-center {
+        flex: 0;
+    }
     .navbar-right i {
         background-color: white;
         color: var(--main-color);

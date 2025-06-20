@@ -14,13 +14,20 @@ class PagesController extends Controller
     {
         $categories=Category::all();
         $banners=banner::all();
-        $newproducts = Product::where('is_available',true)->latest()->take(5)->get();
-        $featuredProducts = Product::where('featured', true)->where('is_available',true)->take(5)->get();
+        $newproducts = Product::where('is_available',true)
+                              ->where('category_id',1)
+                               ->orderBy('created_at', 'desc') 
+                              ->latest()->take(5)->get();
+        $featuredProducts = Product::where('featured', true)
+                                   ->where('is_available',true)
+                                    ->orderBy('created_at', 'desc') 
+                                   ->take(5)->get();
         $comingSoon=Coming::first();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $controllers=Product::where('category_id',1)->where('sub_category_id',5)->take(7)->get();
-        return view('home', ['categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity,'controllers'=>$controllers]);
+        
+        return view('home', ['categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity,'controllers'=>$controllers,'activeIndex' => 0]);
     }
     
     public function productDetailsPage(Product $product)
@@ -29,6 +36,7 @@ class PagesController extends Controller
         $relatedProducts=Product::where('category_id', $product->category_id)
                                 ->where('is_available',true)
                                 ->where('id', '!=', $product->id)
+                                 ->orderBy('created_at', 'desc') 
                                 ->take(5)->get();
         $features=json_decode($product->features, true);
         $boxContents=json_decode($product->box_contents, true);
@@ -57,6 +65,7 @@ class PagesController extends Controller
         $products = $gameType->products()
     ->where('sub_category_id', $subCategory->id)
     ->where('is_available',true)
+     ->orderBy('created_at', 'desc') 
     ->paginate(10);
         $gameTypes=GameType::all();
         $cart = session('cart_items', []);
@@ -74,7 +83,7 @@ class PagesController extends Controller
 
     public function manageProductsPage()
     {
-        $products=Product::where('is_available',true)->paginate(20);
+        $products=Product::where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(20);
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
@@ -102,12 +111,12 @@ class PagesController extends Controller
     }
     public function addBannerPage()
     {
-        $products=Product::where('is_available',true)->get();
+        $products=Product::where('is_available',true) ->orderBy('created_at', 'desc') ->get();
         return view('addBanner', ['products' => $products]);
     }
     public function editBannerPage(Banner $banner)
     {
-        $products=Product::where('is_available',true)->get();
+        $products=Product::where('is_available',true) ->orderBy('created_at', 'desc') ->get();
         return view('editBanner', ['products' => $products,'banner' => $banner]);
 
     }
@@ -132,7 +141,9 @@ class PagesController extends Controller
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $itemIds = array_column($cart, 'id');
-        $products=Product::whereIn('id', $itemIds)->where('is_available',true)->get();
+        $products=Product::whereIn('id', $itemIds)
+                          ->where('is_available',true)
+                           ->orderBy('created_at', 'desc') ->get();
         return view('cart', ['categories'=>$categories,'cartQuantity'=>$cartQuantity,'products'=>$products,'cart'=>$cart]);
     }
     public function checkoutPage()
