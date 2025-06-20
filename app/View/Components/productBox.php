@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 
 class productBox extends Component
 {
-    public $title;
+    public $name;
     public $price;
     public $id;
     public $image1;
@@ -16,9 +16,9 @@ class productBox extends Component
     public $image3;
     public $image4;
     
-    public function __construct($title, $price, $image1, $image2, $image3, $image4, $id)
+    public function __construct($name, $price, $image1, $image2, $image3, $image4, $id)
     {
-        $this->title=$title;
+        $this->name=$name;
         $this->price=$price;
         $this->id=$id;
         $this->image1=$image1;

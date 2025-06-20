@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->foreignId('sub_category_id')->nullable()->constrained()->onDelete('set null');
             
             $table->string('name');
-            $table->string('headline');
             $table->text('description')->nullable();
             
             // Features and box contents (stored as JSON or plain text)

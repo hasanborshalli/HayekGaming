@@ -30,11 +30,11 @@
                 <span style="color:rgba(0,0,0,1);">{{html_entity_decode($product->subCategory->name)}}</span>
             </h3>
         </div>
-        <x-product-box title="{{$product->title}}" price="{{$product->price}}" id="{{$product->id}}"
+        <x-product-box name="{{$product->name}}" price="{{$product->price}}" id="{{$product->id}}"
             image1="{{$product->image1}}" image2="{{$product->image2}}" image3="{{$product->image3}}"
             image4="{{$product->image4}}" />
-        <x-product-description name="{{$product->name}}" headline="{{$product->headline}}"
-            description="{{$product->description}}" :boxContents="$boxContents" :features="$features" />
+        <x-product-description name="{{$product->name}}" description="{{$product->description}}"
+            :boxContents="$boxContents" :features="$features" />
         <x-related-products :products="$relatedProducts" title="Related Products"
             isGames="{{ $product->subCategory->name == 'Games' ? 'true' : 'false' }}" subId="{{$product->category_id}}"
             category="{{$product->category_id}}" />

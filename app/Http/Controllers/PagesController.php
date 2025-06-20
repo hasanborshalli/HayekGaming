@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Coming;
+use App\Models\ComingProduct;
 use App\Models\GameType;
 use App\Models\Order;
 use App\Models\Product;
@@ -97,7 +98,8 @@ class PagesController extends Controller
     public function manageComingPage()
     {
         $image=Coming::first();
-        return view('manageComing', ['image' => $image]);
+        $comingProducts=ComingProduct::paginate(10);
+        return view('manageComing', ['image' => $image,'comingProducts'=>$comingProducts]);
     }
     public function changePasswordPage()
     {
@@ -124,8 +126,12 @@ class PagesController extends Controller
     {
         $categories=Category::all();
         $gameTypes=GameType::all();
-        $features=implode("\n", json_decode($product->features, true));
-        $boxContents=implode("\n", json_decode($product->box_contents, true));
+$decodedFeatures = json_decode($product->features ?? '[]', true);
+$decodedBox = json_decode($product->box_contents ?? '[]', true);
+
+$features = is_array($decodedFeatures) ? implode("\n", $decodedFeatures) : '';
+$boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
+
         $product_gameTypes=$product->gameTypes->pluck('id')->toArray();
         return view('editProduct', [
                                                 'product'=>$product,
@@ -188,5 +194,14 @@ class PagesController extends Controller
             return redirect('/admin/orders');
 
         }
+    }
+    public function comingSoonPage()
+    {
+        $categories=Category::all();
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        $comingSoonGames=ComingProduct::paginate(10);
+        
+        return view('comingSoon', ['categories' => $categories,'cartQuantity'=>$cartQuantity,'comingSoonGames'=>$comingSoonGames]);
     }
 }

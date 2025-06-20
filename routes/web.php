@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class,'homePage']);
 
+Route::get('/coming-soon', [PagesController::class,'comingSoonPage']);
+
 Route::get('/product/{product}', [PagesController::class,'productDetailsPage']);
 
 Route::get('/products/{category}', [PagesController::class,'productsPage']);
@@ -58,6 +60,9 @@ Route::get('/admin/deleteBanner/{banner}', [BannerController::class,'deleteBanne
 
 Route::get('/admin/comingSoon', [PagesController::class,'manageComingPage'])->middleware('auth');
 Route::post('/admin/comingSoon/edit', [ComingController::class,'editComing'])->middleware('auth');
+Route::get('/admin/comingSoon/deleteProduct/{comingProduct}',[ComingController::class,'deleteComingProduct'])->middleware('auth');
+Route::post('/admin/comingSoon/addProduct',[ComingController::class,'addComingProduct'])->middleware('auth');
+Route::post('/admin/comingSoon/editProduct/{comingProduct}',[ComingController::class,'editComingProduct'])->middleware('auth');
 
 Route::get('/admin/changePassword', [PagesController::class,'changePasswordPage'])->middleware('auth');
 Route::post('/admin/changePassword', [AuthController::class,'changePassword'])->middleware('auth');

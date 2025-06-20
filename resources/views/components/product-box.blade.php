@@ -15,7 +15,7 @@
     </div>
     <div class="product-detail">
         <div class="product-detail-list">
-            <div>{{html_entity_decode($title)}} </div>
+            <div>{{html_entity_decode($name)}} </div>
             <div>Price: <span class="price">{{$price}}$</span></div>
             <div class="quantity">Quantity: <div class="quantity-btns"><button
                         onclick="updateQuantity('-')">-</button><input id="quantity" name="quantity" value="1"

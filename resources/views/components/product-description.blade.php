@@ -1,10 +1,11 @@
 <div class="product-description">
     <h2>Description</h2>
     <div class="small-description">
-        <p>{{html_entity_decode($headline)}}
-{{html_entity_decode($description)}}</p>
+        <p>
+            {{html_entity_decode($description)}}</p>
 
     </div>
+    @if($features)
     <div class="product-benefits">
         <h3>Why Choose {{html_entity_decode($name)}}?</h3>
         <ul>
@@ -14,6 +15,8 @@
 
         </ul>
     </div>
+    @endif
+    @if($boxContents)
     <div class="product-sides">
         <h3>What's in the box:</h3>
         <ul>
@@ -22,4 +25,5 @@
             @endforeach
         </ul>
     </div>
+    @endif
 </div>

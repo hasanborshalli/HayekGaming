@@ -19,6 +19,13 @@
     <link rel="stylesheet" href="/css/relatedProducts.css">
     <link rel="stylesheet" href="/css/pagination.css">
     <title>Products Page</title>
+    <style>
+        .product-card,
+        .product-category,
+        .product-title p {
+            color: black !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,7 +36,7 @@
 
             @foreach ($products as $product)
             <x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
-                category="{{$product->category->slogan}}" id="{{$product->id}}" />
+                salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}" />
             @endforeach
         </section>
         {{$products->links()}}

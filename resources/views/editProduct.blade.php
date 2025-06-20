@@ -78,124 +78,120 @@
             <p style="color:red">{{$message}}</p>
             @enderror
           </div>
+
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="price">Price ($)</label>
+              <input type="decimal" id="price" required name="price" value="{{old('price',$product->price)}}">
+              @error('price')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+            </div>
+            <div class="form-group">
+              <label for="salePrice">Sale Price ($) <small style="color: gray;">(optional)</small></label>
+              <input type="decimal" id="salePrice" name="sale" value="{{ old('sale',$product->sale) }}">
+              @error('sale')
+              <p style="color:red">{{ $message }}</p>
+              @enderror
+            </div>
+            <div class="form-group">
+              <label for="isFeatured">Is Featured</label>
+              <select id="isFeatured" required name="featured">
+                <option value="no" {{ old('featured', $product->featured) == 0 ? 'selected' : '' }}>No</option>
+                <option value="yes" {{ old('featured', $product->featured) == 1 ? 'selected' : '' }}>Yes</option>
+              </select>
+              @error('featured')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+            </div>
+            <div class="form-group">
+              <label for="isAvailable">Is Available</label>
+              <select id="isAvailable" required name="is_available">
+                <option value="yes" {{ old('is_available', $product->is_available) == 1 ? 'selected' : '' }}>Yes
+                </option>
+                <option value="no" {{ old('is_available', $product->is_available) == 0 ? 'selected' : '' }}>No</option>
+              </select>
+              @error('is_available')
+              <p style="color:red">{{ $message }}</p>
+              @enderror
+            </div>
+          </div>
+
+
+
           <div class="form-group">
-            <label for="bigTitle">Title (30 characters max)</label>
-            <input type="text" id="bigTitle" required name="title" value="{{old('title',$product->title)}}">
-            @error('title')
+            <label for="smallDesc">Small Description</label>
+            <textarea id="smallDesc" rows="3" required
+              name="description">{{old('description' ,$product->description)}}</textarea>
+            @error('description')
             <p style="color:red">{{$message}}</p>
             @enderror
           </div>
-        </div>
 
-        <div class="form-row">
           <div class="form-group">
-            <label for="price">Price ($)</label>
-            <input type="decimal" id="price" required name="price" value="{{old('price',$product->price)}}">
-            @error('price')
+            <label for="features">List of Features (one per line, optional)</label>
+            <textarea id="features" rows="5" name="features">{{old('features',$features)}}</textarea>
+            @error('features')
             <p style="color:red">{{$message}}</p>
             @enderror
           </div>
+
           <div class="form-group">
-            <label for="isFeatured">Is Featured</label>
-            <select id="isFeatured" required name="featured">
-              <option value="no" {{ old('featured', $product->featured) == 0 ? 'selected' : '' }}>No</option>
-              <option value="yes" {{ old('featured', $product->featured) == 1 ? 'selected' : '' }}>Yes</option>
-            </select>
-            @error('featured')
+            <label for="boxContents">Box Contents (one per line, optional)</label>
+            <textarea id="boxContents" rows="4" name="box_contents">{{old('box_contents',$boxContents)}}</textarea>
+            @error('box_contents')
             <p style="color:red">{{$message}}</p>
             @enderror
           </div>
-          <div class="form-group">
-            <label for="isAvailable">Is Available</label>
-            <select id="isAvailable" required name="is_available">
-              <option value="yes" {{ old('is_available', $product->is_available) == 1 ? 'selected' : '' }}>Yes</option>
-              <option value="no" {{ old('is_available', $product->is_available) == 0 ? 'selected' : '' }}>No</option>
-            </select>
-            @error('is_available')
-            <p style="color:red">{{ $message }}</p>
-            @enderror
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label for="headline">Headline</label>
-          <input type="text" id="headline" required name="headline" value="{{old('headline',$product->headline)}}">
-          @error('headline')
-          <p style="color:red">{{$message}}</p>
-          @enderror
-        </div>
-
-        <div class="form-group">
-          <label for="smallDesc">Small Description</label>
-          <textarea id="smallDesc" rows="3" required
-            name="description">{{old('description' ,$product->description)}}</textarea>
-          @error('description')
-          <p style="color:red">{{$message}}</p>
-          @enderror
-        </div>
-
-        <div class="form-group">
-          <label for="features">List of Features (one per line)</label>
-          <textarea id="features" rows="5" required name="features">{{old('features',$features)}}</textarea>
-          @error('features')
-          <p style="color:red">{{$message}}</p>
-          @enderror
-        </div>
-
-        <div class="form-group">
-          <label for="boxContents">Box Contents (one per line, optional)</label>
-          <textarea id="boxContents" rows="4" name="box_contents">{{old('box_contents',$boxContents)}}</textarea>
-          @error('box_contents')
-          <p style="color:red">{{$message}}</p>
-          @enderror
-        </div>
-
-        <div class="form-group image-upload">
-          <label for="mainImage">Main Image (700x880)</label>
-          <input type="file" id="mainImage" accept="image/*" name="image">
-          @error('image')
-          <p style="color:red">{{$message}}</p>
-          @enderror
-          <img id="preview-mainImage" class="img-preview" src="/storage/products/{{$product->image}}" loading="lazy" />
-        </div>
-
-        <div class="form-row">
           <div class="form-group image-upload">
-            <label for="img1">Image 1 (400x400)</label>
-            <input type="file" id="img1" accept="image/*" name="image1">
-            @error('image1')
+            <label for="mainImage">Main Image</label>
+            <input type="file" id="mainImage" accept="image/*" name="image">
+            @error('image')
             <p style="color:red">{{$message}}</p>
             @enderror
-            <img id="preview-img1" class="img-preview" src="/storage/products/{{$product->image1}}" loading="lazy" />
+            <img id="preview-mainImage" class="img-preview" src="/storage/products/{{$product->image}}"
+              loading="lazy" />
           </div>
-          <div class="form-group image-upload">
-            <label for="img2">Image 2 (400x400)</label>
-            <input type="file" id="img2" accept="image/*" name="image2">
-            @error('image2')
-            <p style="color:red">{{$message}}</p>
-            @enderror
-            <img id="preview-img2" class="img-preview" src="/storage/products/{{$product->image2}}" loading="lazy" />
+
+          <div class="form-row">
+            <div class="form-group image-upload">
+              <label for="img1">Image 1</label>
+              <input type="file" id="img1" accept="image/*" name="image1">
+              @error('image1')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+              <img id="preview-img1" class="img-preview" src="/storage/products/{{$product->image1}}" loading="lazy" />
+            </div>
+            <div class="form-group image-upload">
+              <label for="img2">Image 2</label>
+              <input type="file" id="img2" accept="image/*" name="image2">
+              @error('image2')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+              <img id="preview-img2" class="img-preview" src="/storage/products/{{$product->image2}}" loading="lazy" />
+            </div>
+            <div class="form-group image-upload">
+              <label for="img3">Image 3</label>
+              <input type="file" id="img3" accept="image/*" name="image3">
+              @error('image3')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+              <img id="preview-img3" class="img-preview" src="/storage/products/{{$product->image3}}" loading="lazy" />
+            </div>
+            <div class="form-group image-upload">
+              <label for="img4">Image 4</label>
+              <input type="file" id="img4" accept="image/*" name="image4">
+              @error('image4')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+              <img id="preview-img4" class="img-preview" style="max-width:400px;"
+                src="/storage/products/{{$product->image4}}" loading="lazy" />
+            </div>
           </div>
-          <div class="form-group image-upload">
-            <label for="img3">Image 3 (400x400)</label>
-            <input type="file" id="img3" accept="image/*" name="image3">
-            @error('image3')
-            <p style="color:red">{{$message}}</p>
-            @enderror
-            <img id="preview-img3" class="img-preview" src="/storage/products/{{$product->image3}}" loading="lazy" />
-          </div>
-          <div class="form-group image-upload">
-            <label for="img4">Image 4 (400x400)</label>
-            <input type="file" id="img4" accept="image/*" name="image4">
-            @error('image4')
-            <p style="color:red">{{$message}}</p>
-            @enderror
-            <img id="preview-img4" class="img-preview" style="max-width:400px;"
-              src="/storage/products/{{$product->image4}}" loading="lazy" />
-          </div>
+          <input type="submit" value="Edit Product" class="submit-btn" />
         </div>
-        <input type="submit" value="Edit Product" class="submit-btn" />
-      </div>
     </form>
   </section>
   <script>

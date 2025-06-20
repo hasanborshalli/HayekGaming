@@ -13,7 +13,6 @@ class Product extends Model
        'category_id',
        'sub_category_id',
        'name',
-       'headline',
        'description',
        'features',
        'box_contents',
@@ -24,7 +23,7 @@ class Product extends Model
        'image3',
        'image4',
        'featured',
-       'title'
+       'sale'
     ];
     public function category(): BelongsTo
     {

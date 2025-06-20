@@ -17,7 +17,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link
-		href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+		href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap&family=Archivo+Black&family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 		rel="stylesheet" />
 	<title>Hayek Gaming Ground</title>
 </head>
@@ -72,7 +72,7 @@
 			<div class="products">
 				@foreach ($newproducts as $product)
 				<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
-					category="{{$product->category->slogan}}" id="{{$product->id}}" />
+					salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}" />
 				@endforeach
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 			<div class="products">
 				@foreach ($featuredProducts as $product)
 				<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
-					category="{{$product->category->slogan}}" id="{{$product->id}}" />
+					salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}" />
 				@endforeach
 			</div>
 		</div>
@@ -99,19 +99,33 @@
 			@foreach($controllers as $controller)
 			<div class="controller-card">
 				<a href="/product/{{$controller->id}}" style="text-decoration: none">
-					<div>
-						<div class="controller-info-container">
-							<img src="/storage/products/{{$controller->image}}"
-								alt="{{html_entity_decode($controller->name)}}" />
-							<h3 style="color:black">{{html_entity_decode($controller->name)}}</h3>
-						</div>
-						<p class="price">${{$controller->price}}</p>
-						<button onclick="addToCart({{$controller->id}})" style="font-family: 'Poppins', sans-serif;">Add
-							to
-							cart</button>
+					<div class="controller-image-wrapper">
+						<img src="/storage/products/{{$controller->image}}"
+							alt="{{ html_entity_decode($controller->name) }}" loading="lazy" />
+						@if($controller->sale)
+						<div class="sale-badge">SALE</div>
+						@endif
 					</div>
+					<div class="controller-info-container">
+						<h3 style="color:black">{{ html_entity_decode($controller->name) }}</h3>
+					</div>
+
+					@if($controller->sale)
+					<div class="product-price">
+						<span class="old-price">${{ number_format($controller->price, 2) }}</span>
+						<span class="sale-price">${{ number_format($controller->sale, 2) }}</span>
+					</div>
+					@else
+					<p class="price">${{ number_format($controller->price, 2) }}</p>
+					@endif
+
+					<button onclick="addToCart({{ $controller->id }})" style="font-family: 'Poppins', sans-serif;">
+						Add to cart
+						<img src="/img/colored-cart.svg" class="cart-icon" />
+					</button>
 				</a>
 			</div>
+
 			@endforeach
 		</div>
 	</section>
