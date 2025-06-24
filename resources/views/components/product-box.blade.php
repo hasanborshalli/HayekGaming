@@ -16,7 +16,16 @@
     <div class="product-detail">
         <div class="product-detail-list">
             <div>{{html_entity_decode($name)}} </div>
-            <div>Price: <span class="price">{{$price}}$</span></div>
+            <div class="product-price-section">
+                Price:
+                @if($sale)
+                <span class="price sale-price">${{ number_format($sale, 2) }}</span>
+                <span class="original-price strikethrough">${{ number_format($price, 2) }}</span>
+                <span class="sale-badge-box">SALE</span>
+                @else
+                <span class="price">${{ number_format($price, 2) }}</span>
+                @endif
+            </div>
             <div class="quantity">Quantity: <div class="quantity-btns"><button
                         onclick="updateQuantity('-')">-</button><input id="quantity" name="quantity" value="1"
                         min="1"><button onclick="updateQuantity('+')">+</button></div>

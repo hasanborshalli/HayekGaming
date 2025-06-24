@@ -147,6 +147,19 @@ class ProductController extends Controller
         $cartQuantity = count($cart);
         return view('productsSearch', ['products'=>$products,'categories'=>$categories,'search'=>$fields['search'],'cartQuantity'=>$cartQuantity]);
     }
+public function search(Request $request)
+{
+    $query = $request->get('q');
+
+    $products = Product::where('name', 'like', '%' . $query . '%')
+    ->orderBy('created_at','desc')
+    ->limit(10)
+    ->get(['id', 'name', 'image', 'price', 'sale']); // Include image
+
+
+    return response()->json($products);
+}
+
     public function adminProductsSearch(Request $request)
     {
         $fields=$request->validate([

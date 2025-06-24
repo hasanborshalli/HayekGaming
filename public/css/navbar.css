@@ -206,6 +206,117 @@ body {
     color: black;
     text-decoration: none;
 }
+
+#mobile-search-results {
+    width: 100%;
+}
+#search-results {
+    width: 50%;
+}
+#search-results,
+#mobile-search-results {
+    display: none;
+
+    position: absolute;
+    background-color: white;
+    border: 1px solid var(--main-color);
+    border-radius: 10px;
+    margin-top: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 999;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: var(--main-text);
+    color: black; /* ⬅ fix white text */
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+    color: black;
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+.result-item:hover {
+    background-color: var(--main-color);
+    color: white;
+}
+
+.result-img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.result-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.product-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.product-price-search,
+.product-sale {
+    font-size: 0.85rem;
+    color: red;
+    font-weight: bold;
+}
+
+.product-regular {
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 6px;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.sale-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.sale-badge-search {
+    background-color: red;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    animation: pulse 0.8s infinite;
+}
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.85;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
     .web,
@@ -248,5 +359,8 @@ body {
         background-color: white;
         color: var(--main-color);
         border-color: var(--main-color);
+    }
+    #search-results {
+        display: none !important;
     }
 }

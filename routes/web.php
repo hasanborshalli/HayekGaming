@@ -18,6 +18,7 @@ Route::get('/products/{category}', [PagesController::class,'productsPage']);
 Route::get('/products/category/{subCategory}', [PagesController::class,'productsBySubPage']);
 Route::get('/products/{subCategory}/{gameType}', [PagesController::class,'productsByGameType']);
 Route::get('/search/products', [ProductController::class,'productsSearch']);
+Route::get('/search-products', [ProductController::class, 'search']);
 Route::get('/filterProducts', [ProductController::class,'filter']);
 
 Route::get('/cart', [PagesController::class,'cartPage']);

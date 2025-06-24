@@ -64,6 +64,9 @@
             </form>
         </div>
 
+        <x-related-products :products="$subCategory->products->take(5)" title="All Games" subId="{{$gameType->id}}"
+            category="{{$subCategory->category->id}}" isGames="{{true}}" />
+
         @foreach ($gameTypes as $gameType)
         <x-related-products :products="$gameType->products->take(5)" title="{{$gameType->name}}"
             subId="{{$gameType->id}}" category="{{$subCategory->category->id}}" isGames="{{true}}" />

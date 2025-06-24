@@ -9,7 +9,8 @@
             <a href="/"> <img src="/img/colored-logo.svg" alt="HGG Logo" loading="lazy" /></a>
         </div>
         <form action="/search/products" method="GET">
-            <input type="text" placeholder="Search the store" name="search" />
+            <input type="text" placeholder="Search the store" name="search" autocomplete="off" id="search" />
+            <div id="search-results"></div>
         </form>
     </div>
 
@@ -63,7 +64,9 @@
 <div class="search-container">
     <form action="/search/products" method="GET">
         @csrf
-        <input type="text" name="search" placeholder="Search..." class="search-input" />
+        <input type="text" name="search" placeholder="Search..." class="search-input" id="mobile-search"
+            autocomplete="off" />
+        <div id="mobile-search-results"></div>
         <button type="submit" class="search-btn">
             <img src="/img/search.svg" alt="Search Icon" class="search-icon" loading="lazy" />
         </button>

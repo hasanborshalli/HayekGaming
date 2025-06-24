@@ -15,8 +15,9 @@ class productBox extends Component
     public $image2;
     public $image3;
     public $image4;
+    public $sale;
     
-    public function __construct($name, $price, $image1, $image2, $image3, $image4, $id)
+    public function __construct($name, $price, $image1, $image2, $image3, $image4, $id,$sale)
     {
         $this->name=$name;
         $this->price=$price;
@@ -25,6 +26,7 @@ class productBox extends Component
         $this->image2=$image2;
         $this->image3=$image3;
         $this->image4=$image4;
+        $this->sale=$sale;
     }
 
     /**

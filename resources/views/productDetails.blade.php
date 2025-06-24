@@ -17,7 +17,13 @@
     <link rel="stylesheet" href="/css/relatedProducts.css">
     <link rel="stylesheet" href="/css/productsList.css">
     <link rel="stylesheet" href="/css/toast.css">
-
+    <style>
+        .product-card,
+        .product-category,
+        .product-title p {
+            color: black !important;
+        }
+    </style>
     <title>Product Details</title>
 </head>
 
@@ -32,7 +38,7 @@
         </div>
         <x-product-box name="{{$product->name}}" price="{{$product->price}}" id="{{$product->id}}"
             image1="{{$product->image1}}" image2="{{$product->image2}}" image3="{{$product->image3}}"
-            image4="{{$product->image4}}" />
+            image4="{{$product->image4}}" sale="{{ $product->sale }}" />
         <x-product-description name="{{$product->name}}" description="{{$product->description}}"
             :boxContents="$boxContents" :features="$features" />
         <x-related-products :products="$relatedProducts" title="Related Products"

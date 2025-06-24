@@ -59,6 +59,37 @@ body {
     border: 1px solid #9747ff;
     border-radius: 10px;
 }
+.product-price-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.sale-price {
+    color: red;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.original-price {
+    color: #888;
+    font-size: 0.95rem;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.sale-badge-box {
+    background-color: red;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
 .product-detail {
     width: 40%;
 }
