@@ -26,7 +26,7 @@ class PagesController extends Controller
         $comingSoon=Coming::first();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        $controllers=Product::where('category_id',1)->where('sub_category_id',5)->take(7)->get();
+        $controllers=Product::where('category_id',1)->where('sub_category_id',5)->orderBy('created_at','desc')->take(7)->get();
         
         return view('home', ['categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity,'controllers'=>$controllers,'activeIndex' => 0]);
     }
@@ -63,16 +63,27 @@ class PagesController extends Controller
     }
     public function productsByGameType(SubCategory $subCategory, GameType $gameType)
     {
-        $categories=Category::all();
+                 $categories=Category::all();
+                $gameTypes=GameType::all();
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart); 
+
         $products = $gameType->products()
-    ->where('sub_category_id', $subCategory->id)
-    ->where('is_available',true)
-     ->orderBy('created_at', 'desc') 
-    ->paginate(10);
+                             ->where('sub_category_id', $subCategory->id)
+                             ->where('is_available',true)
+                             ->orderBy('created_at', 'desc') 
+                             ->paginate(10);
+        
+        return view('productsBySub', ['categories' => $categories,'gameType'=>$gameType,'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
+    }
+    public function productsByAllGames(SubCategory $subCategory)
+    {
+        $categories=Category::all();
         $gameTypes=GameType::all();
         $cart = session('cart_items', []);
-        $cartQuantity = count($cart);
-        return view('productsBySub', ['categories' => $categories,'gameType'=>$gameType,'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
+        $cartQuantity = count($cart); 
+        $products=$subCategory->products()->where('is_available',true)->orderBy('created_at', 'desc')->paginate(10);
+        return view('productsBySub', ['categories' => $categories,'gameType'=>"All Games",'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
     }
     public function loginPage()
     {
@@ -171,7 +182,7 @@ $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
     public function OrdersPage()
     {
         $orders = Order::where('done', false)
-               ->orderBy('created_at', 'asc')
+               ->orderBy('created_at', 'desc')
                ->get();
 
         return view('manageOrders', ['orders'=>$orders]);

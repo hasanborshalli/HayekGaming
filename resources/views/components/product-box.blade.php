@@ -36,9 +36,15 @@
                     @csrf
                     <input type="hidden" name="id" value="{{$id}}">
                     <input type="hidden" name="quantity" id="buyNowQuantity" value="1">
-                    <button type="submit" class="buy-now">Buy Now</button>
+                    <button type="submit" class="buy-now" onclick="syncQuantity()">Buy Now</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function syncQuantity() {
+        const selectedQty = document.getElementById('quantity').value;
+        document.getElementById('buyNowQuantity').value = selectedQty;
+    }
+</script>

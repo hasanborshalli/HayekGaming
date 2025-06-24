@@ -35,7 +35,14 @@
             <h3><a href="/">Home </a>> <a
                     href="/products/{{$subCategory->category->id}}">{{$subCategory->category->name}}</a> > <a
                     href="/products/category/{{$subCategory->id}}">{{$subCategory->name}}</a> > <span
-                    style="color:rgb(0,0,0);">{{$gameType->name}} </span></h3>
+                    style="color:rgb(0,0,0);">
+                    @if($gameType == "All Games")
+                    All Games
+                    @else
+                    {{$gameType->name}}
+
+                    @endif
+                </span></h3>
             @else
             <h3><a href="/">Home </a>> <a
                     href="/products/{{$subCategory->category->id}}">{{$subCategory->category->name}}</a> > <span
@@ -63,13 +70,23 @@
                 <button type="submit">Apply Filter</button>
             </form>
         </div>
+        @php
+        $latestProducts = $subCategory->products()
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
+        @endphp
 
-        <x-related-products :products="$subCategory->products->take(5)" title="All Games" subId="{{$gameType->id}}"
+        <x-related-products :products="$latestProducts" title="All Games" subId="allGames"
             category="{{$subCategory->category->id}}" isGames="{{true}}" />
 
         @foreach ($gameTypes as $gameType)
-        <x-related-products :products="$gameType->products->take(5)" title="{{$gameType->name}}"
-            subId="{{$gameType->id}}" category="{{$subCategory->category->id}}" isGames="{{true}}" />
+        <x-related-products :products="$gameType->products()
+        ->where('category_id', $subCategory->category->id)
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get()" title="{{$gameType->name}}" subId="{{$gameType->id}}" category="{{$subCategory->category->id}}"
+            isGames="{{true}}" />
         @endforeach
         @else
         <section class="productsList">

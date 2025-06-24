@@ -19,6 +19,6 @@ class Order extends Model
     ];
     public function products()
     {
-        return $this->hasMany(order_item::class, 'order_id');
+        return $this->hasMany(Order_item::class, 'order_id');
     }
 }

@@ -35,7 +35,7 @@
             </div>
             @endforeach
         </div>
-        {{ $products->links() }}
+        {{ $comingSoonGames->links() }}
     </div>
     <x-footer :categories="$categories" />
     <script src="/js/navbar.js"></script>

@@ -27,7 +27,8 @@
             <img src="/img/colored-cart.svg" alt="Cart Icon" class="icon" loading="lazy" />
             <div class="cart-quantity">{{$cartQuantity}}</div>
         </div>
-        <img src="/img/colored-login.svg" alt="Login Icon" class="icon" loading="lazy" />
+        <img src="/img/colored-login.svg" alt="Login Icon" class="icon" loading="lazy"
+            onclick="window.location.href='/admin/login'" />
     </div>
 </nav>
 <div class="categories-container">

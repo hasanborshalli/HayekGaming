@@ -101,7 +101,7 @@
 				<a href="/product/{{$controller->id}}" style="text-decoration: none">
 					<div class="controller-image-wrapper">
 						<img src="/storage/products/{{$controller->image}}"
-							alt="{{ html_entity_decode($controller->name) }}" loading="lazy" />
+							alt="{{ html_entity_decode($controller->name) }}" loading="lazy" class="controller-img" />
 						@if($controller->sale)
 						<div class="sale-badge">SALE</div>
 						@endif

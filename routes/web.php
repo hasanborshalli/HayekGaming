@@ -17,6 +17,8 @@ Route::get('/product/{product}', [PagesController::class,'productDetailsPage']);
 Route::get('/products/{category}', [PagesController::class,'productsPage']);
 Route::get('/products/category/{subCategory}', [PagesController::class,'productsBySubPage']);
 Route::get('/products/{subCategory}/{gameType}', [PagesController::class,'productsByGameType']);
+Route::get('/allGames/{subCategory}', [PagesController::class,'productsByAllGames']);
+
 Route::get('/search/products', [ProductController::class,'productsSearch']);
 Route::get('/search-products', [ProductController::class, 'search']);
 Route::get('/filterProducts', [ProductController::class,'filter']);
@@ -32,7 +34,7 @@ Route::get('/admin/login', [PagesController::class,'loginPage'])->middleware('gu
 Route::post('/admin/login', [AuthController::class,'login'])->middleware('guest');
 Route::get('/logout', [AuthController::class,'Logout'])->middleware('auth');
 
-Route::get('/admin', [PagesController::class,'adminPage'])->middleware('auth');
+Route::get('/admin', [PagesController::class,'adminPage'])->middleware('auth')->name('home');
 
 Route::get('/admin/products', [PagesController::class,'manageProductsPage'])->middleware('auth');
 Route::get('/admin/search/products', [ProductController::class,'adminProductsSearch'])->middleware('auth');

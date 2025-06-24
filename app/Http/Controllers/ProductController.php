@@ -153,6 +153,7 @@ public function search(Request $request)
 
     $products = Product::where('name', 'like', '%' . $query . '%')
     ->orderBy('created_at','desc')
+    ->where('is_available',true)
     ->limit(10)
     ->get(['id', 'name', 'image', 'price', 'sale']); // Include image
 
@@ -212,7 +213,7 @@ public function search(Request $request)
         $searchStatement = implode(', ', $selectedGameTypeNames);
 
         // Filter products by both subcategory and game types
-        $products = Product::where('sub_category_id', $subCategoryId)->where('is_available',true)
+        $products = Product::where('sub_category_id', $subCategoryId)->where('is_available',true)->orderBy('created_at','desc')
             ->whereHas('gameTypes', function ($query) use ($selectedGameTypeIds) {
                 $query->whereIn('game_types.id', $selectedGameTypeIds);
             })

@@ -33,8 +33,9 @@
         </div>
         @if ($category->subcategories->count()>0)
         @foreach ($category->subcategories as $subcategory)
-        <x-related-products :products="$subcategory->products->take(5)" title="{{$subcategory->name}}"
-            subId="{{$subcategory->id}}" category="{{$subcategory->category->id}}" isGames="{{false}}" />
+        <x-related-products :products="$subcategory->products()->orderBy('created_at', 'desc')->take(5)->get()"
+            title="{{$subcategory->name}}" subId="{{$subcategory->id}}" category="{{$subcategory->category->id}}"
+            isGames="{{false}}" />
         @endforeach
         @else
         <section class="productsList">
