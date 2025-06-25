@@ -62,7 +62,7 @@
 				path="/coming-soon" />
 			<x-category-box image="/img/ps.webp" title="Playstation" path="/products/1" />
 			<x-category-box image="/img/retro.webp" title="Retro" path="/products/7" />
-			<x-category-box image="/img/setup.webp" title="Gaming Setup" path="/products/5" />
+			<x-category-box image="/img/Setup.webp" title="Gaming Setup" path="/products/5" />
 		</div>
 	</section>
 	<section class="new">
@@ -135,7 +135,7 @@
 			<ul>
 				<li>🛒 Hadath Beirut, Hayek Gaming Ground</li>
 				<li>🚚 Delivery all over Lebanon</li>
-				<li>⏱️ <span class="open">Currently Open</span> <span style="color:red">Close at 6:00 PM</span></li>
+				<li>⏱️ <span class="open">Currently Open</span> <span style="color:red">Close at 7:00 PM</span></li>
 			</ul>
 		</div>
 		<div class="map">
@@ -145,42 +145,13 @@
 				referrerpolicy="no-referrer-when-downgrade"></iframe>
 		</div>
 	</section>
-	<div class="marquee-container">
-		<marquee scrollamount="15" behavior="scroll" direction="right">
-			WE DELIVER ALL OVER
-			LEBANON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WE
-			DELIVER ALL OVER LEBANON
-		</marquee>
-	</div>
+
 
 	<x-footer :categories="$categories" />
 	<div id="toast" class="toast"></div>
 	<script src="/js/home.js"></script>
 	<script src="/js/navbar.js"></script>
 	<script src="/js/order.js"></script>
-	<script>
-		document.querySelector('.view-all').addEventListener('click', () => {
-  const container = document.querySelector('.controller-carousel');
-  const card = container.querySelector('.controller-card');
-  if (card) {
-    container.scrollBy({ left: card.offsetWidth * 3, behavior: 'smooth' });
-  }
-});
-
-// Add to cart feedback
-document.querySelectorAll('.controller-card button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const name = btn.closest('.controller-card').querySelector('h3').innerText;
-    alert(`${name} added to cart!`);
-  });
-});
-window.addEventListener("load", () => {
-  const carousel = document.querySelector(".controller-carousel");
-  if (window.innerWidth <= 768) {
-    carousel.scrollTo({ left: 40, behavior: "smooth" });
-  }
-});
-	</script>
 </body>
 
 </html>

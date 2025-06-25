@@ -52,15 +52,40 @@ class PagesController extends Controller
         $cartQuantity = count($cart);
         return view('productsPage', ['categories' => $categories,'category'=>$category,'cartQuantity'=>$cartQuantity]);
     }
-    public function productsBySubPage(SubCategory $subCategory)
-    {
-        $categories=Category::all();
-        $gameTypes=GameType::all();
-        $cart = session('cart_items', []);
-        $cartQuantity = count($cart);
-        
-        return view('productsBySub', ['categories' => $categories,'subCategory'=>$subCategory,'isGameType'=>false,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
+//     public function productsBySubPage(SubCategory $subCategory)
+// {
+//     $categories = Category::all();
+//     $gameTypes = GameType::all();
+//     $cart = session('cart_items', []);
+//     $cartQuantity = count($cart);
+
+//     return view('productsBySub', [
+//         'categories' => $categories,
+//         'subCategory' => $subCategory,
+//         'isGameType' => false,
+//         'gameTypes' => $gameTypes,
+//         'cartQuantity' => $cartQuantity
+//     ]);
+// }
+public function productsBySubPage(SubCategory $subCategory)
+{
+    if ($subCategory->name === 'Games') {
+        return redirect()->route('allGamesRoute', ['subCategory' => $subCategory->id]);
     }
+
+    $categories = Category::all();
+    $cart = session('cart_items', []);
+    $cartQuantity = count($cart);
+
+    return view('productsBySub', [
+        'categories' => $categories,
+        'subCategory' => $subCategory,
+        'isGameType' => false,
+        'cartQuantity' => $cartQuantity,
+        'gameTypes' => [],
+    ]);
+}
+
     public function productsByGameType(SubCategory $subCategory, GameType $gameType)
     {
                  $categories=Category::all();

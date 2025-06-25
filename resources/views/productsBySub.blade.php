@@ -18,60 +18,6 @@
     <link rel="stylesheet" href="/css/pagination.css">
 
     <title>Products Page</title>
-    <style>
-        .product-card,
-        .product-category,
-        .product-title p {
-            color: black !important;
-        }
-
-        @media (max-width: 480px) {
-            .card-image {
-                min-height: 200px;
-            }
-
-            .products {
-                gap: 15px;
-                padding-right: 10px;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-
-            .product-card {
-                width: calc(50% - 10px);
-                flex-shrink: 0;
-                margin-bottom: 15px;
-            }
-
-            .product-price,
-            .old-price,
-            .sale-price {
-                font-size: 12px;
-            }
-
-            .old-price {
-                margin: 0;
-            }
-
-            .product-price {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .card-image img {
-                object-fit: fill;
-            }
-
-            .card-category-price {
-                height: 36px;
-            }
-
-            .productsList,
-            .productsPage {
-                padding: 5px;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -117,27 +63,8 @@
                 <button type="submit">Apply Filter</button>
             </form>
         </div>
-        @if (!$isGameType)
 
-        @php
-        $latestProducts = $subCategory->products()
-        ->orderBy('created_at', 'desc')
-        ->take(5)
-        ->get();
-        @endphp
-
-        <x-related-products :products="$latestProducts" title="All Games" subId="allGames"
-            category="{{$subCategory->category->id}}" isGames="{{true}}" />
-
-        @foreach ($gameTypes as $gameType)
-        <x-related-products :products="$gameType->products()
-        ->where('category_id', $subCategory->category->id)
-        ->orderBy('created_at', 'desc')
-        ->take(5)
-        ->get()" title="{{$gameType->name}}" subId="{{$gameType->id}}" category="{{$subCategory->category->id}}"
-            isGames="{{true}}" />
-        @endforeach
-        @else
+        @if($isGameType)
         <section class="productsList">
             @foreach ($products as $product)
             <x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"

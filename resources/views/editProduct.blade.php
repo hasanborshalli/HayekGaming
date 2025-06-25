@@ -189,6 +189,24 @@
               <img id="preview-img4" class="img-preview" style="max-width:400px;"
                 src="/storage/products/{{$product->image4}}" loading="lazy" />
             </div>
+            <div class="form-group image-upload">
+              <label for="img5">Image 5</label>
+              <input type="file" id="img5" accept="image/*" name="image5">
+              @error('image5')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+              <img id="preview-img5" class="img-preview" style="max-width:400px;"
+                src="/storage/products/{{$product->image5}}" loading="lazy" />
+            </div>
+            <div class="form-group image-upload">
+              <label for="img6">Image 6</label>
+              <input type="file" id="img6" accept="image/*" name="image6">
+              @error('image4')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+              <img id="preview-img6" class="img-preview" style="max-width:400px;"
+                src="/storage/products/{{$product->image6}}" loading="lazy" />
+            </div>
           </div>
           <input type="submit" value="Edit Product" class="submit-btn" />
         </div>
@@ -235,7 +253,7 @@ function toggleGameType() {
     }
   }
 }
-  const imageInputs = ['mainImage', 'img1', 'img2', 'img3', 'img4'];
+  const imageInputs = ['mainImage', 'img1', 'img2', 'img3', 'img4','img5','img6'];
 
   imageInputs.forEach(id => {
     const input = document.getElementById(id);

@@ -17,7 +17,7 @@ class ProductController extends Controller
         $fields=$request->validate([
         'category_id' => 'required|exists:categories,id',
         'sub_category_id' => 'nullable|exists:subcategories,id',
-        'name' => 'required|string|max:20',
+        'name' => 'required|string',
         'price' => 'required|numeric|min:0',
         'sale' => 'nullable|numeric|min:0',
         'featured' => 'required|in:yes,no',
@@ -25,10 +25,12 @@ class ProductController extends Controller
         'features' => 'nullable|string',
         'box_contents' => 'nullable|string',
         'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-        'image1' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'image2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'image3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'image4' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image5' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image6' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'gameTypes' => 'nullable|array',
         'gameTypes.*' => 'string'
         ]);
@@ -37,14 +39,18 @@ class ProductController extends Controller
         $mainImage->storeAs('products', $customName);
         $fields['image']=$customName;
 
-        foreach (['image1', 'image2', 'image3', 'image4'] as $img) {
+        foreach (['image1', 'image2', 'image3', 'image4','image5','image6'] as $img) {
             if($request[$img]) {
                 $customName='Product-'.Str::uuid().'.webp';
                 $request->file($img)->storeAs('products', $customName);
                 $fields[$img]=$customName;
             }
         }
-        $fields['features']=json_encode(explode("\n", trim($fields['features'])));
+         if($request->features) {
+            $fields['features']=json_encode(explode("\n", trim($fields['features'])));
+        } else {
+            $fields['features']=null;
+        }
         
         if($request->box_contents) {
             $fields['box_contents']=json_encode(explode("\n", trim($fields['box_contents'])));
@@ -70,7 +76,7 @@ class ProductController extends Controller
         $fields=$request->validate([
         'category_id' => 'required|exists:categories,id',
         'sub_category_id' => 'nullable|exists:subcategories,id',
-        'name' => 'required|string|max:20',
+        'name' => 'required|string',
         'price' => 'required|numeric|min:0',
         'sale' => 'nullable|numeric|min:0',
         'featured' => 'required|in:yes,no',
@@ -83,10 +89,12 @@ class ProductController extends Controller
         'image2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'image3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'image4' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image5' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image6' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'gameTypes' => 'nullable|array',
         'gameTypes.*' => 'string'
         ]);
-        foreach (['image','image1', 'image2', 'image3', 'image4'] as $img) {
+        foreach (['image','image1', 'image2', 'image3', 'image4','image5','image6'] as $img) {
             if($request[$img]) {
                 if ($product->$img && Storage::exists('products/' . $product->image)) {
                     Storage::delete('products/' . $product->image);

@@ -16,7 +16,7 @@ function slide() {
     const prevIndex = (currentIndex - 1 + totalImages) % totalImages;
     const nextIndex = (currentIndex + 1) % totalImages;
 
-    // Move main images
+    // Slide the images
     images.forEach((img) => {
         img.style.transform = `translateX(-${currentIndex * 100}%)`;
     });
@@ -25,17 +25,42 @@ function slide() {
     dots.forEach((dot) => dot.classList.remove("active"));
     dots[currentIndex].classList.add("active");
 
-    // Update left and right banners
-    prevBanner.src = bannerImages[prevIndex];
-    nextBanner.src = bannerImages[nextIndex];
-
-    index++;
+    // Optional: update blurred preview images (if still showing)
+    if (prevBanner && nextBanner) {
+        prevBanner.src = bannerImages[prevIndex];
+        nextBanner.src = bannerImages[nextIndex];
+    }
 }
 
-setInterval(slide, 3000); // Change the slider every 3 seconds
+//setInterval(slide, 3000); // Change the slider every 3 seconds
 dots.forEach((dot, dotIndex) => {
     dot.addEventListener("click", () => {
         index = dotIndex;
         slide();
     });
+});
+let startX = 0;
+let isDragging = false;
+
+const carouselContainer = document.querySelector(".carousel-container");
+
+carouselContainer.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+});
+
+carouselContainer.addEventListener("touchend", (e) => {
+    isDragging = false;
+    const endX = e.changedTouches[0].clientX;
+    const diffX = endX - startX;
+
+    const threshold = 50;
+
+    if (diffX > threshold) {
+        index = (index - 1 + totalImages) % totalImages;
+        slide();
+    } else if (diffX < -threshold) {
+        index = (index + 1) % totalImages;
+        slide();
+    }
 });

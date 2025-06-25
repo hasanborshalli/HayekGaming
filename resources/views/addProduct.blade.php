@@ -167,6 +167,22 @@
               @enderror
               <img id="preview-img4" class="img-preview" style="max-width:400px;" loading="lazy" />
             </div>
+            <div class="form-group image-upload">
+              <label for="img5">Image 5</label>
+              <input type="file" id="img5" accept="image/*" name="image5">
+              @error('image5')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+              <img id="preview-img5" class="img-preview" style="max-width:400px;" loading="lazy" />
+            </div>
+            <div class="form-group image-upload">
+              <label for="img6">Image 6</label>
+              <input type="file" id="img6" accept="image/*" name="image6">
+              @error('image6')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+              <img id="preview-img6" class="img-preview" style="max-width:400px;" loading="lazy" />
+            </div>
           </div>
           <input type="submit" value="Add Product" class="submit-btn" />
         </div>
@@ -207,7 +223,7 @@
     document.querySelectorAll('input[name="gameTypes[]"]').forEach(cb => cb.checked = false);
   }
 }
-  const imageInputs = ['mainImage', 'img1', 'img2', 'img3', 'img4'];
+  const imageInputs = ['mainImage', 'img1', 'img2', 'img3', 'img4','img5','img6'];
 
   imageInputs.forEach(id => {
     const input = document.getElementById(id);

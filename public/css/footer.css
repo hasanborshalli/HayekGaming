@@ -1,3 +1,7 @@
+@font-face {
+    font-family: "Facon";
+    src: url("/fonts/Facon.ttf") format("truetype");
+}
 footer {
     padding-top: 20px;
     width: 100%;
@@ -59,6 +63,21 @@ footer ul img {
 .page-name {
     display: none;
 }
+.marquee-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+marquee {
+    width: 70%;
+    margin: 20px auto;
+    color: var(--main-color);
+    font-weight: 900;
+    font-family: "Facon", sans-serif;
+    letter-spacing: 10px;
+    font-size: 18px;
+}
 @media (max-width: 768px) {
     footer {
         flex-direction: column;
@@ -86,5 +105,11 @@ footer ul img {
         align-items: center;
         justify-content: flex-start;
         gap: 20px;
+    }
+}
+@media (max-width: 480px) {
+    marquee {
+        width: 100%;
+        font-size: 14px;
     }
 }

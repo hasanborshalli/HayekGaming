@@ -1,3 +1,10 @@
+<div class="marquee-container">
+    <marquee scrollamount="15" behavior="scroll" direction="right">
+        WE DELIVER ALL OVER
+        LEBANON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WE
+        DELIVER ALL OVER LEBANON
+    </marquee>
+</div>
 <footer>
     <section class="left-footer">
         <a href="/"><img src="/img/white-logo.svg" alt="Logo"></a>

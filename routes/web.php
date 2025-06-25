@@ -17,7 +17,7 @@ Route::get('/product/{product}', [PagesController::class,'productDetailsPage']);
 Route::get('/products/{category}', [PagesController::class,'productsPage']);
 Route::get('/products/category/{subCategory}', [PagesController::class,'productsBySubPage']);
 Route::get('/products/{subCategory}/{gameType}', [PagesController::class,'productsByGameType']);
-Route::get('/allGames/{subCategory}', [PagesController::class,'productsByAllGames']);
+Route::get('/allGames/{subCategory}', [PagesController::class,'productsByAllGames'])->name('allGamesRoute');
 
 Route::get('/search/products', [ProductController::class,'productsSearch']);
 Route::get('/search-products', [ProductController::class, 'search']);

@@ -1,7 +1,4 @@
-@font-face {
-    font-family: "Facon";
-    src: url("/fonts/Facon.ttf") format("truetype");
-}
+
 .boxes-container {
     padding: 20px;
 }
@@ -248,21 +245,7 @@
     border-radius: 8px;
     color: gray;
 }
-.marquee-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-marquee {
-    width: 70%;
-    margin: 20px auto;
-    color: var(--main-color);
-    font-weight: 900;
-    font-family: "Facon", sans-serif;
-    letter-spacing: 10px;
-    font-size: 18px;
-}
+
 @media (max-width: 1024px) {
     .ps5-controllers {
         width: 90%;
@@ -329,10 +312,7 @@ marquee {
     .featured {
         height: 400px;
     }
-    marquee {
-        width: 100%;
-        font-size: 14px;
-    }
+    
 }
 
 @media (max-width: 768px) {
