@@ -8,7 +8,7 @@ function changeImage(id, src) {
     selectedImage.classList.add("selected-image");
     productImage.setAttribute("src", src);
 }
-const quantity = document.getElementById("quantity");
+const quantity = document.getElementsByClassName("quantity-input")[0];
 function updateQuantity(sign) {
     if (sign === "+") {
         quantity.value = parseInt(quantity.value) + 1;

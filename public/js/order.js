@@ -1,5 +1,5 @@
 function addToCart(id) {
-    let currentQuantity = 1;
+    let currentQuantity = document.getElementById("quantity-" + id)?.value || 1;
     const token = document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");

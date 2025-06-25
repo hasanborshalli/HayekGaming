@@ -76,13 +76,14 @@ public function productsBySubPage(SubCategory $subCategory)
     $categories = Category::all();
     $cart = session('cart_items', []);
     $cartQuantity = count($cart);
-
+    $products=$subCategory->products()->orderBy('created_at','desc')->where('is_available',true)->paginate(24);
     return view('productsBySub', [
         'categories' => $categories,
         'subCategory' => $subCategory,
         'isGameType' => false,
         'cartQuantity' => $cartQuantity,
         'gameTypes' => [],
+        'products'=>$products
     ]);
 }
 

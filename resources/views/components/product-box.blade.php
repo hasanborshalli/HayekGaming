@@ -33,8 +33,8 @@
                 @endif
             </div>
             <div class="quantity">Quantity: <div class="quantity-btns"><button
-                        onclick="updateQuantity('-')">-</button><input id="quantity" name="quantity" value="1"
-                        min="1"><button onclick="updateQuantity('+')">+</button></div>
+                        onclick="updateQuantity('-')">-</button><input id="quantity-{{$id}}" class="quantity-input"
+                        name="quantity" value="1" min="1"><button onclick="updateQuantity('+')">+</button></div>
             </div>
             <div class="order-btns">
                 <button class="add-cart" onclick="addToCart({{$id}})">Add to cart</button>
