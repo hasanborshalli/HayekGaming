@@ -19,16 +19,12 @@
             <img src="/img/cart.svg" alt="Cart Icon" class="icon" loading="lazy" />
             <div class="cart-quantity">{{$cartQuantity}}</div>
         </div>
-        <img src="/img/login.svg" alt="Login Icon" class="icon" onclick="window.location.href='/admin/login'"
-            loading="lazy" />
     </div>
     <div class="navbar-right mobile">
         <div class="cart-wrapper" onclick="window.location.href='/cart'">
             <img src="/img/colored-cart.svg" alt="Cart Icon" class="icon" loading="lazy" />
             <div class="cart-quantity">{{$cartQuantity}}</div>
         </div>
-        <img src="/img/colored-login.svg" alt="Login Icon" class="icon" loading="lazy"
-            onclick="window.location.href='/admin/login'" />
     </div>
 </nav>
 <div class="categories-container">
