@@ -54,6 +54,42 @@ class OrderController extends Controller
         }
         
     }
+
+public function remove(Request $request)
+{
+    $id = $request->input('id');
+
+    if (!$id) {
+        return response()->json(['status' => 'error', 'message' => 'Missing product ID'], 400);
+    }
+
+    $cart = session()->get('cart_items', []);
+
+    // Check if the item exists
+    $exists = false;
+    $newCart = [];
+
+    $itemFound=false;
+        foreach ($cart as  $item) {
+            if ($item['id'] == $id) {
+                $itemFound = true;
+                continue;
+            }
+             $newCart[] = $item;
+        }
+        if(!$itemFound) {
+        return response()->json(['status' => 'error', 'message' => 'Item not found in cart'], 404);
+        }
+
+
+    // Update session
+    session(['cart_items' => $newCart]);
+
+    return response()->json(['status' => 'success', 'message' => 'Item removed']);
+}
+
+
+
     public function checkout(Request $request)
     {
         $orderedItems = []; // Initialize an array to store ordered items

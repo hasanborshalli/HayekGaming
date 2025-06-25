@@ -25,12 +25,7 @@ body {
 }
 .gameType-filter-form {
     margin: 20px auto;
-    padding: 20px;
     width: 90%;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     font-family: "Poppins", sans-serif;
 }
 .gameTypes {
@@ -116,6 +111,23 @@ body {
 .filter-form-popup.show {
     display: block;
     animation: slide-up 0.3s ease;
+}
+.close-filter-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s ease;
+    z-index: 1001;
+}
+
+.close-filter-btn:hover {
+    color: #333;
 }
 
 @keyframes slide-up {

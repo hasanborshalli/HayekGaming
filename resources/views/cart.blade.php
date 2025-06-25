@@ -33,6 +33,7 @@
                         <th>Name</th>
                         <th>Quantity</th>
                         <th>Price ($)</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody id="cart-body">
@@ -42,7 +43,7 @@
                     <form method="post" action="/checkout">
                         @csrf
                         @foreach ($products as $index=>$item)
-                        <tr>
+                        <tr data-id="{{ $item->id }}">
                             <input type="hidden" value="{{$item->id}}" name="item_{{$item->id}}">
                             <td>{{$index + 1}}</td>
                             <td><img src="/storage/products/{{$item->image}}" alt="{{$item->name}}" loading="lazy"></td>
@@ -58,6 +59,10 @@
                                 </div>
                             </td>
                             <td id="price-{{$item->id}}">{{$item->price*$cart[$index]['quantity']}}</td>
+                            <td>
+                                <button type="button" class="remove-btn" onclick="removeFromCart({{ $item->id }})"
+                                    title="Remove from cart">×</button>
+                            </td>
                         </tr>
                         @php
                         $subtotal = $cart[$index]['quantity'] * $item->price;// Calculate subtotal for this book
@@ -68,7 +73,7 @@
                 </tbody>
                 <tfoot>
                     <tr class="total-row">
-                        <td colspan="4">Total Price</td>
+                        <td colspan="5">Total Price</td>
                         <td id="total-price">${{number_format($totalPrice, 2)}}</td>
                     </tr>
                 </tfoot>
@@ -110,6 +115,50 @@
 
     </script>
     <script src="/js/navbar.js"></script>
+    <script>
+        function removeFromCart(itemId) {
+        fetch('/remove-from-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({ id: itemId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                
+                // Remove the row from the DOM
+                const row = document.querySelector(`[data-id="${itemId}"]`);
+                console.log(row);
+                if (row) {
+                    row.remove();
+                }
+
+                // Optionally update total price
+                updateTotalPrice();
+
+            } else {
+                console.log(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Request failed:', error);
+            
+        });
+    }
+
+    function updateTotalPrice() {
+        let total = 0;
+        document.querySelectorAll("[id^='price-']").forEach(priceEl => {
+            total += parseFloat(priceEl.textContent);
+        });
+        document.getElementById("total-price").textContent = `$${total.toFixed(2)}`;
+    }
+    </script>
+
+
 </body>
 
 </html>

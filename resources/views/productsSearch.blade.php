@@ -25,6 +25,56 @@
         .product-title p {
             color: black !important;
         }
+
+        @media (max-width: 480px) {
+
+            .productsList,
+            .productsPage {
+                padding: 5px;
+            }
+
+            .card-image {
+                min-height: 200px;
+            }
+
+            .products {
+                gap: 15px;
+                padding-right: 10px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .product-card {
+                width: calc(50% - 10px);
+                flex-shrink: 0;
+                margin-bottom: 15px;
+            }
+
+            .product-price,
+            .old-price,
+            .sale-price {
+                font-size: 12px;
+            }
+
+            .old-price {
+                margin: 0;
+            }
+
+            .product-price {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .card-image img {
+                object-fit: fill;
+            }
+
+            .card-category-price {
+                height: 36px;
+            }
+
+
+        }
     </style>
 </head>
 

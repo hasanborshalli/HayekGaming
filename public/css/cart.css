@@ -101,6 +101,25 @@ td img {
 .empty-cart {
     color: var(--main-color);
 }
+.remove-btn {
+    background: transparent;
+    border: none;
+    color: #ff4d4f;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.remove-btn:hover {
+    color: #b30000;
+    transform: scale(1.2);
+}
+td .remove-btn {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .cart-container {

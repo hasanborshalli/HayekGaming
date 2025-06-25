@@ -72,7 +72,7 @@ class PagesController extends Controller
                              ->where('sub_category_id', $subCategory->id)
                              ->where('is_available',true)
                              ->orderBy('created_at', 'desc') 
-                             ->paginate(10);
+                             ->paginate(24);
         
         return view('productsBySub', ['categories' => $categories,'gameType'=>$gameType,'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
     }
@@ -82,7 +82,7 @@ class PagesController extends Controller
         $gameTypes=GameType::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart); 
-        $products=$subCategory->products()->where('is_available',true)->orderBy('created_at', 'desc')->paginate(10);
+        $products=$subCategory->products()->where('is_available',true)->orderBy('created_at', 'desc')->paginate(24);
         return view('productsBySub', ['categories' => $categories,'gameType'=>"All Games",'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
     }
     public function loginPage()
@@ -96,7 +96,7 @@ class PagesController extends Controller
 
     public function manageProductsPage()
     {
-        $products=Product::where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(20);
+        $products=Product::where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(24);
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
@@ -110,7 +110,7 @@ class PagesController extends Controller
     public function manageComingPage()
     {
         $image=Coming::first();
-        $comingProducts=ComingProduct::paginate(10);
+        $comingProducts=ComingProduct::paginate(24);
         return view('manageComing', ['image' => $image,'comingProducts'=>$comingProducts]);
     }
     public function changePasswordPage()
@@ -212,7 +212,7 @@ $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        $comingSoonGames=ComingProduct::paginate(10);
+        $comingSoonGames=ComingProduct::paginate(24);
         
         return view('comingSoon', ['categories' => $categories,'cartQuantity'=>$cartQuantity,'comingSoonGames'=>$comingSoonGames]);
     }

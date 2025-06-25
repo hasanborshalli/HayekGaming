@@ -24,6 +24,53 @@
         .product-title p {
             color: black !important;
         }
+
+        @media (max-width: 480px) {
+            .card-image {
+                min-height: 200px;
+            }
+
+            .products {
+                gap: 15px;
+                padding-right: 10px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            .product-card {
+                width: calc(50% - 10px);
+                flex-shrink: 0;
+                margin-bottom: 15px;
+            }
+
+            .product-price,
+            .old-price,
+            .sale-price {
+                font-size: 12px;
+            }
+
+            .old-price {
+                margin: 0;
+            }
+
+            .product-price {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .card-image img {
+                object-fit: fill;
+            }
+
+            .card-category-price {
+                height: 36px;
+            }
+
+            .productsList,
+            .productsPage {
+                padding: 5px;
+            }
+        }
     </style>
 </head>
 
@@ -50,12 +97,12 @@
             @endif
         </div>
         @if ($subCategory->name=='Games')
-        @if (!$isGameType)
         <!-- Sticky Filter Button -->
         <button class="filter-toggle-btn" onclick="toggleFilterForm()">Filter</button>
 
         <!-- Hidden Filter Form -->
         <div id="filterFormContainer" class="filter-form-popup">
+            <button type="button" class="close-filter-btn" onclick="toggleFilterForm()">×</button>
             <form method="GET" action="/filterProducts" class="gameType-filter-form">
                 <h4>Filter by Game Types:</h4>
                 <input type="hidden" name="subCategoryId" value="{{ $subCategory->id }}">
@@ -70,6 +117,8 @@
                 <button type="submit">Apply Filter</button>
             </form>
         </div>
+        @if (!$isGameType)
+
         @php
         $latestProducts = $subCategory->products()
         ->orderBy('created_at', 'desc')
