@@ -174,9 +174,9 @@ body {
         flex-direction: column;
     }
 
-    .card-image img {
+    /* .card-image img {
         object-fit: fill;
-    }
+    } */
 
     .card-category-price {
         height: 36px;

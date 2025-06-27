@@ -51,6 +51,21 @@
     <script src="/js/productDetails.js"></script>
     <script src="/js/navbar.js"></script>
     <script src="/js/order.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const description = document.getElementById('descriptionText');
+        const toggleBtn = document.getElementById('toggleDescriptionBtn');
+
+        toggleBtn.addEventListener('click', function () {
+            description.classList.toggle('expanded');
+            if (description.classList.contains('expanded')) {
+                toggleBtn.textContent = 'View Less';
+            } else {
+                toggleBtn.textContent = 'View More';
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>
