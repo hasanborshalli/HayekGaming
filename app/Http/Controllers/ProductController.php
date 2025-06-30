@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\GameType;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -153,7 +154,7 @@ class ProductController extends Controller
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        return view('productsSearch', ['products'=>$products,'categories'=>$categories,'search'=>$fields['search'],'cartQuantity'=>$cartQuantity]);
+        return view('productsSearch', ['products'=>$products,'categories'=>$categories,'search'=>$fields['search'],'cartQuantity'=>$cartQuantity,'filter'=>false]);
     }
 public function search(Request $request)
 {
@@ -207,31 +208,46 @@ public function search(Request $request)
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
     }
-    public function filter(Request $request)
-    {
-        $selectedGameTypeIds = $request->input('gameTypes', []);
-        $subCategoryId = $request->input('subCategoryId');
-
-        if (empty($selectedGameTypeIds) || !$subCategoryId) {
-            return redirect()->back()->with('message', 'Missing filters.');
-        }
-
-        // Get names for search statement
-        $selectedGameTypeNames = GameType::whereIn('id', $selectedGameTypeIds)->pluck('name')->toArray();
-        $searchStatement = implode(', ', $selectedGameTypeNames);
-
-        // Filter products by both subcategory and game types
-        $products = Product::where('sub_category_id', $subCategoryId)->where('is_available',true)->orderBy('created_at','desc')
-            ->whereHas('gameTypes', function ($query) use ($selectedGameTypeIds) {
-                $query->whereIn('game_types.id', $selectedGameTypeIds);
-            })
-            ->with('gameTypes', 'category')
-             ->orderBy('created_at', 'desc') 
-            ->paginate(24);
-        $categories=Category::all();
-        $cart = session('cart_items', []);
-        $cartQuantity = count($cart);
-        return view('productsSearch', ['products'=>$products,'categories'=>$categories,'search'=>$searchStatement,'cartQuantity'=>$cartQuantity]);
-
+    public function filter(Request $request){
+   $selectedGameTypeIds = $request->input('gameTypes', []);
+    $subCategoryId = $request->input('subCategoryId');
+    $subCategory=SubCategory::where('id',$subCategoryId)->first();
+    
+    if (empty($selectedGameTypeIds) || !$subCategoryId) {
+        return redirect()->back()->with('message', 'Missing filters.');
     }
+
+    $selectedGameTypeNames = GameType::whereIn('id', $selectedGameTypeIds)->pluck('name')->toArray();
+    $searchStatement = implode(', ', $selectedGameTypeNames);
+
+    $products = Product::where('sub_category_id', $subCategoryId)
+        ->where('is_available', true)
+        ->whereHas('gameTypes', function ($query) use ($selectedGameTypeIds) {
+            $query->whereIn('game_types.id', $selectedGameTypeIds);
+        })
+        ->with('gameTypes', 'category')
+        ->whereIn('id', function ($query) use ($selectedGameTypeIds) {
+            $query->select('product_id')
+                ->from('game_type_product')
+                ->whereIn('game_type_id', $selectedGameTypeIds)
+                ->groupBy('product_id')
+                ->havingRaw('COUNT(DISTINCT game_type_id) = ?', [count($selectedGameTypeIds)]);
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(24);
+
+    $categories = Category::all();
+    $cart = session('cart_items', []);
+    $cartQuantity = count($cart);
+$gameTypes=GameType::all();
+    return view('productsSearch', [
+        'products' => $products,
+        'categories' => $categories,
+        'search' => $searchStatement,
+        'cartQuantity' => $cartQuantity,
+        'subCategory'=>$subCategory,
+        'filter'=>true,
+        'gameTypes'=>$gameTypes
+    ]);
+}
 }

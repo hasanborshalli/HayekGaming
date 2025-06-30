@@ -25,6 +25,28 @@
     <x-navbar :categories="$categories" cartQuantity="{{$cartQuantity}}" />
     <section class="productsPage">
         <h3>You Searched for : <span style="color:red">{{$search}}</span></h3>
+        @if($filter==true)
+        <!-- Sticky Filter Button -->
+        <button class="filter-toggle-btn" onclick="toggleFilterForm()">Filter</button>
+
+        <!-- Hidden Filter Form -->
+        <div id="filterFormContainer" class="filter-form-popup">
+            <button type="button" class="close-filter-btn" onclick="toggleFilterForm()">×</button>
+            <form method="GET" action="/filterProducts" class="gameType-filter-form">
+                <h4>Filter by Game Types:</h4>
+                <input type="hidden" name="subCategoryId" value="{{ $subCategory->id }}">
+                <div class="gameTypes">
+                    @foreach ($gameTypes as $gameType)
+                    <label>
+                        <input type="checkbox" name="gameTypes[]" value="{{ $gameType->id }}">
+                        {{ $gameType->name }}
+                    </label><br>
+                    @endforeach
+                </div>
+                <button type="submit">Apply Filter</button>
+            </form>
+        </div>
+        @endif
         <section class="productsList">
 
             @foreach ($products as $product)
@@ -37,6 +59,12 @@
     <x-footer :categories="$categories" />
     <script src="/js/navbar.js"></script>
     <script src="/js/order.js"></script>
+    <script>
+        function toggleFilterForm() {
+        const popup = document.getElementById('filterFormContainer');
+        popup.classList.toggle('show');
+    }
+    </script>
 </body>
 
 </html>
