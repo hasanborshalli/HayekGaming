@@ -1,11 +1,12 @@
-<div class="related-products">
+<div class="related-products"> {{$gameTypeId}}
+
     <h2>
         @if($title==="All Games")
         <a href='/allGames/{{$category}}'>
             {!! $title !!}
         </a>
         @else
-        <a href="{{ $isGames ? '/products/'.$category.'/' . $subId  : '/products/category/' . $subId }}">
+        <a href="{{ $isGames ? '/products/'.$subId.'/' . $gameTypeId  : '/products/category/' . $subId }}">
             {!! $title !!}
         </a>
         @endif

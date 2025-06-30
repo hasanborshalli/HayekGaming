@@ -43,8 +43,8 @@
         <x-product-description name="{{$product->name}}" description="{{$product->description}}"
             :boxContents="$boxContents" :features="$features" />
         <x-related-products :products="$relatedProducts" title="Related Products"
-            isGames="{{ $product->subCategory->name == 'Games' ? 'true' : 'false' }}" subId="{{$product->category_id}}"
-            category="{{$product->sub_category_id}}" />
+            isGames="{{ $product->subCategory->name == 'Games' ? true : false }}" subId="{{$product->sub_category_id}}"
+            category="{{$product->category_id}}" gameTypeId="{{$product->gameTypes[0]->id ?? null}}" />
     </section>
     <x-footer :categories="$categories" />
     <div id="toast" class="toast"></div>

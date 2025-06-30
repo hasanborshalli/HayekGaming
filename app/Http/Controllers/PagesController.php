@@ -35,6 +35,7 @@ $banners = Banner::orderBy('created_at', 'desc')->get();
     {
         $categories=Category::all();
        $relatedProductsQuery = Product::where('category_id', $product->category_id)
+       ->where('sub_category_id', $product->sub_category_id)
     ->where('is_available', true)
     ->where('id', '!=', $product->id)
     ->orderBy('created_at', 'desc');
