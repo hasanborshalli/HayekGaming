@@ -93,7 +93,7 @@
         </div>
       </div>
     </div>
-    {{ $products->links() }}
+    {{ $products->appends(request()->query())->links() }}
   </section>
 
   <script src="/js/productsManage.js">

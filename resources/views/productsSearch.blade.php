@@ -57,7 +57,7 @@
                 salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}" />
             @endforeach
         </section>
-        {{$products->links()}}
+        {{$products->appends(request()->query())->links()}}
     </section>
     <div id="toast" class="toast"></div>
     <x-footer :categories="$categories" />
