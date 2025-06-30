@@ -14,7 +14,7 @@ class PagesController extends Controller
     public function homePage()
     {
         $categories=Category::all();
-        $banners=banner::all();
+$banners = Banner::orderBy('created_at', 'desc')->get();
         $newproducts = Product::where('is_available',true)
                               ->where('category_id',1)
                                ->orderBy('created_at', 'desc') 

@@ -8,7 +8,7 @@ const bannerImages = Array.from(images).map((container) => {
     const img = container.querySelector("img");
     return img ? img.src : null;
 });
-
+const track = document.querySelector(".carousel-track");
 const totalImages = images.length;
 
 function slide() {
@@ -17,6 +17,9 @@ function slide() {
     const nextIndex = (currentIndex + 1) % totalImages;
 
     // Slide the images
+    if (track) {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
     images.forEach((img) => {
         img.style.transform = `translateX(-${currentIndex * 100}%)`;
     });

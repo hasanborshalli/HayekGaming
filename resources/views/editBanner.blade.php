@@ -43,7 +43,16 @@
         <p style="color:red">{{$message}}</p>
         @enderror
       </div>
+      <div class="form-group">
+        <label for="smallImage">Small Banner Image (700×880)</label>
+        <input type="file" id="smallImage" accept="image/*" name="small_image">
+        <img id="smallPreview" class="preview" src="/storage/banners/{{ $banner->small_image }}" style="display: block;"
+          loading="lazy" />
 
+        @error('small_image')
+        <p style="color:red">{{$message}}</p>
+        @enderror
+      </div>
       <div class="form-group">
         <label for="linkedProduct">Linked Product</label>
         <select id="linkedProduct" name="product_id" required>

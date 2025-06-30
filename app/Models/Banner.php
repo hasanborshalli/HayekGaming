@@ -10,6 +10,7 @@ class Banner extends Model
     protected $fillable = [
         'image',
         'mobile_image',
+        'small_image',
         'product_id'
     ];
     public function product(): BelongsTo

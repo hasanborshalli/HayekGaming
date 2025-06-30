@@ -34,11 +34,12 @@
 		</div>
 		<section class="carousel-wrapper">
 			<div class="carousel-container">
-				@foreach ($banners as $banner)
-				<x-image-container image="{{$banner->image}}" mobile-image="{{$banner->mobile_image}}"
-					id="{{$banner->product->id}}" />
-
-				@endforeach
+				<div class="carousel-track">
+					@foreach ($banners as $banner)
+					<x-image-container image="{{ $banner->image }}" mobile-image="{{ $banner->mobile_image }}"
+						small-image="{{ $banner->small_image }}" id="{{ $banner->product->id }}" />
+					@endforeach
+				</div>
 
 			</div>
 			<div class="carousel-dots">

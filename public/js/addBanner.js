@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const mobileInput = document.getElementById("mobileImage");
     const mobilePreview = document.getElementById("mobilePreview");
 
+    const smallInput = document.getElementById("smallImage");
+    const smallPreview = document.getElementById("smallPreview");
+
     desktopInput.addEventListener("change", function () {
         const file = this.files[0];
         if (file) {
@@ -18,6 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (file) {
             mobilePreview.src = URL.createObjectURL(file);
             mobilePreview.style.display = "block";
+        }
+    });
+    smallInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            smallPreview.src = URL.createObjectURL(file);
+            smallPreview.style.display = "block";
         }
     });
 });
@@ -39,4 +49,7 @@ desktopInput.addEventListener("change", () =>
 );
 mobileInput.addEventListener("change", () =>
     previewImage(mobileInput, mobilePreview)
+);
+smallInput.addEventListener("change", () =>
+    previewImage(smallInput, smallPreview)
 );

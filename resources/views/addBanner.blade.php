@@ -39,7 +39,14 @@
         @enderror
         <img id="mobilePreview" class="preview" style="display: none;" loading="lazy" />
       </div>
-
+      <div class="form-group">
+        <label for="smallImage">Small Banner Image (700×880)</label>
+        <input type="file" id="smallImage" accept="image/*" required name="small_image">
+        @error('small_image')
+        <p style="color:red">{{$message}}</p>
+        @enderror
+        <img id="smallPreview" class="preview" style="display: none;" loading="lazy" />
+      </div>
       <div class="form-group">
         <label for="linkedProduct">Linked Product</label>
         <select id="linkedProduct" required name="product_id">

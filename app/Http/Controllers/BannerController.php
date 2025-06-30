@@ -14,6 +14,7 @@ class BannerController extends Controller
         $fields = $request->validate([
         'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         'mobile_image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'small_image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         'product_id' => 'required|exists:products,id',
 ]);
         
@@ -26,6 +27,12 @@ class BannerController extends Controller
         $customName='MobileBanner-'.Str::uuid().'.'.$mobileImage->getClientOriginalExtension();
         $mobileImage->storeAs('banners', $customName);
         $fields['mobile_image']=$customName;
+        
+        $smallImage=$request->file('small_image');
+        $customName='SmallBanner-'.Str::uuid().'.'.$smallImage->getClientOriginalExtension();
+        $smallImage->storeAs('banners', $customName);
+        $fields['small_image']=$customName;
+        
         Banner::create($fields);
         return redirect('/admin/banners')->with('message', 'Banner Added Successfully');
     }
@@ -34,6 +41,7 @@ class BannerController extends Controller
         $fields = $request->validate([
         'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
         'mobile_image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+        'small_image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
         'product_id' => 'required|exists:products,id',
 ]);
         if($request['image']) {
@@ -54,6 +62,15 @@ class BannerController extends Controller
             $customName='MobileBanner-'.Str::uuid().'.webp';
             $mobileImage->storeAs('banners', $customName);
             $fields['mobile_image']=$customName;
+        }
+         if($request['small_image']) {
+            if ($banner->small_image && Storage::exists('banners/' . $banner->small_image)) {
+                Storage::delete('banners/' . $banner->small_image);
+            }
+            $smallImage=$request->file('small_image');
+            $customName='SmallBanner-'.Str::uuid().'.webp';
+            $smallImage->storeAs('banners', $customName);
+            $fields['small_image']=$customName;
         }
         $banner->update($fields);
         return redirect('/admin/banners')->with('message', 'Banner Updated Successfully');

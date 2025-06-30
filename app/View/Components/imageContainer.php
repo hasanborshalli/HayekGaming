@@ -10,11 +10,13 @@ class imageContainer extends Component
 {
     public $image;
     public $mobileImage;
+    public $smallImage;
     public $id;
-    public function __construct($image, $mobileImage, $id)
+    public function __construct($image, $mobileImage,$smallImage, $id)
     {
         $this->image=$image;
         $this->mobileImage=$mobileImage;
+        $this->smallImage=$smallImage;
         $this->id=$id;
     }
 
