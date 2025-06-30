@@ -105,7 +105,11 @@ class ProductController extends Controller
                 $fields[$img]=$customName;
             }
         }
-        $fields['features']=json_encode(explode("\n", trim($fields['features'])));
+       if($request->features) {
+            $fields['features']=json_encode(explode("\n", trim($fields['features'])));
+        } else {
+            $fields['features']=null;
+        }
         
         if($request->box_contents) {
             $fields['box_contents']=json_encode(explode("\n", trim($fields['box_contents'])));
