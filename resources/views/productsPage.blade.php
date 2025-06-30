@@ -41,6 +41,7 @@
     </section>
     <x-footer :categories="$categories" />
     <script src="/js/navbar.js"></script>
+    <script src="/js/order.js"></script>
 
 </body>
 
