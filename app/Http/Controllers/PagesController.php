@@ -34,11 +34,21 @@ $banners = Banner::orderBy('created_at', 'desc')->get();
     public function productDetailsPage(Product $product)
     {
         $categories=Category::all();
-        $relatedProducts=Product::where('category_id', $product->category_id)
-                                ->where('is_available',true)
-                                ->where('id', '!=', $product->id)
-                                 ->orderBy('created_at', 'desc') 
-                                ->take(5)->get();
+       $relatedProductsQuery = Product::where('category_id', $product->category_id)
+    ->where('is_available', true)
+    ->where('id', '!=', $product->id)
+    ->orderBy('created_at', 'desc');
+
+if ($product->gameTypes()->exists()) {
+    $gameTypeIds = $product->gameTypes->pluck('id')->toArray();
+
+    $relatedProductsQuery->whereHas('gameTypes', function ($query) use ($gameTypeIds) {
+        $query->whereIn('game_types.id', $gameTypeIds);
+    });
+}
+
+$relatedProducts = $relatedProductsQuery->take(5)->get();
+
         $features=json_decode($product->features, true);
         $boxContents=json_decode($product->box_contents, true);
         $cart = session('cart_items', []);

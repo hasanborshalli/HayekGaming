@@ -44,7 +44,7 @@
             :boxContents="$boxContents" :features="$features" />
         <x-related-products :products="$relatedProducts" title="Related Products"
             isGames="{{ $product->subCategory->name == 'Games' ? 'true' : 'false' }}" subId="{{$product->category_id}}"
-            category="{{$product->category_id}}" />
+            category="{{$product->sub_category_id}}" />
     </section>
     <x-footer :categories="$categories" />
     <div id="toast" class="toast"></div>

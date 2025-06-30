@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link
         href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet" />
@@ -18,6 +19,8 @@
     <link rel="stylesheet" href="/css/productsPage.css">
     <link rel="stylesheet" href="/css/relatedProducts.css">
     <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="stylesheet" href="/css/toast.css">
+
     <title>Products Page</title>
 </head>
 
@@ -56,6 +59,7 @@
         </section>
         {{$products->links()}}
     </section>
+    <div id="toast" class="toast"></div>
     <x-footer :categories="$categories" />
     <script src="/js/navbar.js"></script>
     <script src="/js/order.js"></script>
