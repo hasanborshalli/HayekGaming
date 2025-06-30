@@ -1,4 +1,4 @@
-<div class="related-products"> {{$gameTypeId}}
+<div class="related-products">
 
     <h2>
         @if($title==="All Games")
