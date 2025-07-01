@@ -58,3 +58,31 @@
         </a>
     </p>
 </div>
+<script type="application/ld+json">
+    {
+  "@context": "https://schema.org/",
+  "@type": "WebSite",
+  "name": "hayek gaming ground",
+  "url": "https://www.hayekgaming.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.hayekgaming.com/searc/products?search={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "sameAs": [
+    "https://www.facebook.com/share/1CF7SLfHAN/",
+    "https://www.instagram.com/hayekgaming?igsh=MW1jaG53eTM2dGZ4NQ==",
+    "https://www.tiktok.com/@hayekgamingground?_t=ZS-8wv3bWKbLqz&_r=1"
+    ],"contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+96178904703",
+                    "contactType": "Customer Service"
+                },
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Street Address, Beirut",
+                    "addressLocality": "Beirut",
+                    "addressCountry": "Lebanon"
+                }
+}
+</script>

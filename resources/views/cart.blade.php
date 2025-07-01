@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- SEO --}}
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords"
+        content="Hayek Gaming,Hayek Gaming Ground, Gaming store Lebanon, Playstation Lebanon,Gaming accessories Lebanon, Gaming shop Beirut, Buy PS5 Lebanon, Gaming keyboards Lebanon, Nintendo Switch Lebanon, Retro, Electronics and gadgets, Gamer Setup" />
+    <meta name="author" content="Hayek Gaming Ground" />
+    <meta name="copyright" content="Copyright © 2024 HayekGaming" />
+    <meta name="theme-color" content="#2a2670" />
+    <meta name="description"
+        content="Hayek Gaming is your ultimate destination in Lebanon for gaming consoles, accessories, and gear. Discover top deals on PlayStation 5, Playstation 4, Nintendo Switch, Gaming Setups, Electronic and gadgets, Retro and more with fast delivery and expert support all over lebanon." />
+
+    <meta property="og:title" content="Hayek Gaming Ground" />
+    <meta property="og:description"
+        content="Hayek Gaming is your ultimate destination in Lebanon for gaming consoles, accessories, and gear. Discover top deals on PlayStation 5, Playstation 4, Nintendo Switch, Gaming Setups, Electronic and gadgets, Retro and more with fast delivery and expert support all over lebanon." />
+    <meta property="og:image" content="https://www.hayekgaming.com/img/white-logo.svg" />
+    <meta property="og:url" content="https://www.hayekgaming.com" />
+    <meta property="og:type" content="website" />
+    {{-- End of SEO --}}
     <link rel="icon" sizes="32x32" href="/img/white-logo.svg">
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/footer.css">
