@@ -16,19 +16,15 @@ function slide() {
     const prevIndex = (currentIndex - 1 + totalImages) % totalImages;
     const nextIndex = (currentIndex + 1) % totalImages;
 
-    // Slide the images
     if (track) {
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
-    images.forEach((img) => {
-        img.style.transform = `translateX(-${currentIndex * 100}%)`;
-    });
 
     // Update dots
     dots.forEach((dot) => dot.classList.remove("active"));
     dots[currentIndex].classList.add("active");
 
-    // Optional: update blurred preview images (if still showing)
+    // Update blurred images
     if (prevBanner && nextBanner) {
         prevBanner.src = bannerImages[prevIndex];
         nextBanner.src = bannerImages[nextIndex];

@@ -61,8 +61,9 @@
 <script type="application/ld+json">
     {
   "@context": "https://schema.org/",
-  "@type": "WebSite",
+  "@type": "Store",
   "name": "hayek gaming ground",
+    "description": "Hayek Gaming is Lebanon’s leading gaming store offering consoles, accessories, and gear for all gamers.",
   "url": "https://www.hayekgaming.com",
   "potentialAction": {
     "@type": "SearchAction",
