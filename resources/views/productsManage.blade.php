@@ -78,8 +78,8 @@
     <div class="product-grid" id="productGrid">
       @foreach ($products as $product)
       <x-admin-product-card name="{{$product->name}}" category="{{$product->category->slogan}}"
-        subCategory="{{$product->subCategory->name}}" gameType="{{$product->gameType}}" price="{{$product->price}}"
-        id="{{$product->id}}" />
+        subCategory="{{ optional($product->subCategory)->name }}" gameType="{{$product->gameType}}"
+        price="{{$product->price}}" id="{{$product->id}}" />
 
       @endforeach
     </div>

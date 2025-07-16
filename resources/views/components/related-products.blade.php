@@ -1,4 +1,8 @@
 <div class="related-products">
+    @php
+    $hasSubCategory = $subId != $category;
+    @endphp
+
 
     <h2>
         @if($title==="All Games")
@@ -6,9 +10,15 @@
             {!! $title !!}
         </a>
         @else
+        @if($hasSubCategory)
         <a href="{{ $isGames ? '/products/'.$subId.'/' . $gameTypeId  : '/products/category/' . $subId }}">
             {!! $title !!}
         </a>
+        @else
+        <a href="{{ '/products/'.$subId}}">
+            {!! $title !!}
+        </a>
+        @endif
         @endif
     </h2>
     <div class="products">

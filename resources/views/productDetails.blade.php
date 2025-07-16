@@ -50,7 +50,8 @@
         <div class="path">
             <h3>Home > <a
                     href="/products/{{ $product->category->id }}">{{html_entity_decode($product->category->name)}}</a> >
-                <span style="color:rgba(0,0,0,1);">{{html_entity_decode($product->subCategory->name)}}</span>
+                <span style="color:rgba(0,0,0,1);">{{ html_entity_decode($product->subCategory->name ?? '') }}</span>
+
             </h3>
         </div>
         <x-product-box name="{{$product->name}}" price="{{$product->price}}" id="{{$product->id}}"
@@ -60,14 +61,15 @@
         <x-product-description name="{{$product->name}}" description="{{$product->description}}"
             :boxContents="$boxContents" :features="$features" />
         <x-related-products :products="$relatedProducts" title="Related Products"
-            isGames="{{ $product->subCategory->name == 'Games' ? true : false }}" subId="{{$product->sub_category_id}}"
-            category="{{$product->category_id}}" gameTypeId="{{$product->gameTypes[0]->id ?? null}}" />
+            :isGames="optional($product->subCategory)->name === 'Games'"
+            :subId="$product->sub_category_id ?? $product->category_id" category="{{$product->category_id}}"
+            gameTypeId="{{$product->gameTypes[0]->id ?? null}}" />
     </section>
     <x-footer :categories="$categories" />
     <div id="toast" class="toast"></div>
-    <script src="/js/productDetails.js"></script>
+    <script src="/js/productDetails.js?v=1"></script>
     <script src="/js/navbar.js"></script>
-    <script src="/js/order.js"></script>
+    <script src="/js/order.js?v=1.1"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
         const description = document.getElementById('descriptionText');
