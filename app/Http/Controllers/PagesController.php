@@ -35,6 +35,7 @@ $banners = Banner::orderBy('created_at', 'desc')->get();
     
     public function productDetailsPage(Product $product)
     {
+        $hasGameTypes=false;
                 $movingSentence=Sentence::first();
 
         $categories=Category::all();
@@ -45,6 +46,7 @@ $banners = Banner::orderBy('created_at', 'desc')->get();
     ->orderBy('created_at', 'desc');
 
 if ($product->gameTypes()->exists()) {
+    $hasGameTypes=true;
     $gameTypeIds = $product->gameTypes->pluck('id')->toArray();
 
     $relatedProductsQuery->whereHas('gameTypes', function ($query) use ($gameTypeIds) {
@@ -58,7 +60,7 @@ $relatedProducts = $relatedProductsQuery->take(5)->get();
         $boxContents=json_decode($product->box_contents, true);
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        return view('productDetails', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'relatedProducts'=>$relatedProducts,'product'=>$product,'features'=>$features,'boxContents'=>$boxContents,'cartQuantity'=>$cartQuantity]);
+        return view('productDetails', ['hasGameTypes'=>$hasGameTypes,'movingSentence'=>$movingSentence->sentence,'categories' => $categories,'relatedProducts'=>$relatedProducts,'product'=>$product,'features'=>$features,'boxContents'=>$boxContents,'cartQuantity'=>$cartQuantity]);
     }
     public function productsPage(Category $category)
     {

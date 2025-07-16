@@ -9,7 +9,7 @@
 
     @if($features)
     <div class="product-benefits">
-        <h3>Why Choose {{ html_entity_decode($name) }}?</h3>
+        <h3>List Of Features:</h3>
         <ul>
             @foreach ($features as $feature)
             <li>🔹 {{ html_entity_decode($feature) }}</li>
