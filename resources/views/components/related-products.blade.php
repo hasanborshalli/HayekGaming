@@ -25,8 +25,6 @@
         @foreach ($products as $product)
         <x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
             salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}" />
-
-
         @endforeach
 
     </div>
