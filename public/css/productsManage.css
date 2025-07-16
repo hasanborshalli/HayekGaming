@@ -48,6 +48,28 @@
     padding: 16px;
     border-radius: 10px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-left {
+    flex: 1;
+}
+
+.card-right {
+    margin-left: 20px;
+    text-align: right;
+}
+
+.big-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2a2670;
 }
 
 .product-card h3 {
@@ -60,7 +82,7 @@
 }
 
 .product-card .btn-group {
-    margin-top: 10px;
+    margin-top: 12px;
     display: flex;
     gap: 10px;
 }

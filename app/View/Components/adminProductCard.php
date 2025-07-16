@@ -14,7 +14,8 @@ class adminProductCard extends Component
     public $gameType;
     public $price;
     public $id;
-    public function __construct($name, $category, $subCategory, $gameType, $price, $id)
+    public $cost;
+    public function __construct($name, $category, $subCategory, $gameType, $price, $id,$cost)
     {
         $this->name=$name;
         $this->category=$category;
@@ -22,6 +23,7 @@ class adminProductCard extends Component
         $this->gameType=$gameType;
         $this->price=$price;
         $this->id=$id;
+        $this->cost=$cost;
     }
 
     /**

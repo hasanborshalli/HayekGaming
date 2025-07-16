@@ -21,8 +21,10 @@ class ProductController extends Controller
         'name' => 'required|string',
         'price' => 'required|numeric|min:0',
         'sale' => 'nullable|numeric|min:0',
+        'cost' => 'nullable|numeric|min:0',
         'featured' => 'required|in:yes,no',
-        'description' => 'required|string',
+        'isNew' => 'required|in:yes,no',
+        'description' => 'string',
         'features' => 'nullable|string',
         'box_contents' => 'nullable|string',
         'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -64,6 +66,11 @@ class ProductController extends Controller
         } else {
             $fields['featured']=false;
         }
+        if($fields['isNew']=='yes') {
+            $fields['isNew']=true;
+        } else {
+            $fields['isNew']=false;
+        }
         
         $product=Product::create($fields);
         if ($request->has('gameTypes')) {
@@ -80,9 +87,11 @@ class ProductController extends Controller
         'name' => 'required|string',
         'price' => 'required|numeric|min:0',
         'sale' => 'nullable|numeric|min:0',
+        'cost' => 'nullable|numeric|min:0',
         'featured' => 'required|in:yes,no',
+        'isNew' => 'required|in:yes,no',
         'is_available' => 'required|in:yes,no',
-        'description' => 'required|string',
+        'description' => 'string',
         'features' => 'nullable|string',
         'box_contents' => 'nullable|string',
         'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -121,6 +130,11 @@ class ProductController extends Controller
             $fields['featured']=true;
         } else {
             $fields['featured']=false;
+        }
+        if($fields['isNew']=='yes') {
+            $fields['isNew']=true;
+        } else {
+            $fields['isNew']=false;
         }
         
         if($fields['is_available']=='yes') {

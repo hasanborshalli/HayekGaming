@@ -16,7 +16,7 @@ class PagesController extends Controller
         $categories=Category::all();
 $banners = Banner::orderBy('created_at', 'desc')->get();
         $newproducts = Product::where('is_available',true)
-                              ->where('category_id',1)
+                              ->where('isNew',true)
                                ->orderBy('created_at', 'desc') 
                               ->latest()->take(5)->get();
         $featuredProducts = Product::where('featured', true)

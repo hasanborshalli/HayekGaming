@@ -64,7 +64,7 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label for="smallName">Name (20 characters max)</label>
+            <label for="smallName">Name</label>
             <input type="text" id="smallName" required name="name" value="{{old('name')}}">
             @error('name')
             <p style="color:red">{{$message}}</p>
@@ -86,7 +86,17 @@
               @error('sale')
               <p style="color:red">{{ $message }}</p>
               @enderror
+
             </div>
+            <div class="form-group">
+              <label for="cost">Cost</label>
+              <input type="decimal" id="cost" name="cost" value="{{ old('cost') }}">
+              @error('cost')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+            </div>
+          </div>
+          <div class="form-row">
             <div class="form-group">
               <label for="isFeatured">Is Featured</label>
               <select id="isFeatured" required name="featured">
@@ -97,8 +107,17 @@
               <p style="color:red">{{$message}}</p>
               @enderror
             </div>
+            <div class="form-group">
+              <label for="isNew">Show in Newest?</label>
+              <select id="isNew" required name="isNew">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+              </select>
+              @error('isNew')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+            </div>
           </div>
-
 
 
           <div class="form-group">

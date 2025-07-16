@@ -96,15 +96,13 @@
               @enderror
             </div>
             <div class="form-group">
-              <label for="isFeatured">Is Featured</label>
-              <select id="isFeatured" required name="featured">
-                <option value="no" {{ old('featured', $product->featured) == 0 ? 'selected' : '' }}>No</option>
-                <option value="yes" {{ old('featured', $product->featured) == 1 ? 'selected' : '' }}>Yes</option>
-              </select>
-              @error('featured')
-              <p style="color:red">{{$message}}</p>
+              <label for="cost">Cost ($)</label>
+              <input type="decimal" id="cost" name="cost" value="{{ old('cost',$product->cost) }}">
+              @error('cost')
+              <p style="color:red">{{ $message }}</p>
               @enderror
             </div>
+
             <div class="form-group">
               <label for="isAvailable">Is Available</label>
               <select id="isAvailable" required name="is_available">
@@ -117,7 +115,28 @@
               @enderror
             </div>
           </div>
-
+          <div class="form-row">
+            <div class="form-group">
+              <label for="isFeatured">Is Featured</label>
+              <select id="isFeatured" required name="featured">
+                <option value="no" {{ old('featured', $product->featured) == 0 ? 'selected' : '' }}>No</option>
+                <option value="yes" {{ old('featured', $product->featured) == 1 ? 'selected' : '' }}>Yes</option>
+              </select>
+              @error('featured')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+            </div>
+            <div class="form-group">
+              <label for="isNew">Show in Newest?</label>
+              <select id="isNew" required name="isNew">
+                <option value="no" {{ old('isNew', $product->isNew) == 0 ? 'selected' : '' }}>No</option>
+                <option value="yes" {{ old('isNew', $product->isNew) == 1 ? 'selected' : '' }}>Yes</option>
+              </select>
+              @error('isNew')
+              <p style="color:red">{{$message}}</p>
+              @enderror
+            </div>
+          </div>
 
 
           <div class="form-group">

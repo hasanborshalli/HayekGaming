@@ -25,7 +25,9 @@ class Product extends Model
        'image5',
        'image6',
        'featured',
-       'sale'
+       'sale',
+       'cost',
+       'isNew'
     ];
     public function category(): BelongsTo
     {
