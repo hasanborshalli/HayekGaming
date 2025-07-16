@@ -45,6 +45,7 @@
                     <span style="color:#9747ff">#{{$orderNumber}}</span> to our Whatsapp at <a
                         href="https://wa.me/96178904703" target="_blank">78904703</a>
                 </h3><br>
+                <h3><strong style="color:red">Note:</strong> Delivery Charge is extra and depends on your area</h3>
                 <h1>Thank you for choosing us!</h1>
                 <br>
                 <a href="/" class="home-button">Return to Homepage</a>
