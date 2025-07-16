@@ -43,7 +43,8 @@ nav[role="navigation"] .active span {
 }
 
 /* Disabled buttons */
-nav[role="navigation"] .disabled span {
+nav[role="navigation"] .disabled {
+    display: none;
     background-color: #ccc;
     color: #666;
     cursor: not-allowed;
