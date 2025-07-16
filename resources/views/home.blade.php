@@ -56,7 +56,8 @@
 				<div class="carousel-track">
 					@foreach ($banners as $banner)
 					<x-image-container image="{{ $banner->image }}" mobile-image="{{ $banner->mobile_image }}"
-						small-image="{{ $banner->small_image }}" id="{{ $banner->product->id }}" />
+						small-image="{{ $banner->small_image }}" id="{{ $banner->product->id }}"
+						name="{{$banner->product->name}}" />
 					@endforeach
 				</div>
 

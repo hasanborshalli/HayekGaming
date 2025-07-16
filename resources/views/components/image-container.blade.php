@@ -3,6 +3,7 @@
     <div class="order-now">
         <img src="/storage/banners/{{$smallImage}}" alt="" class="small-img" loading="lazy" />
         <img src="/storage/banners/{{$mobileImage}}" alt="" class="mobile-img" loading="lazy" />
-        <button class="order-btn" onclick="window.location.href='/product/{{$id}}'">Order Now!</button>
+        <button class="order-btn" onclick="window.location.href='/search/products?search={{$name}}'">Check
+            Game!</button>
     </div>
 </div>
