@@ -167,7 +167,7 @@
 	</section>
 
 
-	<x-footer :categories="$categories" />
+	<x-footer :categories="$categories" movingSentence="{{$movingSentence}}" />
 	<div id="toast" class="toast"></div>
 	<script src="/js/home.js"></script>
 	<script src="/js/navbar.js"></script>

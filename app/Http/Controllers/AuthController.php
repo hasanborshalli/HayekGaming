@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sentence;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,5 +46,13 @@ class AuthController extends Controller
         $user->save();
 
         return redirect('/admin/changePassword')->with('message', 'Password changed successfully.');
+    }
+    public function changeSentence(Request $request){
+        $fields=$request->validate([
+            'sentence'=>'required|string'
+        ]);
+        $sentence=Sentence::first();
+        $sentence->update($fields);
+        return redirect('/admin/sentence')->with('message', 'Sentence Edited Successfully');
     }
 }

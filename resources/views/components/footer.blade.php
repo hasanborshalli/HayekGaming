@@ -1,8 +1,7 @@
 <div class="marquee-container">
     <marquee scrollamount="15" behavior="scroll" direction="right">
-        WE DELIVER ALL OVER
-        LEBANON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WE
-        DELIVER ALL OVER LEBANON
+        {{$movingSentence}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{$movingSentence}}
     </marquee>
 </div>
 <footer>

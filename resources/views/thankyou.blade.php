@@ -51,7 +51,7 @@
             </div>
         </div>
     </section>
-    <x-footer :categories="$categories" />
+    <x-footer :categories="$categories" movingSentence="{{$movingSentence}}" />
     <script src="/js/navbar.js"></script>
 </body>
 

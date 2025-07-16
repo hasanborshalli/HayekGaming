@@ -65,7 +65,7 @@
             :subId="$product->sub_category_id ?? $product->category_id" category="{{$product->category_id}}"
             gameTypeId="{{$product->gameTypes[0]->id ?? null}}" />
     </section>
-    <x-footer :categories="$categories" />
+    <x-footer :categories="$categories" movingSentence="{{$movingSentence}}" />
     <div id="toast" class="toast"></div>
     <script src="/js/productDetails.js?v=1"></script>
     <script src="/js/navbar.js"></script>

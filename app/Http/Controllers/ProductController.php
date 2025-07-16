@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\GameType;
 use App\Models\Product;
+use App\Models\Sentence;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -165,6 +166,8 @@ class ProductController extends Controller
     }
     public function productsSearch(Request $request)
     {
+                $movingSentence=Sentence::first();
+
         $fields=$request->validate([
            'search'=>['required','max:255']
         ]);
@@ -172,7 +175,7 @@ class ProductController extends Controller
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        return view('productsSearch', ['products'=>$products,'categories'=>$categories,'search'=>$fields['search'],'cartQuantity'=>$cartQuantity,'filter'=>false]);
+        return view('productsSearch', ['movingSentence'=>$movingSentence->sentence,'products'=>$products,'categories'=>$categories,'search'=>$fields['search'],'cartQuantity'=>$cartQuantity,'filter'=>false]);
     }
 public function search(Request $request)
 {
@@ -258,7 +261,10 @@ public function search(Request $request)
     $cart = session('cart_items', []);
     $cartQuantity = count($cart);
 $gameTypes=GameType::all();
+        $movingSentence=Sentence::first();
+
     return view('productsSearch', [
+        'movingSentence'=>$movingSentence->sentence,
         'products' => $products,
         'categories' => $categories,
         'search' => $searchStatement,

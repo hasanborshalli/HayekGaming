@@ -104,7 +104,7 @@
 
         </div>
     </section>
-    <x-footer :categories="$categories" />
+    <x-footer :categories="$categories" movingSentence="{{$movingSentence}}" />
     <script>
         function updateQuantity(itemId, change, price) {
             let itemQuantity=document.getElementById("quantity-"+itemId).value;  

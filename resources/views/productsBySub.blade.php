@@ -110,7 +110,7 @@
 
     </section>
     <div id="toast" class="toast"></div>
-    <x-footer :categories="$categories" />
+    <x-footer :categories="$categories" movingSentence="{{$movingSentence}}" />
     <script src="/js/navbar.js"></script>
     <script src="/js/order.js"></script>
     <script>

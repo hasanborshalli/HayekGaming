@@ -9,9 +9,11 @@ use Illuminate\View\Component;
 class footer extends Component
 {
     public $categories;
-    public function __construct($categories)
+    public $movingSentence;
+    public function __construct($categories,$movingSentence)
     {
         $this->categories=$categories;
+        $this->movingSentence=$movingSentence;
     }
 
 

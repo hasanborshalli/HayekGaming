@@ -4,6 +4,7 @@
   <a href="/admin/orders">Manage Orders</a>
   <a href="/admin/banners">Manage Banners</a>
   <a href="/admin/comingSoon">Manage Coming Soon</a>
+  <a href="/admin/sentence">Change Moving Sentence</a>
   <a href="/admin/changePassword">Change Password</a>
   <a href="/logout">Logout</a>
 </div>
@@ -15,6 +16,7 @@
   <a href="/admin/orders">Manage Orders</a>
   <a href="/admin/banners">Manage Banners</a>
   <a href="/admin/comingSoon">Manage Coming Soon</a>
+  <a href="/admin/sentence">Change Moving Sentence</a>
   <a href="/admin/changePassword">Change Password</a>
   <a href="/logout">Logout</a>
 </div>

@@ -7,6 +7,7 @@ use App\Models\ComingProduct;
 use App\Models\GameType;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Sentence;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 class PagesController extends Controller
@@ -24,15 +25,18 @@ $banners = Banner::orderBy('created_at', 'desc')->get();
                                     ->orderBy('created_at', 'desc') 
                                    ->take(5)->get();
         $comingSoon=Coming::first();
+        $movingSentence=Sentence::first();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $controllers=Product::where('category_id',1)->where('sub_category_id',5)->orderBy('created_at','desc')->take(7)->get();
         
-        return view('home', ['categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity,'controllers'=>$controllers,'activeIndex' => 0]);
+        return view('home', ['categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity,'controllers'=>$controllers,'activeIndex' => 0,'movingSentence'=>$movingSentence->sentence]);
     }
     
     public function productDetailsPage(Product $product)
     {
+                $movingSentence=Sentence::first();
+
         $categories=Category::all();
        $relatedProductsQuery = Product::where('category_id', $product->category_id)
        ->where('sub_category_id', $product->sub_category_id)
@@ -54,41 +58,30 @@ $relatedProducts = $relatedProductsQuery->take(5)->get();
         $boxContents=json_decode($product->box_contents, true);
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        return view('productDetails', ['categories' => $categories,'relatedProducts'=>$relatedProducts,'product'=>$product,'features'=>$features,'boxContents'=>$boxContents,'cartQuantity'=>$cartQuantity]);
+        return view('productDetails', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'relatedProducts'=>$relatedProducts,'product'=>$product,'features'=>$features,'boxContents'=>$boxContents,'cartQuantity'=>$cartQuantity]);
     }
     public function productsPage(Category $category)
     {
+                $movingSentence=Sentence::first();
+
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        return view('productsPage', ['categories' => $categories,'category'=>$category,'cartQuantity'=>$cartQuantity]);
+        return view('productsPage', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'category'=>$category,'cartQuantity'=>$cartQuantity]);
     }
-//     public function productsBySubPage(SubCategory $subCategory)
-// {
-//     $categories = Category::all();
-//     $gameTypes = GameType::all();
-//     $cart = session('cart_items', []);
-//     $cartQuantity = count($cart);
-
-//     return view('productsBySub', [
-//         'categories' => $categories,
-//         'subCategory' => $subCategory,
-//         'isGameType' => false,
-//         'gameTypes' => $gameTypes,
-//         'cartQuantity' => $cartQuantity
-//     ]);
-// }
 public function productsBySubPage(SubCategory $subCategory)
 {
     if ($subCategory->name === 'Games') {
         return redirect()->route('allGamesRoute', ['subCategory' => $subCategory->id]);
     }
+            $movingSentence=Sentence::first();
 
     $categories = Category::all();
     $cart = session('cart_items', []);
     $cartQuantity = count($cart);
     $products=$subCategory->products()->orderBy('created_at','desc')->where('is_available',true)->paginate(24);
     return view('productsBySub', [
+        'movingSentence'=>$movingSentence->sentence,
         'categories' => $categories,
         'subCategory' => $subCategory,
         'isGameType' => false,
@@ -100,6 +93,8 @@ public function productsBySubPage(SubCategory $subCategory)
 
     public function productsByGameType(SubCategory $subCategory, GameType $gameType)
     {
+                $movingSentence=Sentence::first();
+
                  $categories=Category::all();
                 $gameTypes=GameType::all();
         $cart = session('cart_items', []);
@@ -111,16 +106,18 @@ public function productsBySubPage(SubCategory $subCategory)
                              ->orderBy('created_at', 'desc') 
                              ->paginate(24);
         
-        return view('productsBySub', ['categories' => $categories,'gameType'=>$gameType,'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
+        return view('productsBySub', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'gameType'=>$gameType,'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
     }
     public function productsByAllGames(SubCategory $subCategory)
     {
+                $movingSentence=Sentence::first();
+
         $categories=Category::all();
         $gameTypes=GameType::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart); 
         $products=$subCategory->products()->where('is_available',true)->orderBy('created_at', 'desc')->paginate(24);
-        return view('productsBySub', ['categories' => $categories,'gameType'=>"All Games",'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
+        return view('productsBySub', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'gameType'=>"All Games",'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
     }
     public function loginPage()
     {
@@ -193,28 +190,32 @@ $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
     public function cartPage()
     {
         $categories=Category::all();
+        $movingSentence=Sentence::first();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $itemIds = array_column($cart, 'id');
         $products=Product::whereIn('id', $itemIds)
                           ->where('is_available',true)
                            ->orderBy('created_at', 'desc') ->get();
-        return view('cart', ['categories'=>$categories,'cartQuantity'=>$cartQuantity,'products'=>$products,'cart'=>$cart]);
+        return view('cart', ['movingSentence'=>$movingSentence->sentence,'categories'=>$categories,'cartQuantity'=>$cartQuantity,'products'=>$products,'cart'=>$cart]);
     }
     public function checkoutPage()
     {
+        $movingSentence=Sentence::first();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $categories=Category::all();
-        return view('checkout', ["cartQuantity"=>$cartQuantity,'categories'=>$categories]);
+        return view('checkout', ['movingSentence'=>$movingSentence->sentence,"cartQuantity"=>$cartQuantity,'categories'=>$categories]);
     }
     public function ThankyouPage(Request $request)
     {
+                $movingSentence=Sentence::first();
+
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $categories=Category::all();
         $orderNumber=$request->input('orderNumber');;
-        return view('thankyou', ["cartQuantity"=>$cartQuantity,'categories'=>$categories,'orderNumber'=>$orderNumber]);
+        return view('thankyou', ['movingSentence'=>$movingSentence->sentence,"cartQuantity"=>$cartQuantity,'categories'=>$categories,'orderNumber'=>$orderNumber]);
     }
     public function OrdersPage()
     {
@@ -246,11 +247,17 @@ $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
     }
     public function comingSoonPage()
     {
+                $movingSentence=Sentence::first();
+
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $comingSoonGames=ComingProduct::paginate(24);
         
-        return view('comingSoon', ['categories' => $categories,'cartQuantity'=>$cartQuantity,'comingSoonGames'=>$comingSoonGames]);
+        return view('comingSoon', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'cartQuantity'=>$cartQuantity,'comingSoonGames'=>$comingSoonGames]);
+    }
+    public function sentencePage(){
+    $sentence=Sentence::first();
+        return view('sentenceManage',['sentence'=>$sentence->sentence]);
     }
 }

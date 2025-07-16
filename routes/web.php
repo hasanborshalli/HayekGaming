@@ -70,3 +70,6 @@ Route::post('/admin/comingSoon/editProduct/{comingProduct}',[ComingController::c
 
 Route::get('/admin/changePassword', [PagesController::class,'changePasswordPage'])->middleware('auth');
 Route::post('/admin/changePassword', [AuthController::class,'changePassword'])->middleware('auth');
+
+Route::get('/admin/sentence', [PagesController::class,'sentencePage'])->middleware('auth');
+Route::post('/admin/changeSentence', [AuthController::class,'changeSentence'])->middleware('auth');
