@@ -79,7 +79,7 @@
       @foreach ($products as $product)
       <x-admin-product-card name="{{$product->name}}" category="{{$product->category->slogan}}"
         subCategory="{{ optional($product->subCategory)->name }}" gameType="{{$product->gameType}}"
-        price="{{$product->price}}" cost="{{$product->cost}}" id="{{$product->id}}" />
+        price="{{$product->price}}" cost="{{number_format($product->cost, 0)}}" id="{{$product->id}}" />
 
       @endforeach
     </div>

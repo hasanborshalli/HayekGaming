@@ -12,7 +12,7 @@
         <h3>List Of Features:</h3>
         <ul>
             @foreach ($features as $feature)
-            <li>🔹 {{ html_entity_decode($feature) }}</li>
+            <li>{{ html_entity_decode($feature) }}</li>
             @endforeach
         </ul>
     </div>

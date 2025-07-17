@@ -9,7 +9,7 @@
       <p><strong>Subcategory:</strong> {{ html_entity_decode($subCategory) }}</p>
     </div>
     <div class="card-right">
-      <div class="big-price">${{ $cost }}</div>
+      <div class="big-price">{{ $cost }}</div>
     </div>
   </div>
 

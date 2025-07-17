@@ -61,6 +61,7 @@
     width: 100%;
 }
 .order-now button {
+    color: black;
     width: 110%;
     height: 32px;
     border-radius: 8px;

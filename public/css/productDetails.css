@@ -142,12 +142,15 @@ body {
     cursor: pointer;
 }
 .order-btns {
+    -webkit-appearance: none;
+    appearance: none;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
 }
 .order-btns button {
+    color: black;
     border: none;
     border-radius: 10px;
     width: 20%;
@@ -162,6 +165,7 @@ body {
     background-color: #9747ff33;
 }
 .buy-now {
+    color: white !important;
     background-color: red;
 }
 .order-btns button:hover {
