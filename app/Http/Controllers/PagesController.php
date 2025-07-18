@@ -262,4 +262,14 @@ $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
     $sentence=Sentence::first();
         return view('sentenceManage',['sentence'=>$sentence->sentence]);
     }
+    public function categoriesPage(){
+        $categories=Category::all();
+    return view('categories',['categories'=>$categories]);    
+    }
+    public function addCategoryPage(){
+    return view('addCategory');    
+    }
+    public function editCategoryPage(Category $category){
+    return view('editCategory',['category'=>$category]);    
+    }
 }

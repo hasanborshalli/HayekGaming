@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ComingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PagesController;
@@ -45,6 +46,14 @@ Route::post('/admin/addProduct', [ProductController::class,'addProduct'])->middl
 Route::get('/admin/editProduct/{product}', [PagesController::class,'editProductPage'])->middleware('auth');
 Route::post('/admin/editProduct/{product}', [ProductController::class,'editProduct'])->middleware('auth');
 Route::get('/admin/deleteProduct/{product}', [ProductController::class,'deleteProduct'])->middleware('auth');
+
+Route::get('/admin/categories', [PagesController::class,'categoriesPage'])->middleware('auth');
+Route::get('/admin/categories/add', [PagesController::class,'addCategoryPage'])->middleware('auth');
+Route::post('/admin/addCategory', [CategoryController::class,'addCategory'])->middleware('auth');
+Route::get('/admin/deleteCategory/{category}', [CategoryController::class,'deleteCategory'])->middleware('auth');
+Route::get('/admin/categories/edit/{category}', [PagesController::class,'editCategoryPage'])->middleware('auth');
+Route::post('/admin/categories/edit/{category}', [CategoryController::class,'editCategory'])->middleware('auth');
+Route::get('/admin/deleteSub/{subCategory}', [CategoryController::class,'deleteSub'])->middleware('auth');
 
 Route::get('/admin/orders', [PagesController::class,'OrdersPage'])->middleware('auth');
 Route::get('/order/delete/{order}', [OrderController::class,'DeleteOrder'])->middleware('auth');
