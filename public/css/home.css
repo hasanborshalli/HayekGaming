@@ -137,6 +137,8 @@
     border-radius: 4px;
 }
 .controller-card {
+    height: 300px;
+    position: relative;
     background: white;
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -200,6 +202,9 @@
     margin-bottom: 0.5rem;
 }
 .controller-card button {
+    position: absolute;
+    bottom: 10px;
+    left: 55px;
     background-color: #d8bfff;
     font-weight: 600;
     border: none;
@@ -244,7 +249,12 @@
     border-radius: 8px;
     color: gray;
 }
-
+.closed {
+    background-color: #ff00004d; /* reddish */
+    padding: 5px;
+    border-radius: 8px;
+    color: gray;
+}
 @media (max-width: 1024px) {
     .ps5-controllers {
         width: 90%;
@@ -275,6 +285,7 @@
     }
 
     .controller-card button {
+        left: 40px;
         font-size: 0.9rem;
         padding: 0.4rem;
     }
@@ -346,7 +357,7 @@
     }
 
     .controller-card {
-        height: 250px;
+        height: 300px;
         width: 90%;
     }
 }

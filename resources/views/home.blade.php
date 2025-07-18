@@ -158,7 +158,9 @@
 			<ul>
 				<li>🛒 Hadath Beirut, Hayek Gaming Ground</li>
 				<li>🚚 Delivery all over Lebanon</li>
-				<li>⏱️ <span class="open">Currently Open</span> <span style="color:red">Close at 7:00 PM</span></li>
+				<li id="status">
+					⏱️ <span class="open"></span> <span class="time" style="color:red"></span>
+				</li>
 			</ul>
 		</div>
 		<div class="map">
@@ -175,6 +177,26 @@
 	<script src="/js/home.js"></script>
 	<script src="/js/navbar.js"></script>
 	<script src="/js/order.js"></script>
+	<script>
+		const now = new Date();
+  const currentHour = now.getHours();
+
+  const statusEl = document.getElementById('status');
+  const openEl = statusEl.querySelector('.open');
+  const timeEl = statusEl.querySelector('.time');
+
+  const isBefore7PM = currentHour < 19;
+
+  if (isBefore7PM) {
+    openEl.textContent = 'Currently Open';
+    openEl.classList.remove('closed'); // remove closed style
+    timeEl.textContent = 'Close at 7:00 PM';
+  } else {
+    openEl.textContent = 'Currently Closed';
+    openEl.classList.add('closed'); // apply red style
+    timeEl.textContent = 'Open at 10:00 AM';
+  }
+	</script>
 </body>
 
 </html>
