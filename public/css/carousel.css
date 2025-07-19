@@ -61,7 +61,8 @@
     width: 100%;
 }
 .order-now button {
-    color: black;
+    background-color: red;
+    color: white;
     width: 110%;
     height: 32px;
     border-radius: 8px;
@@ -73,7 +74,6 @@
 }
 .order-now button:hover {
     background-color: var(--main-color);
-    color: white;
 }
 
 .banner {

@@ -138,6 +138,7 @@ body {
     color: #2a2670;
 }
 .quantity-btns button {
+    color: black;
     background: none;
     border: 1.5px solid #2a2670;
     font-size: 20px;
