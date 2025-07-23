@@ -68,21 +68,23 @@
                             <td>
                                 <div class="quantity-controls">
                                     <button type="button" class="quantity-btn"
-                                        onclick="updateQuantity({{$item->id}}, -1,{{$item->price}})">-</button>
+                                        onclick="updateQuantity({{$item->id}}, -1,{{$item->sale ?? $item->price}})">-</button>
                                     <input readonly type="text" class="item-quantity" name="quantity_{{$item->id}}"
                                         value="{{$cart[$index]['quantity']}}" id="quantity-{{$item->id}}" />
                                     <button type="button" class="quantity-btn"
-                                        onclick="updateQuantity({{$item->id}}, 1,{{$item->price}})">+</button>
+                                        onclick="updateQuantity({{$item->id}}, 1,{{$item->sale ?? $item->price}})">+</button>
                                 </div>
                             </td>
-                            <td id="price-{{$item->id}}">{{$item->price*$cart[$index]['quantity']}}</td>
+                            <td id="price-{{$item->id}}">{{($item->sale ?? $item->price)*$cart[$index]['quantity']}}
+                            </td>
                             <td>
                                 <button type="button" class="remove-btn" onclick="removeFromCart({{ $item->id }})"
                                     title="Remove from cart">×</button>
                             </td>
                         </tr>
                         @php
-                        $subtotal = $cart[$index]['quantity'] * $item->price;// Calculate subtotal for this book
+                        $subtotal = $cart[$index]['quantity'] * $item->sale ?? $item->price;
+                        // Calculate subtotal for this book
                         $totalPrice += $subtotal;// Add subtotal to total price
                         @endphp
                         @endforeach

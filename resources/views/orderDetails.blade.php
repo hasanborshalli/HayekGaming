@@ -61,8 +61,9 @@
                                 <td>{{ $item->product->name }}</td>
                                 <td>{{$item->product->category->name}}</td>
                                 <td>{{ $item->quantity }}</td>
-                                <td>${{ number_format($item->product->price, 2) }}</td>
-                                <td>${{ number_format($item->quantity * $item->product->price, 2) }}</td>
+                                <td>${{ number_format(($item->product->sale ?? $item->product->price), 2) }}</td>
+                                <td>${{ number_format($item->quantity * ($item->product->sale ?? $item->product->price),
+                                    2) }}</td>
                                 <td><img src="/storage/products/{{ $item->product->image }}" alt="Product Image"
                                         style="max-width: 100px; height: auto;"></td>
                             </tr>

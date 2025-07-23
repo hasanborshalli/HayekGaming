@@ -109,56 +109,56 @@ public function remove(Request $request)
         return redirect('/checkout');
     }
     public function order(Request $request)
-    {
-        $fields = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'mobile' => ['required', 'string'],
-            'second_mobile' => ['required', 'string'],
-            'city' => ['required', 'string', 'max:255'],
-            'street' => ['required', 'string', 'max:255'],
-            'building' => ['nullable', 'string', 'max:255'],
-            'floor' => ['nullable', 'string', 'max:255'],
-            'remarks' => ['nullable', 'string'],
-        ]);
-        $items=session()->get('ordered_items');
-        $totalPrice = 0;
-        foreach ($items as $orderedItem) {
-            $itemId = $orderedItem['item_id'];
-            $quantity = $orderedItem['quantity'];
-    
-            // Get the item from the database (assuming your items are in the Product model)
-            $item = Product::find($itemId);
-    
-            if ($item) {
-                // Multiply item price by quantity and add it to the total price
-                $totalPrice += $item->price * $quantity;
-            }
-        }
-        if($totalPrice<=0) {
-            return redirect('/cart');
-        } else {
-            // Add the total price to the fields array
-            $fields['total'] = $totalPrice;
-            $order=Order::create($fields);
-            foreach ($items as $orderedItem) {
-                DB::table('order_items')->insert([
-                    'product_id' => $orderedItem['item_id'],
-                    'order_id' => $order->id,
-                    'quantity' => $orderedItem['quantity'],
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ]);
-            }
-            session()->forget('ordered_items');
-            session()->forget('cart_items');
-            $orderNumber=$order->id;
-            return redirect('thankyou?orderNumber=' . $orderNumber);
+{
+    $fields = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'mobile' => ['required', 'string'],
+        'second_mobile' => [ 'string'],
+        'city' => ['required', 'string', 'max:255'],
+        'street' => ['required', 'string', 'max:255'],
+        'building' => ['nullable', 'string', 'max:255'],
+        'floor' => ['nullable', 'string', 'max:255'],
+        'remarks' => ['nullable', 'string'],
+    ]);
 
+    $items = session()->get('ordered_items');
+    $totalPrice = 0;
+
+    foreach ($items as $orderedItem) {
+        $itemId = $orderedItem['item_id'];
+        $quantity = $orderedItem['quantity'];
+
+        $item = Product::find($itemId);
+
+        if ($item) {
+            $itemPrice = $item->sale !== null ? $item->sale : $item->price;
+            $totalPrice += $itemPrice * $quantity;
         }
-    
-       
-        
     }
+
+    if ($totalPrice <= 0) {
+        return redirect('/cart');
+    } else {
+        $fields['total'] = $totalPrice;
+        $order = Order::create($fields);
+
+        foreach ($items as $orderedItem) {
+            DB::table('order_items')->insert([
+                'product_id' => $orderedItem['item_id'],
+                'order_id' => $order->id,
+                'quantity' => $orderedItem['quantity'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        session()->forget('ordered_items');
+        session()->forget('cart_items');
+
+        return redirect('thankyou?orderNumber=' . $order->id);
+    }
+}
+
     public function DeleteOrder(order $order)
     {
         if($order->delete()) {

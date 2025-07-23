@@ -91,7 +91,7 @@
 	<section class="new">
 		<div class="shadow"></div>
 		<div class="section-title">
-			<h1>PS5 New Products</h1>
+			<h1>Newest Products</h1>
 			<div class="products">
 				@foreach ($newproducts as $product)
 				<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"

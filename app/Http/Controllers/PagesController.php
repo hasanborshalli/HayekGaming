@@ -19,11 +19,11 @@ $banners = Banner::orderBy('created_at', 'desc')->get();
         $newproducts = Product::where('is_available',true)
                               ->where('isNew',true)
                                ->orderBy('created_at', 'desc') 
-                              ->latest()->take(5)->get();
+                              ->latest()->take(8)->get();
         $featuredProducts = Product::where('featured', true)
                                    ->where('is_available',true)
                                     ->orderBy('created_at', 'desc') 
-                                   ->take(5)->get();
+                                   ->take(8)->get();
         $comingSoon=Coming::first();
         $movingSentence=Sentence::first();
         $cart = session('cart_items', []);

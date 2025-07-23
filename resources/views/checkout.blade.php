@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-group">
                     <label for="mobile">Second Mobile Number</label>
-                    <input type="text" id="mobile" name="second_mobile" required
+                    <input type="text" id="mobile" name="second_mobile"
                         placeholder="Enter another mobile number (optional)" value="{{old('second_mobile')}}">
                     @error('second_mobile')
                     <p style="color:red">{{$message}}</p>
