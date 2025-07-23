@@ -1,5 +1,5 @@
 <div class="marquee-container">
-    <marquee scrollamount="15" behavior="scroll" direction="right">
+    <marquee scrollamount="30" behavior="scroll" direction="right">
         {{$movingSentence}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {{$movingSentence}}
     </marquee>

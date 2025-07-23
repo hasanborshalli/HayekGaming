@@ -77,7 +77,7 @@
         <x-related-products :products="$relatedProducts" title="View More Products"
             :isGames="optional($product->subCategory)->name === 'Games'"
             :subId="$product->sub_category_id ?? $product->category_id" category="{{$product->category_id}}"
-            gameTypeId="{{$product->gameTypes[0]->id ?? null}}" />
+            gameTypeId="{{$product->gameTypes[0]->id ?? null}}" :hasSubCategory="!is_null($product->sub_category_id)" />
     </section>
     <x-footer :categories="$categories" movingSentence="{{$movingSentence}}" />
     <div id="toast" class="toast"></div>

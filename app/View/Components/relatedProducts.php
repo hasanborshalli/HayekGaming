@@ -14,7 +14,8 @@ class relatedProducts extends Component
     public $isGames;
     public $category;
     public $gameTypeId;
-    public function __construct($title, $products, $subId, $isGames, $category,$gameTypeId)
+    public $hasSubCategory;
+    public function __construct($title, $products, $subId, $isGames, $category,$gameTypeId,$hasSubCategory)
     {
         $this->title=$title;
         $this->products=$products;
@@ -22,6 +23,7 @@ class relatedProducts extends Component
         $this->isGames=$isGames;
         $this->category=$category;
         $this->gameTypeId=$gameTypeId;
+        $this->hasSubCategory=$hasSubCategory;
     }
     //
     

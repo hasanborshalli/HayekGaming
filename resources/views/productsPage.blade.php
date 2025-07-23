@@ -48,7 +48,7 @@
         @foreach ($category->subcategories as $subcategory)
         <x-related-products :products="$subcategory->products()->orderBy('created_at', 'desc')->take(5)->get()"
             title="{{$subcategory->name}}" subId="{{$subcategory->id}}" category="{{$subcategory->category->id}}"
-            isGames="{{false}}" gameTypeId={{null}} />
+            isGames="{{false}}" gameTypeId={{null}} :hasSubCategory="true" />
         @endforeach
         @else
         <section class="productsList">
