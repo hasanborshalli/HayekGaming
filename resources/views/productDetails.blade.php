@@ -72,7 +72,7 @@
         </div>
         @endif
 
-        <x-product-description name="{{$product->name}}" description="{{$product->description}}"
+        <x-product-description name="{{$product->name}}" description="{!! nl2br(e($product->description)) !!}"
             :boxContents="$boxContents" :features="$features" />
         <x-related-products :products="$relatedProducts" title="View More Products"
             :isGames="optional($product->subCategory)->name === 'Games'"

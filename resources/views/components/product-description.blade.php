@@ -2,7 +2,7 @@
     <h2>Description</h2>
     <div class="small-description" id="descriptionText">
         <p>
-            {{ html_entity_decode($description) }}
+            {!!$description !!}
         </p>
     </div>
     <button class="toggle-btn" id="toggleDescriptionBtn">View More</button>
