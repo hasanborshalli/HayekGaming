@@ -122,7 +122,7 @@
 
           <div class="form-group">
             <label for="smallDesc">Small Description</label>
-            <textarea id="smallDesc" rows="3" required name="description">{{old('description')}}</textarea>
+            <textarea id="smallDesc" rows="3" name="description">{{old('description')}}</textarea>
             @error('description')
             <p style="color:red">{{$message}}</p>
             @enderror
