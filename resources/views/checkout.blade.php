@@ -53,20 +53,29 @@
 
                 <div class="form-group">
                     <label for="mobile">Mobile Number</label>
-                    <input type="text" id="mobile" name="mobile" required placeholder="Enter your mobile number"
-                        value="{{old('mobile')}}">
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                        <span>🇱🇧 +961</span>
+                        <input type="text" id="mobile" name="mobile" required
+                            placeholder="Enter your mobile number without +961" value="{{ old('mobile') }}"
+                            style="flex: 1;" maxlength="8">
+                    </div>
                     @error('mobile')
-                    <p style="color:red">{{$message}}</p>
+                    <p style="color:red">{{ $message }}</p>
                     @enderror
                 </div>
+
                 <div class="form-group">
-                    <label for="mobile">Second Mobile Number</label>
-                    <input type="text" id="mobile" name="second_mobile"
-                        placeholder="Enter another mobile number (optional)" value="{{old('second_mobile')}}">
+                    <label for="second_mobile">Second Mobile Number</label>
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                        <span>🇱🇧 +961</span>
+                        <input type="text" id="second_mobile" name="second_mobile" placeholder="Optional"
+                            value="{{ old('second_mobile') }}" style="flex: 1;" maxlength="8">
+                    </div>
                     @error('second_mobile')
-                    <p style="color:red">{{$message}}</p>
+                    <p style="color:red">{{ $message }}</p>
                     @enderror
                 </div>
+
                 <div class="form-group">
                     <label for="city">City</label>
                     <input type="text" id="city" name="city" required placeholder="Enter your city"

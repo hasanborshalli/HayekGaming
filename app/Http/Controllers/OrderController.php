@@ -112,8 +112,8 @@ public function remove(Request $request)
 {
     $fields = $request->validate([
         'name' => ['required', 'string', 'max:255'],
-        'mobile' => ['required', 'string'],
-        'second_mobile' => [ 'string'],
+        'mobile' => ['required', 'digits:8'],
+        'second_mobile' => ['nullable', 'digits:8'],
         'city' => ['required', 'string', 'max:255'],
         'street' => ['required', 'string', 'max:255'],
         'building' => ['nullable', 'string', 'max:255'],
