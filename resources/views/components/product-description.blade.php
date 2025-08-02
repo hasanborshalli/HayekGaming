@@ -1,4 +1,5 @@
 <div class="product-description">
+    @if ($description)
     <h2>Description</h2>
     <div class="small-description" id="descriptionText">
         <p>
@@ -6,7 +7,7 @@
         </p>
     </div>
     <button class="toggle-btn" id="toggleDescriptionBtn">View More</button>
-
+    @endif
     @if($features)
     <div class="product-benefits">
         <h3>List Of Features:</h3>

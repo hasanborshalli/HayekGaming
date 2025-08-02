@@ -83,7 +83,7 @@
                             </td>
                         </tr>
                         @php
-                        $subtotal = $cart[$index]['quantity'] * $item->sale ?? $item->price;
+                        $subtotal =($item->sale ?? $item->price)*$cart[$index]['quantity'];
                         // Calculate subtotal for this book
                         $totalPrice += $subtotal;// Add subtotal to total price
                         @endphp
