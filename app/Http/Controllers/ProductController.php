@@ -171,7 +171,7 @@ class ProductController extends Controller
         $fields=$request->validate([
            'search'=>['required','max:255']
         ]);
-        $products=Product::search($fields['search'])->where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(24);
+        $products=Product::search($fields['search']) ->orderBy('created_at', 'desc') ->paginate(24);
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
@@ -196,7 +196,7 @@ public function search(Request $request)
         $fields=$request->validate([
            'search'=>['required','max:255']
         ]);
-        $products=Product::search($fields['search'])->where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(24);
+        $products=Product::search($fields['search']) ->orderBy('created_at', 'desc') ->paginate(24);
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
@@ -224,7 +224,7 @@ public function search(Request $request)
                 $q->whereIn('name', $request->gameTypes);
             });
         }
-        $products = $query->where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(24);
+        $products = $query ->orderBy('created_at', 'desc') ->paginate(24);
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
@@ -242,7 +242,6 @@ public function search(Request $request)
     $searchStatement = implode(', ', $selectedGameTypeNames);
 
     $products = Product::where('sub_category_id', $subCategoryId)
-        ->where('is_available', true)
         ->whereHas('gameTypes', function ($query) use ($selectedGameTypeIds) {
             $query->whereIn('game_types.id', $selectedGameTypeIds);
         })

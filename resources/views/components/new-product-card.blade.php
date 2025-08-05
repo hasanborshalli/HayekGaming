@@ -1,12 +1,18 @@
 <div class="product-card">
-    <div class="card-image">
-        <a href="/product/{{$id}}">
+    <div class="card-image position-relative">
+        <a href="/product/{{$id}}" class="image-wrapper {{ !$isAvailable ? 'unavailable' : '' }}">
             <img src="/storage/products/{{$image}}" alt="{{ html_entity_decode($title) }}" loading="lazy">
         </a>
-        @if($salePrice)
+
+        @if($salePrice && $isAvailable)
         <div class="sale-badge">SALE</div>
         @endif
+
+        @unless($isAvailable)
+        <div class="sold-out-overlay">SOLD OUT</div>
+        @endunless
     </div>
+
 
     <div class="card-details">
         <div class="card-category-price">
@@ -27,9 +33,15 @@
             <p>{{ html_entity_decode($title) }}</p>
         </div>
 
+        @if($isAvailable)
         <button class="add-to-cart-btn" onclick="addToCart({{ $id }})">
             Add to cart
             <img src="/img/colored-cart.svg" class="cart-icon" />
         </button>
+        @else
+        <button class="add-to-cart-btn sold-out-btn" disabled>
+            Sold Out
+        </button>
+        @endif
     </div>
 </div>

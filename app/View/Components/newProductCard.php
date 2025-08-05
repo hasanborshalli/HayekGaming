@@ -14,14 +14,16 @@ class newProductCard extends Component
     public $salePrice;
     public $category;
     public $id;
-    public function __construct($title, $image, $price, $category, $id, $salePrice = null)
+    public $isAvailable;
+    public function __construct($image, $title, $price, $salePrice = null, $category, $id, $isAvailable)
 {
-    $this->title = $title;
     $this->image = $image;
+    $this->title = $title;
     $this->price = $price;
+    $this->salePrice = $salePrice;
     $this->category = $category;
     $this->id = $id;
-    $this->salePrice = $salePrice;
+    $this->isAvailable = $isAvailable;
 }
 
     /**

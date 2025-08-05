@@ -35,6 +35,19 @@
     height: 250px; /* Fixed height */
     overflow: hidden;
 }
+.image-wrapper img {
+    width: 100%;
+    height: auto;
+    transition: all 0.3s ease;
+}
+.image-wrapper.unavailable img {
+    filter: blur(1px) brightness(0.8);
+    pointer-events: none;
+}
+.image-wrapper.unavailable {
+    pointer-events: none;
+    cursor: not-allowed;
+}
 
 .card-image img {
     width: 100%;
@@ -126,6 +139,30 @@
 .cart-icon {
     width: 20px;
 }
+.sold-out-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(42, 38, 112, 0.8);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+    z-index: 5;
+    text-transform: uppercase;
+    width: 60%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.sold-out-btn {
+    background-color: #ccc !important;
+    cursor: not-allowed;
+    color: #555;
+}
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
@@ -188,5 +225,9 @@
     .old-price,
     .sale-price {
         font-size: 12px;
+    }
+    .sold-out-overlay {
+        font-size: 12px;
+        height: 30px;
     }
 }

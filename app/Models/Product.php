@@ -27,7 +27,8 @@ class Product extends Model
        'featured',
        'sale',
        'cost',
-       'isNew'
+       'isNew',
+       'is_available'
     ];
     public function category(): BelongsTo
     {

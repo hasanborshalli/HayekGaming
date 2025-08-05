@@ -16,12 +16,10 @@ class PagesController extends Controller
     {
         $categories=Category::all();
 $banners = Banner::orderBy('created_at', 'desc')->get();
-        $newproducts = Product::where('is_available',true)
-                              ->where('isNew',true)
+        $newproducts = Product::where('isNew',true)
                                ->orderBy('created_at', 'desc') 
                               ->latest()->take(9)->get();
         $featuredProducts = Product::where('featured', true)
-                                   ->where('is_available',true)
                                     ->orderBy('created_at', 'desc') 
                                    ->take(9)->get();
         $comingSoon=Coming::first();
@@ -41,7 +39,6 @@ $banners = Banner::orderBy('created_at', 'desc')->get();
         $categories=Category::all();
        $relatedProductsQuery = Product::where('category_id', $product->category_id)
        ->where('sub_category_id', $product->sub_category_id)
-    ->where('is_available', true)
     ->where('id', '!=', $product->id)
     ->orderBy('created_at', 'desc');
 
@@ -81,7 +78,7 @@ public function productsBySubPage(SubCategory $subCategory)
     $categories = Category::all();
     $cart = session('cart_items', []);
     $cartQuantity = count($cart);
-    $products=$subCategory->products()->orderBy('created_at','desc')->where('is_available',true)->paginate(24);
+    $products=$subCategory->products()->orderBy('created_at','desc')->paginate(24);
     return view('productsBySub', [
         'movingSentence'=>$movingSentence->sentence,
         'categories' => $categories,
@@ -104,7 +101,6 @@ public function productsBySubPage(SubCategory $subCategory)
 
         $products = $gameType->products()
                              ->where('sub_category_id', $subCategory->id)
-                             ->where('is_available',true)
                              ->orderBy('created_at', 'desc') 
                              ->paginate(24);
         
@@ -118,7 +114,7 @@ public function productsBySubPage(SubCategory $subCategory)
         $gameTypes=GameType::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart); 
-        $products=$subCategory->products()->where('is_available',true)->orderBy('created_at', 'desc')->paginate(24);
+        $products=$subCategory->products()->orderBy('created_at', 'desc')->paginate(24);
         return view('productsBySub', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'gameType'=>"All Games",'isGameType'=>true,'products'=>$products,'subCategory'=>$subCategory,'gameTypes'=>$gameTypes,'cartQuantity'=>$cartQuantity]);
     }
     public function loginPage()
@@ -132,7 +128,7 @@ public function productsBySubPage(SubCategory $subCategory)
 
     public function manageProductsPage()
     {
-        $products=Product::where('is_available',true) ->orderBy('created_at', 'desc') ->paginate(24);
+        $products=Product::orderBy('created_at', 'desc') ->paginate(24);
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);

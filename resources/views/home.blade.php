@@ -92,12 +92,14 @@
 		<div class="shadow"></div>
 		<div class="section-title">
 			<h1>Newest Release</h1>
-			<div class="products">
-				@foreach ($newproducts as $product)
-				<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
-					salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}" />
-				@endforeach
-			</div>
+		</div>
+
+		<div class="products">
+			@foreach ($newproducts as $product)
+			<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
+				salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}"
+				isAvailable="{{$product->is_available}}" />
+			@endforeach
 		</div>
 	</section>
 	<section class="featured">
@@ -105,12 +107,14 @@
 
 		<div class="section-title">
 			<h1>Featured Products</h1>
-			<div class="products">
-				@foreach ($featuredProducts as $product)
-				<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
-					salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}" />
-				@endforeach
-			</div>
+		</div>
+
+		<div class="products">
+			@foreach ($featuredProducts as $product)
+			<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
+				salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}"
+				isAvailable="{{$product->is_available}}" />
+			@endforeach
 		</div>
 	</section>
 	<section class="ps5-controllers">
