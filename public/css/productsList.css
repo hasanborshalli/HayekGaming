@@ -21,7 +21,6 @@
 .product-card {
     width: 220px;
     flex-shrink: 0;
-    overflow: hidden;
     font-family: var(--main-text);
     display: flex;
     flex-direction: column;
