@@ -61,12 +61,12 @@ $relatedProducts = $relatedProductsQuery->take(5)->get();
     }
     public function productsPage(Category $category)
     {
-                $movingSentence=Sentence::first();
-
+        $movingSentence=Sentence::first();
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        return view('productsPage', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'category'=>$category,'cartQuantity'=>$cartQuantity]);
+        $products=$category->products()->orderBy('created_at','desc')->paginate(24);
+        return view('productsPage', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'category'=>$category,'products'=>$products,'cartQuantity'=>$cartQuantity]);
     }
 public function productsBySubPage(SubCategory $subCategory)
 {

@@ -95,7 +95,7 @@ class ProductController extends Controller
         'description' => 'nullable|string',
         'features' => 'nullable|string',
         'box_contents' => 'nullable|string',
-        'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'image1' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'image2' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         'image3' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -107,8 +107,8 @@ class ProductController extends Controller
         ]);
         foreach (['image','image1', 'image2', 'image3', 'image4','image5','image6'] as $img) {
             if($request[$img]) {
-                if ($product->$img && Storage::exists('products/' . $product->image)) {
-                    Storage::delete('products/' . $product->image);
+                if ($product->$img && Storage::exists('products/' . $product->$img)) {
+                    Storage::delete('products/' . $product->$img);
                 }
                 $customName='Product-'.Str::uuid().'.webp';
                 $request->file($img)->storeAs('products', $customName);

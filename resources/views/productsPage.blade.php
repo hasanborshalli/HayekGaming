@@ -52,7 +52,7 @@
         @endforeach
         @else
         <section class="productsList">
-            @foreach ($category->products as $product)
+            @foreach ($products as $product)
             <x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
                 salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}"
                 isAvailable="{{$product->is_available}}" />
