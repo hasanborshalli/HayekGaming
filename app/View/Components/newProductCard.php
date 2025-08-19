@@ -15,7 +15,8 @@ class newProductCard extends Component
     public $category;
     public $id;
     public $isAvailable;
-    public function __construct($image, $title, $price, $salePrice = null, $category, $id, $isAvailable)
+    public $forceColoredCart;
+    public function __construct($image, $title, $price, $salePrice = null, $category, $id, $isAvailable,$forceColoredCart=false)
 {
     $this->image = $image;
     $this->title = $title;
@@ -24,6 +25,7 @@ class newProductCard extends Component
     $this->category = $category;
     $this->id = $id;
     $this->isAvailable = $isAvailable;
+    $this->forceColoredCart=$forceColoredCart;
 }
 
     /**

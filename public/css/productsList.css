@@ -178,7 +178,7 @@
 
 @media (max-width: 480px) {
     .sale-badge {
-        top: 10px;
+        top: 8px;
     }
     .products {
         gap: 15px;

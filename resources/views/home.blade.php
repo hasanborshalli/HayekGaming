@@ -81,8 +81,7 @@
 	</div>
 	<section class="boxes-container">
 		<div class="boxes">
-			<x-category-box image="/storage/comingSoon/{{$comingSoon->image}}" title="Coming Soon"
-				path="/coming-soon" />
+			<x-category-box image="/img/drones.webp" title="Drones" path="/products/10" />
 			<x-category-box image="/img/ps.webp" title="Playstation" path="/products/1" />
 			<x-category-box image="/img/retro.webp" title="Retro" path="/products/7" />
 			<x-category-box image="/img/Setup.webp" title="Gaming Setup" path="/products/5" />
@@ -98,7 +97,7 @@
 			@foreach ($newproducts as $product)
 			<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
 				salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}"
-				isAvailable="{{$product->is_available}}" />
+				isAvailable="{{$product->is_available}}" forceColoredCart="{{true}}" />
 			@endforeach
 		</div>
 	</section>
@@ -113,7 +112,7 @@
 			@foreach ($featuredProducts as $product)
 			<x-new-product-card image="{{$product->image}}" title="{{$product->name}}" price="{{$product->price}}"
 				salePrice="{{$product->sale}}" category="{{$product->category->slogan}}" id="{{$product->id}}"
-				isAvailable="{{$product->is_available}}" />
+				isAvailable="{{$product->is_available}}" forceColoredCart="{{true}}" />
 			@endforeach
 		</div>
 	</section>
