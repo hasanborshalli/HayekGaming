@@ -12,9 +12,9 @@ class BannerController extends Controller
     public function addBanner(Request $request)
     {
         $fields = $request->validate([
-        'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-        'mobile_image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-        'small_image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:1024',
+        'mobile_image' => 'required|image|mimes:jpeg,png,jpg,webp|max:1024',
+        'small_image' => 'required|image|mimes:jpeg,png,jpg,webp|max:1024',
         'product_id' => 'required|exists:products,id',
 ]);
         
@@ -39,9 +39,9 @@ class BannerController extends Controller
     public function editBanner(Request $request, Banner $banner)
     {
         $fields = $request->validate([
-        'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
-        'mobile_image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
-        'small_image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+        'image' => 'image|mimes:jpeg,png,jpg,webp|max:1024',
+        'mobile_image' => 'image|mimes:jpeg,png,jpg,webp|max:1024',
+        'small_image' => 'image|mimes:jpeg,png,jpg,webp|max:1024',
         'product_id' => 'required|exists:products,id',
 ]);
         if($request['image']) {

@@ -84,7 +84,7 @@
 			<x-category-box image="/img/drones.webp" title="Drones" path="/products/10" />
 			<x-category-box image="/img/ps.webp" title="Playstation" path="/products/1" />
 			<x-category-box image="/img/retro.webp" title="Retro" path="/products/7" />
-			<x-category-box image="/img/Setup.webp" title="Gaming Setup" path="/products/5" />
+			<x-category-box image="/img/Elite Gear.webp" title="Gaming Setup" path="/products/5" />
 		</div>
 	</section>
 	<section class="new">
