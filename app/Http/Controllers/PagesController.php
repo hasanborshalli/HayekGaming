@@ -212,8 +212,27 @@ $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $categories=Category::all();
-        $orderNumber=$request->input('orderNumber');;
-        return view('thankyou', ['movingSentence'=>$movingSentence->sentence,"cartQuantity"=>$cartQuantity,'categories'=>$categories,'orderNumber'=>$orderNumber]);
+        $orderNumber=$request->input('orderNumber');
+        $order = Order::find($orderNumber);
+        $itemsOrdered=$order->products;
+$message = "Name: {$order->name}%0A"
+         . "Mobile Number: {$order->mobile}%0A"
+         . "Second Mobile Number: {$order->second_mobile}%0A"
+         . "City: {$order->city}%0A"
+         . "Street: {$order->street}%0A"
+         . "Building: {$order->building}%0A"
+         . "Floor: {$order->floor}%0A"
+         . "Remarks: {$order->remarks}%0A"
+         . "Total Price: $" . "{$order->total}%0A%0A"
+         . "Items Ordered:%0A";
+foreach ($itemsOrdered as $item) {
+    $message .= "- {$item->product->name} (Qty: {$item->quantity})%0A";
+}
+
+
+
+
+        return view('thankyou', ['movingSentence'=>$movingSentence->sentence,"cartQuantity"=>$cartQuantity,'categories'=>$categories,'orderNumber'=>$orderNumber,'message'=>$message]);
     }
     public function OrdersPage()
     {

@@ -53,9 +53,7 @@
 
         @endif
         @endforeach
-        <a href="/coming-soon">
-            <li>Coming Soon</li>
-        </a>
+
     </ul>
 </div>
 <div class="search-container">
