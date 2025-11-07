@@ -26,7 +26,14 @@
             <a href="/products/{{$category->id}}">
                 <li>{{$category->name}}</li>
             </a>
+
             @endforeach
+            <a href="/watches">
+                <li>Watches</li>
+            </a>
+            <a href="/bracelets">
+                <li>Bracelets</li>
+            </a>
 
 
         </ul>
@@ -44,7 +51,7 @@
     </section>
 
 </footer>
-<div style="width:100%;background-color:#2a2670; text-align:center;">
+<div style="width:100%;background-color:#2a2670; text-align:center;" class="poweredBy">
     <p class="small-text">
         Powered By
         <a target="_blank" href="https://brndnglb.com" style="text-decoration:none;">

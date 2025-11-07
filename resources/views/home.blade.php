@@ -155,6 +155,48 @@
 			@endforeach
 		</div>
 	</section>
+	<section class="watches-section">
+		<div class="header">
+			<h2>Watches</h2>
+			<button class="view-all" onclick="window.location.href='/watches'">View All</button>
+		</div>
+
+		<div class="watch-carousel">
+			@foreach($watches as $watch)
+			<div class="watch-card">
+				<a href="/watch/{{ $watch->id }}" style="text-decoration: none">
+					<div class="watch-image-wrapper">
+						<img src="/storage/watches/{{ $watch->image }}" alt="{{ html_entity_decode($watch->name) }}"
+							loading="lazy" class="watch-img" />
+						@if($watch->sale)
+						<div class="sale-badge">SALE</div>
+						@endif
+					</div>
+
+					<div class="watch-info-container">
+						<h3 style="color:black">{{ html_entity_decode($watch->name) }}</h3>
+					</div>
+
+					@if($watch->sale)
+					<div class="product-price">
+						<span class="old-price">${{ number_format($watch->price, 2) }}</span>
+						<span class="sale-price">${{ number_format($watch->sale, 2) }}</span>
+					</div>
+					@else
+					<p class="price">${{ number_format($watch->price, 2) }}</p>
+					@endif
+
+					<button onclick="addToCart({{ $watch->id }}, 'watch')" style="font-family: 'Poppins', sans-serif;">
+						Add to cart
+						<img src="/img/colored-cart.svg" class="cart-icon" />
+					</button>
+				</a>
+			</div>
+			@endforeach
+		</div>
+	</section>
+
+
 
 	<section class="info">
 		<div class="general-info">

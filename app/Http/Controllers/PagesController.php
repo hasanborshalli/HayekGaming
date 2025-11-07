@@ -9,7 +9,10 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Sentence;
 use App\Models\SubCategory;
+use App\Models\Type;
+use App\Models\Watch;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 class PagesController extends Controller
 {
     public function homePage()
@@ -27,8 +30,9 @@ $banners = Banner::orderBy('created_at', 'desc')->get();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $controllers=Product::where('category_id',1)->where('sub_category_id',5)->orderBy('created_at','desc')->take(7)->get();
-        
-        return view('home', ['categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity,'controllers'=>$controllers,'activeIndex' => 0,'movingSentence'=>$movingSentence->sentence]);
+        $watches=Watch::where('featured',true)->orderBy('created_at', 'desc') 
+                                   ->take(9)->get();
+        return view('home', ['watches'=>$watches,'categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity,'controllers'=>$controllers,'activeIndex' => 0,'movingSentence'=>$movingSentence->sentence]);
     }
     
     public function productDetailsPage(Product $product)
@@ -57,7 +61,19 @@ $relatedProducts = $relatedProductsQuery->take(5)->get();
         $boxContents=json_decode($product->box_contents, true);
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        return view('productDetails', ['hasGameTypes'=>$hasGameTypes,'movingSentence'=>$movingSentence->sentence,'categories' => $categories,'relatedProducts'=>$relatedProducts,'product'=>$product,'features'=>$features,'boxContents'=>$boxContents,'cartQuantity'=>$cartQuantity]);
+        return view('productDetails', ['hasGameTypes'=>$hasGameTypes,'movingSentence'=>$movingSentence->sentence,'categories' => $categories,'relatedProducts'=>$relatedProducts,'product'=>$product,'features'=>$features,'boxContents'=>$boxContents,'cartQuantity'=>$cartQuantity,'pageType'=>'product']);
+    }
+    public function watchDetailsPage(Watch $watch){
+
+        $movingSentence=Sentence::first();
+        $categories=Category::all();
+       $relatedProducts = Watch::orderBy('created_at','desc')->take(5)->get();
+        $features=json_decode($watch->features, true);
+        $boxContents=json_decode($watch->box_contents, true);
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+        return view('productDetails', ['hasGameTypes'=>false,'movingSentence'=>$movingSentence->sentence,'categories' => $categories,'relatedProducts'=>$relatedProducts,'product'=>$watch,'features'=>$features,'boxContents'=>$boxContents,'cartQuantity'=>$cartQuantity,'pageType'=>'watch']);
+    
     }
     public function productsPage(Category $category)
     {
@@ -134,6 +150,12 @@ public function productsBySubPage(SubCategory $subCategory)
         return view('productsManage', ['products'=>$products,'categories'=>$categories,'gameTypes'=>$gameTypes]);
     
     }
+     public function manageWatchesPage()
+    {
+        $watches=Watch::orderBy('created_at', 'desc') ->paginate(24);
+        return view('watchesManage', ['watches'=>$watches]);
+    
+    }
     public function bannersPage()
     {
         $banners=Banner::all();
@@ -154,6 +176,11 @@ public function productsBySubPage(SubCategory $subCategory)
         $categories=Category::all();
         $gameTypes=GameType::all();
         return view('addProduct', ['categories'=>$categories,'gameTypes'=>$gameTypes]);
+    }
+     public function addWatchPage()
+    {
+        $types=Type::all();
+        return view('addWatch',['types'=>$types]);
     }
     public function addBannerPage()
     {
@@ -185,17 +212,37 @@ $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
                                                 'boxContents'=>$boxContents,
                                                 'product_gameTypes'=>$product_gameTypes]);
     }
+     public function editWatchPage(Watch $watch)
+    {
+        $types=Type::all();
+$decodedFeatures = json_decode($product->features ?? '[]', true);
+$decodedBox = json_decode($product->box_contents ?? '[]', true);
+
+$features = is_array($decodedFeatures) ? implode("\n", $decodedFeatures) : '';
+$boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
+
+        return view('editWatch', [
+                                                'watch'=>$watch,
+                                                'types'=>$types,
+                                                'features'=>$features,
+                                                'boxContents'=>$boxContents,
+                                                ]);
+    }
     public function cartPage()
     {
         $categories=Category::all();
         $movingSentence=Sentence::first();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
-        $itemIds = array_column($cart, 'id');
-        $products=Product::whereIn('id', $itemIds)
+         $productIds = collect($cart)->where('type', 'product')->pluck('id');
+    $watchIds = collect($cart)->where('type', 'watch')->pluck('id');
+        $products=Product::whereIn('id', $productIds)
                           ->where('is_available',true)
-                           ->orderBy('created_at', 'desc') ->get();
-        return view('cart', ['movingSentence'=>$movingSentence->sentence,'categories'=>$categories,'cartQuantity'=>$cartQuantity,'products'=>$products,'cart'=>$cart]);
+                            ->orderBy('created_at', 'desc') ->get();
+                            $watches = Watch::whereIn('id', $watchIds)
+        ->where('is_available', true)
+        ->get();
+        return view('cart', ['movingSentence'=>$movingSentence->sentence,'categories'=>$categories,'cartQuantity'=>$cartQuantity,'products'=>$products,'cart'=>$cart,'watches'=>$watches]);
     }
     public function checkoutPage()
     {
@@ -206,34 +253,55 @@ $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
         return view('checkout', ['movingSentence'=>$movingSentence->sentence,"cartQuantity"=>$cartQuantity,'categories'=>$categories]);
     }
     public function ThankyouPage(Request $request)
-    {
-                $movingSentence=Sentence::first();
+{
+    $movingSentence = Sentence::first();
+    $cart = session('cart_items', []);
+    $cartQuantity = count($cart);
+    $categories = Category::all();
 
-        $cart = session('cart_items', []);
-        $cartQuantity = count($cart);
-        $categories=Category::all();
-        $orderNumber=$request->input('orderNumber');
-        $order = Order::find($orderNumber);
-        $itemsOrdered=$order->products;
-$message = "Name: {$order->name}%0A"
-         . "Mobile Number: {$order->mobile}%0A"
-         . "Second Mobile Number: {$order->second_mobile}%0A"
-         . "City: {$order->city}%0A"
-         . "Street: {$order->street}%0A"
-         . "Building: {$order->building}%0A"
-         . "Floor: {$order->floor}%0A"
-         . "Remarks: {$order->remarks}%0A"
-         . "Total Price: $" . "{$order->total}%0A%0A"
-         . "Items Ordered:%0A";
-foreach ($itemsOrdered as $item) {
-    $message .= "- {$item->product->name} (Qty: {$item->quantity})%0A";
+    $orderNumber = $request->input('orderNumber');
+    $order = Order::find($orderNumber);
+
+    // Fetch all order_items for this order
+    $orderItems = DB::table('order_items')
+        ->where('order_id', $order->id)
+        ->get();
+
+    $message = "Name: {$order->name}%0A"
+        . "Mobile Number: {$order->mobile}%0A"
+        . "Second Mobile Number: {$order->second_mobile}%0A"
+        . "City: {$order->city}%0A"
+        . "Street: {$order->street}%0A"
+        . "Building: {$order->building}%0A"
+        . "Floor: {$order->floor}%0A"
+        . "Remarks: {$order->remarks}%0A"
+        . "Total Price: $" . "{$order->total}%0A%0A"
+        . "Items Ordered:%0A";
+
+    foreach ($orderItems as $item) {
+        // Check if this row belongs to a product or a watch
+        if (!empty($item->product_id)) {
+            $product = \App\Models\Product::find($item->product_id);
+            if ($product) {
+                $message .= "- {$product->name} (Qty: {$item->quantity})%0A";
+            }
+        } elseif (!empty($item->watch_id)) {
+            $watch = \App\Models\Watch::find($item->watch_id);
+            if ($watch) {
+                $message .= "- {$watch->name} (Qty: {$item->quantity})%0A";
+            }
+        }
+    }
+
+    return view('thankyou', [
+        'movingSentence' => $movingSentence->sentence,
+        'cartQuantity' => $cartQuantity,
+        'categories' => $categories,
+        'orderNumber' => $orderNumber,
+        'message' => $message
+    ]);
 }
 
-
-
-
-        return view('thankyou', ['movingSentence'=>$movingSentence->sentence,"cartQuantity"=>$cartQuantity,'categories'=>$categories,'orderNumber'=>$orderNumber,'message'=>$message]);
-    }
     public function OrdersPage()
     {
         $orders = Order::where('done', false)
@@ -264,14 +332,33 @@ foreach ($itemsOrdered as $item) {
     }
     public function comingSoonPage()
     {
-                $movingSentence=Sentence::first();
-
+        $movingSentence=Sentence::first();
         $categories=Category::all();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $comingSoonGames=ComingProduct::paginate(24);
         
         return view('comingSoon', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'cartQuantity'=>$cartQuantity,'comingSoonGames'=>$comingSoonGames]);
+    }
+    public function watchesPage()
+    {
+        $movingSentence=Sentence::first();
+        $categories=Category::all();
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+       $watches=Watch::where('type_id','!=',4)->orderBy('created_at', 'desc') ->paginate(24);
+       $path='Watches'; 
+       return view('watches', ['path'=>$path,'watches'=>$watches,'movingSentence'=>$movingSentence->sentence,'categories' => $categories,'cartQuantity'=>$cartQuantity]);
+    }
+    public function braceletsPage()
+    {
+        $movingSentence=Sentence::first();
+        $categories=Category::all();
+        $cart = session('cart_items', []);
+        $cartQuantity = count($cart);
+       $watches=Watch::where('type_id',4)->orderBy('created_at', 'desc') ->paginate(24);
+       $path='Bracelets'; 
+       return view('watches', ['path'=>$path,'watches'=>$watches,'movingSentence'=>$movingSentence->sentence,'categories' => $categories,'cartQuantity'=>$cartQuantity]);
     }
     public function sentencePage(){
     $sentence=Sentence::first();

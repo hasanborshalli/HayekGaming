@@ -7,6 +7,7 @@ use App\Http\Controllers\ComingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WatchesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class,'homePage']);
@@ -14,11 +15,16 @@ Route::get('/', [PagesController::class,'homePage']);
 Route::get('/coming-soon', [PagesController::class,'comingSoonPage']);
 
 Route::get('/product/{product}', [PagesController::class,'productDetailsPage']);
+Route::get('/watch/{watch}', [PagesController::class,'watchDetailsPage']);
+
 
 Route::get('/products/{category}', [PagesController::class,'productsPage']);
 Route::get('/products/category/{subCategory}', [PagesController::class,'productsBySubPage']);
 Route::get('/products/{subCategory}/{gameType}', [PagesController::class,'productsByGameType']);
 Route::get('/allGames/{subCategory}', [PagesController::class,'productsByAllGames'])->name('allGamesRoute');
+
+Route::get('/watches',[PagesController::class,'watchesPage']);
+Route::get('/bracelets',[PagesController::class,'braceletsPage']);
 
 Route::get('/search/products', [ProductController::class,'productsSearch']);
 Route::get('/search-products', [ProductController::class, 'search']);
@@ -46,6 +52,14 @@ Route::post('/admin/addProduct', [ProductController::class,'addProduct'])->middl
 Route::get('/admin/editProduct/{product}', [PagesController::class,'editProductPage'])->middleware('auth');
 Route::post('/admin/editProduct/{product}', [ProductController::class,'editProduct'])->middleware('auth');
 Route::get('/admin/deleteProduct/{product}', [ProductController::class,'deleteProduct'])->middleware('auth');
+
+Route::get('/admin/watches', [PagesController::class,'manageWatchesPage'])->middleware('auth');
+Route::get('/admin/watches/add', [PagesController::class,'addWatchPage'])->middleware('auth');
+Route::post('/admin/addWatch', [WatchesController::class,'addWatch'])->middleware('auth');
+Route::get('/admin/deleteWatch/{watch}', [WatchesController::class,'deleteWatch'])->middleware('auth');
+Route::get('/admin/editWatch/{watch}', [PagesController::class,'editWatchPage'])->middleware('auth');
+Route::post('/admin/editWatch/{watch}', [WatchesController::class,'editWatch'])->middleware('auth');
+Route::get('/admin/search/watches', [WatchesController::class,'adminWatchesSearch'])->middleware('auth');
 
 Route::get('/admin/categories', [PagesController::class,'categoriesPage'])->middleware('auth');
 Route::get('/admin/categories/add', [PagesController::class,'addCategoryPage'])->middleware('auth');

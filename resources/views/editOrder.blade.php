@@ -87,20 +87,35 @@
             <div class="form-group">
                 <label for="order-items">Order Items</label>
                 <div class="order-items">
-                    @foreach ($order->products as $index => $item)
+                    @foreach ($order->orderItems as $index => $item)
+                    @php
+                    $isProduct = !empty($item->product_id);
+                    $object = $isProduct
+                    ? \App\Models\Product::find($item->product_id)
+                    : \App\Models\Watch::find($item->watch_id);
+
+                    $name = $object->name ?? 'Unknown';
+                    $price = $object->sale ?? $object->price ?? 0;
+                    $quantity = $item->quantity ?? 1;
+                    $subtotal = $price * $quantity;
+                    $type = $isProduct ? 'product' : 'watch';
+                    @endphp
+
                     <div class="order-item">
-                        <p class="input-label"><strong>{{ $item->product->name }}</strong></p>
+                        <p class="input-label"><strong>{{ $name }}</strong> ({{ ucfirst($type) }})</p>
+
                         <div class="quantity-controls">
-                            <input type="number" class="item-quantity" name="quantity_{{$item->product->id}}"
-                                value="{{$item->quantity}}" id="quantity-{{$item->product->id}}" min="0"
-                                data-price="{{ $item->product->price }}" data-id="{{ $item->product->id }}" />
+                            <input type="number" class="item-quantity" name="quantity_{{ $type }}_{{ $object->id }}"
+                                value="{{ $quantity }}" id="quantity-{{ $type }}-{{ $object->id }}" min="0"
+                                data-price="{{ $price }}" data-id="{{ $object->id }}" data-type="{{ $type }}" />
                         </div>
-                        <input type="hidden" name="item_{{$item->product->id}}" value="{{ $item->product->id }}">
-                        <p id="item-price-{{$item->product->id}}">Price: ${{ $item->product->price * $item->quantity }}
-                        </p> <!-- Initial price for the item -->
+
+                        <input type="hidden" name="item_{{ $type }}_{{ $object->id }}" value="{{ $object->id }}">
+                        <p id="item-price-{{ $type }}-{{ $object->id }}">Price: ${{ number_format($subtotal, 2) }}</p>
                     </div>
                     @endforeach
                 </div>
+
             </div>
 
             <!-- Total Order Price -->
@@ -119,36 +134,36 @@
     </section>
     <script>
         function updateTotalPrice() {
-        let totalPrice = 0;
+    let totalPrice = 0;
 
-        // Loop through all items and update their price
-        document.querySelectorAll('.item-quantity').forEach(function(input) {
-            const quantity = input.value;
-            const pricePerItem = input.getAttribute('data-price');
-            const itemId = input.getAttribute('data-id');
-            const itemTotalPrice = quantity * pricePerItem;
-
-            // Update item price display
-            document.getElementById('item-price-' + itemId).innerText = "Price: $" + itemTotalPrice;
-
-            // Add the item price to the total order price
-            totalPrice += itemTotalPrice;
-        });
-
-        // Update the total order price
-        document.getElementById('total-price').value = totalPrice;
-    }
-
-    // Add event listener for quantity change
+    // Loop through all items and update their price
     document.querySelectorAll('.item-quantity').forEach(function(input) {
-        input.addEventListener('input', function() {
-            updateTotalPrice();
-        });
+        const quantity = parseInt(input.value) || 0;
+        const pricePerItem = parseFloat(input.getAttribute('data-price')) || 0;
+        const itemId = input.getAttribute('data-id');
+        const type = input.getAttribute('data-type');
+        const itemTotalPrice = quantity * pricePerItem;
+
+        // Update item price display
+        document.getElementById('item-price-' + type + '-' + itemId).innerText = "Price: $" + itemTotalPrice.toFixed(2);
+
+        // Add the item price to total
+        totalPrice += itemTotalPrice;
     });
 
-    // Initial call to set the total price when the page loads
-    updateTotalPrice();
+    // Update total
+    document.getElementById('total-price').value = totalPrice.toFixed(2);
+}
+
+// Add listener for quantity change
+document.querySelectorAll('.item-quantity').forEach(function(input) {
+    input.addEventListener('input', updateTotalPrice);
+});
+
+// Initial total calc
+updateTotalPrice();
     </script>
+
 </body>
 
 </html>

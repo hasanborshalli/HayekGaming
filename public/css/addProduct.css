@@ -115,6 +115,23 @@ textarea {
     opacity: 1;
     bottom: 50px;
 }
+.color-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-group label {
+    min-width: 80px;
+}
+
+.color-group input[type="color"] {
+    width: 60px;
+    height: 35px;
+    border: none;
+    cursor: pointer;
+}
+
 @media (max-width: 600px) {
     .form-row {
         flex-direction: column;

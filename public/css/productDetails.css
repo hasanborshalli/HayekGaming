@@ -93,8 +93,8 @@ body {
     flex-wrap: wrap;
 }
 
-.sale-price {
-    color: red;
+.sale-price-details {
+    color: red !important;
     font-weight: bold;
     font-size: 1.1rem;
 }

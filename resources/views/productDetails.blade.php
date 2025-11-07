@@ -36,6 +36,10 @@
     <link rel="stylesheet" href="/css/relatedProducts.css">
     <link rel="stylesheet" href="/css/productsList.css">
     <link rel="stylesheet" href="/css/toast.css">
+    @if ($pageType=='watch')
+    <link rel="stylesheet" href="/css/watches.css">
+    @endif
+
     <style>
         .product-card,
         .product-category,
@@ -49,14 +53,19 @@
 <body>
     <x-navbar :categories="$categories" cartQuantity={{$cartQuantity}} />
     <section class="productDetailsPage">
+        @if ($pageType === 'product')
         <div class="path">
-            <h3>Home > <a
-                    href="/products/{{ $product->category->id }}">{{html_entity_decode($product->category->name)}}</a> >
-                <span style="color:rgba(0,0,0,1);">{{ html_entity_decode($product->subCategory->name ?? '') }}</span>
-
+            <h3>Home > <a href="/products/{{ $product->category->id }}">{{ $product->category->name }}</a> >
+                <span style="color:rgba(0,0,0,1);">{{ $product->subCategory->name ?? '' }}</span>
             </h3>
         </div>
-        <x-product-box name="{{$product->name}}" price="{{$product->price}}" id="{{$product->id}}"
+        @else
+        <div class="path">
+            <h3>Home > <a href="/watches">Watches</a>
+            </h3>
+        </div>
+        @endif
+        <x-product-box :pageType="$pageType" name="{{$product->name}}" price="{{$product->price}}" id="{{$product->id}}"
             image="{{$product->image}}" image1="{{$product->image1}}" image2="{{$product->image2}}"
             image3="{{$product->image3}}" image4="{{$product->image4}}" image5="{{$product->image5}}"
             image6="{{$product->image6}}" sale="{{ $product->sale }}" />
@@ -74,10 +83,12 @@
 
         <x-product-description name="{{$product->name}}" description="{!! nl2br(e($product->description)) !!}"
             :boxContents="$boxContents" :features="$features" />
+
         <x-related-products :products="$relatedProducts" title="View More Products"
             :isGames="optional($product->subCategory)->name === 'Games'"
             :subId="$product->sub_category_id ?? $product->category_id" category="{{$product->category_id}}"
-            gameTypeId="{{$product->gameTypes[0]->id ?? null}}" :hasSubCategory="!is_null($product->sub_category_id)" />
+            gameTypeId="{{$product->gameTypes[0]->id ?? null}}" :hasSubCategory="!is_null($product->sub_category_id)"
+            :pageType="$pageType" />
     </section>
     <x-footer :categories="$categories" movingSentence="{{$movingSentence}}" />
     <div id="toast" class="toast"></div>

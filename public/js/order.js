@@ -1,4 +1,4 @@
-function addToCart(id) {
+function addToCart(id, type) {
     let currentQuantity = document.getElementById("quantity-" + id)?.value || 1;
     const token = document
         .querySelector('meta[name="csrf-token"]')
@@ -10,7 +10,11 @@ function addToCart(id) {
                 "X-CSRF-TOKEN": token,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ id: id, quantity: currentQuantity }),
+            body: JSON.stringify({
+                id: id,
+                quantity: currentQuantity,
+                type: type,
+            }),
         };
 
         fetch("/addCart", options)

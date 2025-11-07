@@ -1,6 +1,7 @@
 <div class="sidebar">
   <h2>Admin Panel</h2>
   <a href="/admin/products">Manage Products</a>
+  <a href="/admin/watches">Manage Watches & Bracelets</a>
   <a href="/admin/categories">Manage Categories</a>
   <a href="/admin/orders">Manage Orders</a>
   <a href="/admin/banners">Manage Banners</a>
@@ -14,6 +15,7 @@
 <div class="topbar">
   <h2>Admin Panel</h2>
   <a href="/admin/products">Manage Products</a>
+  <a href="/admin/watches">Manage Watches & Bracelets</a>
   <a href="/admin/categories">Manage Categories</a>
   <a href="/admin/orders">Manage Orders</a>
   <a href="/admin/banners">Manage Banners</a>

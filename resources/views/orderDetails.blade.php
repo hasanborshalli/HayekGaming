@@ -56,19 +56,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($order->products as $item)
+                            @foreach($order->orderItems as $item)
+                            @php
+                            $isProduct = !empty($item->product_id);
+                            $object = $isProduct
+                            ? \App\Models\Product::find($item->product_id)
+                            : \App\Models\Watch::find($item->watch_id);
+
+                            $name = $object->name ?? 'Unknown';
+                            $categoryOrType = $isProduct
+                            ? ($object->category->name ?? 'N/A')
+                            : ($object->type->name ?? 'N/A');
+                            $price = $object->sale ?? $object->price ?? 0;
+                            $subtotal = $item->quantity * $price;
+                            $imagePath = $isProduct
+                            ? "/storage/products/{$object->image}"
+                            : "/storage/watches/{$object->image}";
+                            @endphp
+
                             <tr>
-                                <td>{{ $item->product->name }}</td>
-                                <td>{{$item->product->category->name}}</td>
+                                <td>{{ $name }}</td>
+                                <td>{{ $categoryOrType }}</td>
                                 <td>{{ $item->quantity }}</td>
-                                <td>${{ number_format(($item->product->sale ?? $item->product->price), 2) }}</td>
-                                <td>${{ number_format($item->quantity * ($item->product->sale ?? $item->product->price),
-                                    2) }}</td>
-                                <td><img src="/storage/products/{{ $item->product->image }}" alt="Product Image"
+                                <td>${{ number_format($price, 2) }}</td>
+                                <td>${{ number_format($subtotal, 2) }}</td>
+                                <td><img src="{{ $imagePath }}" alt="Item Image"
                                         style="max-width: 100px; height: auto;"></td>
                             </tr>
                             @endforeach
                         </tbody>
+
                     </table>
                 </div>
             </div>

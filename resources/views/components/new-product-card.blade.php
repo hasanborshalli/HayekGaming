@@ -34,7 +34,8 @@
         </div>
 
         @if($isAvailable)
-        <button class="add-to-cart-btn {{$salePrice ? 'sales-add-to-cart-btn' : ''}}" onclick="addToCart({{ $id }})">
+        <button class="add-to-cart-btn {{$salePrice ? 'sales-add-to-cart-btn' : ''}}"
+            onclick="addToCart({{ $id }},'product')">
             Add to cart
             <img src="/img/{{ ($forceColoredCart ?? false) ? 'colored-' : ($salePrice ? '' : 'colored-') }}cart.svg"
                 class="cart-icon" />

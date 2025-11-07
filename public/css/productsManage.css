@@ -253,6 +253,20 @@
     font-size: 14px;
     color: #333;
 }
+.color-dot {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    margin-left: 6px;
+    margin-right: 4px;
+}
+.color-code {
+    font-size: 13px;
+    color: #555;
+}
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {

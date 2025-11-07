@@ -42,12 +42,13 @@ document.addEventListener("DOMContentLoaded", function () {
 let productIdToDelete = null;
 let buttonClicked = null;
 const confirmationMessage = document.getElementById("confirmation-message");
-function deleteProduct(id, button, name) {
+function deleteProduct(id, button, name, type) {
     productIdToDelete = id;
     buttonClicked = button;
     confirmationMessage.textContent =
         "Are you sure you want to delete this " + name + "?";
     document.getElementById("confirmOverlay").style.display = "flex";
+    productTypeToDelete = type;
 }
 // Close modal
 document.getElementById("confirmNo").addEventListener("click", () => {
@@ -57,8 +58,11 @@ document.getElementById("confirmNo").addEventListener("click", () => {
 // Confirm delete
 document.getElementById("confirmYes").addEventListener("click", () => {
     if (!productIdToDelete) return;
-
-    fetch(`/admin/deleteProduct/${productIdToDelete}`, {
+    const route =
+        productTypeToDelete === "watch"
+            ? `/admin/deleteWatch/${productIdToDelete}`
+            : `/admin/deleteProduct/${productIdToDelete}`;
+    fetch(route, {
         method: "GET",
         headers: {
             "X-CSRF-TOKEN": "{{ csrf_token() }}",
@@ -69,7 +73,7 @@ document.getElementById("confirmYes").addEventListener("click", () => {
             if (data.status === "removed") {
                 const card = buttonClicked.closest(".product-card");
                 if (card) card.remove();
-                showToast("PRoduct removed successfully");
+                showToast("Product removed successfully");
             } else {
                 showToast("Failed to delete the product");
             }

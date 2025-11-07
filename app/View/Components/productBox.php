@@ -19,8 +19,9 @@ class productBox extends Component
      public $image5;
     public $image6;
     public $sale;
+    public $pageType;
     
-    public function __construct($name, $price,$image, $image1, $image2, $image3, $image4, $image5, $image6, $id,$sale)
+    public function __construct($name, $price,$image, $image1, $image2, $image3, $image4, $image5, $image6, $id,$sale,$pageType)
     {
         $this->name=$name;
         $this->price=$price;
@@ -33,6 +34,7 @@ class productBox extends Component
         $this->image5=$image5;
         $this->image6=$image6;
         $this->sale=$sale;
+        $this->pageType=$pageType;
     }
 
     /**

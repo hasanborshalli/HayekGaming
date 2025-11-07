@@ -15,4 +15,8 @@ class Order_item extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+    public function watch()
+    {
+        return $this->belongsTo(Watch::class, 'watch_id');
+    }
 }

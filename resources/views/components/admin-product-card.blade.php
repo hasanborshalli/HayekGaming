@@ -15,6 +15,6 @@
 
   <div class="btn-group">
     <button class="btn-edit" onclick="window.location.href='/admin/editProduct/{{$id}}'">Edit</button>
-    <button class="btn-delete" onclick="deleteProduct({{ $id }}, this, '{{ $name }}')">Delete</button>
+    <button class="btn-delete" onclick="deleteProduct({{ $id }}, this, '{{ $name }}','product')">Delete</button>
   </div>
 </div>

@@ -21,4 +21,12 @@ class Order extends Model
     {
         return $this->hasMany(Order_item::class, 'order_id');
     }
+    public function watches()
+    {
+        return $this->hasMany(Order_item::class, 'order_id');
+    }
+    public function orderItems()
+{
+    return $this->hasMany(\App\Models\Order_item::class);
+}
 }

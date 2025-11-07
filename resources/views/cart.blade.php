@@ -41,7 +41,8 @@
     <section class="cart-page">
         <div class="cart-container">
             <h2>Shopping Cart</h2>
-            @if ($products->count()>0)
+            @if ($products->count() > 0 || $watches->count() > 0)
+
             <table>
                 <thead>
                     <tr>
@@ -55,47 +56,98 @@
                 </thead>
                 <tbody id="cart-body">
                     @php
-                    $totalPrice = 0; // Initialize total price variable
+                    $totalPrice = 0;
+                    $rowIndex = 1;
                     @endphp
+
                     <form method="post" action="/checkout">
                         @csrf
-                        @foreach ($products as $index=>$item)
-                        <tr data-id="{{ $item->id }}">
-                            <input type="hidden" value="{{$item->id}}" name="item_{{$item->id}}">
-                            <td>{{$index + 1}}</td>
-                            <td><img src="/storage/products/{{$item->image}}" alt="{{$item->name}}" loading="lazy"></td>
-                            <td>{{$item->name}}</td>
+
+                        {{-- Products --}}
+                        @foreach ($products as $item)
+                        @php
+                        $cartItem = collect($cart)->firstWhere(fn($c) => $c['id'] == $item->id && $c['type'] ==
+                        'product');
+                        $qty = $cartItem['quantity'] ?? 1;
+                        $price = $item->sale ?? $item->price;
+                        $subtotal = $price * $qty;
+                        $totalPrice += $subtotal;
+                        @endphp
+
+                        <tr data-id="{{ $item->id }}" data-type="product">
+                            <input type="hidden" name="item_{{ $item->id }}" value="{{ $item->id }}">
+                            <input type="hidden" name="type_{{ $item->id }}" value="product">
+
+                            <td>{{ $rowIndex++ }}</td>
+                            <td><img src="/storage/products/{{ $item->image }}" alt="{{ $item->name }}" loading="lazy">
+                            </td>
+                            <td>{{ $item->name }}</td>
                             <td>
                                 <div class="quantity-controls">
                                     <button type="button" class="quantity-btn"
-                                        onclick="updateQuantity({{$item->id}}, -1,{{$item->sale ?? $item->price}})">-</button>
-                                    <input readonly type="text" class="item-quantity" name="quantity_{{$item->id}}"
-                                        value="{{$cart[$index]['quantity']}}" id="quantity-{{$item->id}}" />
+                                        onclick="updateQuantity({{ $item->id }}, 'product', -1, {{ $price }})">-</button>
+                                    <input readonly type="text" class="item-quantity"
+                                        id="quantity-product-{{ $item->id }}" name="quantity_{{ $item->id }}"
+                                        value="{{ $qty }}">
                                     <button type="button" class="quantity-btn"
-                                        onclick="updateQuantity({{$item->id}}, 1,{{$item->sale ?? $item->price}})">+</button>
+                                        onclick="updateQuantity({{ $item->id }}, 'product', 1, {{ $price }})">+</button>
                                 </div>
                             </td>
-                            <td id="price-{{$item->id}}">{{($item->sale ?? $item->price)*$cart[$index]['quantity']}}
-                            </td>
+                            <td id="price-product-{{ $item->id }}">{{ number_format($subtotal, 2) }}</td>
                             <td>
-                                <button type="button" class="remove-btn" onclick="removeFromCart({{ $item->id }})"
+                                <button type="button" class="remove-btn"
+                                    onclick="removeFromCart({{ $item->id }}, 'product')"
                                     title="Remove from cart">×</button>
                             </td>
                         </tr>
-                        @php
-                        $subtotal =($item->sale ?? $item->price)*$cart[$index]['quantity'];
-                        // Calculate subtotal for this book
-                        $totalPrice += $subtotal;// Add subtotal to total price
-                        @endphp
                         @endforeach
 
+                        {{-- Watches --}}
+                        @foreach ($watches as $item)
+                        @php
+                        $cartItem = collect($cart)->firstWhere(fn($c) => $c['id'] == $item->id && $c['type'] ==
+                        'watch');
+                        $qty = $cartItem['quantity'] ?? 1;
+                        $price = $item->sale ?? $item->price;
+                        $subtotal = $price * $qty;
+                        $totalPrice += $subtotal;
+                        @endphp
+
+                        <tr data-id="{{ $item->id }}" data-type="watch">
+                            <input type="hidden" name="item_{{ $item->id }}" value="{{ $item->id }}">
+                            <input type="hidden" name="type_{{ $item->id }}" value="watch">
+
+                            <td>{{ $rowIndex++ }}</td>
+                            <td><img src="/storage/watches/{{ $item->image }}" alt="{{ $item->name }}" loading="lazy">
+                            </td>
+                            <td>{{ $item->name }}</td>
+                            <td>
+                                <div class="quantity-controls">
+                                    <button type="button" class="quantity-btn"
+                                        onclick="updateQuantity({{ $item->id }}, 'watch', -1, {{ $price }})">-</button>
+                                    <input readonly type="text" class="item-quantity"
+                                        id="quantity-watch-{{ $item->id }}" name="quantity_{{ $item->id }}"
+                                        value="{{ $qty }}">
+                                    <button type="button" class="quantity-btn"
+                                        onclick="updateQuantity({{ $item->id }}, 'watch', 1, {{ $price }})">+</button>
+                                </div>
+                            </td>
+                            <td id="price-watch-{{ $item->id }}">{{ number_format($subtotal, 2) }}</td>
+                            <td>
+                                <button type="button" class="remove-btn"
+                                    onclick="removeFromCart({{ $item->id }}, 'watch')"
+                                    title="Remove from cart">×</button>
+                            </td>
+                        </tr>
+                        @endforeach
                 </tbody>
                 <tfoot>
                     <tr class="total-row">
                         <td colspan="5">Total Price</td>
-                        <td id="total-price">${{number_format($totalPrice, 2)}}</td>
+                        <td id="total-price">${{ number_format($totalPrice, 2) }}</td>
                     </tr>
                 </tfoot>
+
             </table>
             <button class="checkout-btn" type="submit">Proceed to Checkout</button>
             </form>
@@ -108,29 +160,31 @@
     </section>
     <x-footer :categories="$categories" movingSentence="{{$movingSentence}}" />
     <script>
-        function updateQuantity(itemId, change, price) {
-            let itemQuantity=document.getElementById("quantity-"+itemId).value;  
-            let totalPriceElement = document.getElementById("total-price");
-            let totalPrice = 0;
-            let newPrice=0;
-            if(change==1){
-                itemQuantity++;
-                newPrice=price*itemQuantity;
-            }else if(change==-1){
-                itemQuantity--;
-                if(itemQuantity<0){
-                itemQuantity=0;
-            }
-            newPrice=price*itemQuantity;
-            }
-            
-            document.getElementById("price-"+itemId).textContent=newPrice.toFixed(2);
-            document.getElementById("quantity-"+itemId).value=itemQuantity;
-            document.querySelectorAll("[id^='price-']").forEach(priceEl => {
-            totalPrice += parseFloat(priceEl.textContent);
-            });
-            totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
-        }
+        function updateQuantity(itemId, type, change, price) {
+    const qtyInput = document.getElementById(`quantity-${type}-${itemId}`);
+    let itemQuantity = parseInt(qtyInput.value);
+
+    if (isNaN(itemQuantity)) itemQuantity = 1;
+
+    if (change === 1) itemQuantity++;
+    else if (change === -1 && itemQuantity > 1) itemQuantity--;
+
+    qtyInput.value = itemQuantity;
+
+    const newPrice = price * itemQuantity;
+    document.getElementById(`price-${type}-${itemId}`).textContent = newPrice.toFixed(2);
+
+    updateTotalPrice();
+}
+function updateTotalPrice() {
+    let total = 0;
+    document.querySelectorAll("[id^='price-']").forEach(priceEl => {
+        const value = parseFloat(priceEl.textContent);
+        if (!isNaN(value)) total += value;
+    });
+    document.getElementById("total-price").textContent = `$${total.toFixed(2)}`;
+}
+
 
     </script>
     <script src="/js/navbar.js"></script>
