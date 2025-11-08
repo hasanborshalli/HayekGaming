@@ -18,19 +18,21 @@ class PagesController extends Controller
     public function homePage()
     {
         $categories=Category::all();
-$banners = Banner::orderBy('created_at', 'desc')->get();
+        $banners = Banner::orderBy('created_at', 'desc')->get();
         $newproducts = Product::where('isNew',true)
+                               ->where('is_available',true)
                                ->orderBy('created_at', 'desc') 
-                              ->latest()->take(9)->get();
+                               ->latest()->take(9)->get();
         $featuredProducts = Product::where('featured', true)
+                                    ->where('is_available',true)
                                     ->orderBy('created_at', 'desc') 
-                                   ->take(9)->get();
+                                    ->take(9)->get();
         $comingSoon=Coming::first();
         $movingSentence=Sentence::first();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $controllers=Product::where('category_id',1)->where('sub_category_id',5)->orderBy('created_at','desc')->take(7)->get();
-        $watches=Watch::where('featured',true)->orderBy('created_at', 'desc') 
+        $watches=Watch::where('featured',true)->where('is_available',true)->orderBy('created_at', 'desc') 
                                    ->take(9)->get();
         return view('home', ['watches'=>$watches,'categories' => $categories,'banners' => $banners,'newproducts'=>$newproducts,'featuredProducts' => $featuredProducts,'comingSoon'=>$comingSoon,'cartQuantity'=>$cartQuantity,'controllers'=>$controllers,'activeIndex' => 0,'movingSentence'=>$movingSentence->sentence]);
     }

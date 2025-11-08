@@ -83,7 +83,7 @@
 		<div class="boxes">
 			<x-category-box image="/img/drones.webp" title="Drones" path="/products/10" />
 			<x-category-box image="/img/ps.webp" title="Playstation" path="/products/1" />
-			<x-category-box image="/img/retro.webp" title="Retro" path="/products/7" />
+			<x-category-box image="/img/watches-banner.webp" title="Watches" path="/watches" />
 			<x-category-box image="/img/Elite Gear.webp" title="Gaming Setup" path="/products/5" />
 		</div>
 	</section>
@@ -185,12 +185,12 @@
 					@else
 					<p class="price">${{ number_format($watch->price, 2) }}</p>
 					@endif
-
-					<button onclick="addToCart({{ $watch->id }}, 'watch')" style="font-family: 'Poppins', sans-serif;">
-						Add to cart
-						<img src="/img/colored-cart.svg" class="cart-icon" />
-					</button>
 				</a>
+				<button onclick="addToCart({{ $watch->id }}, 'watch')" style="font-family: 'Poppins', sans-serif;">
+					Add to cart
+					<img src="/img/colored-cart.svg" class="cart-icon" />
+				</button>
+
 			</div>
 			@endforeach
 		</div>
