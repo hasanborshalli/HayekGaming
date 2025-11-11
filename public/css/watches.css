@@ -106,6 +106,56 @@
 .color-dot.active-dot {
     border: 2px solid #2a2670;
 }
+.watches-page marquee {
+    color: rgba(150, 150, 150, 1);
+}
+/* Slider area */
+.watch-slider {
+    width: 100%;
+    height: 250px; /* match your .card-image height */
+    overflow: hidden; /* hide overflow, no native scrollbar */
+    position: relative;
+}
+.watch-track {
+    display: flex;
+    height: 100%;
+    transition: transform 280ms ease; /* smooth but snappy */
+    will-change: transform;
+}
+.watch-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Dots */
+.color-dots-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 8px 0 4px;
+}
+.color-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #bdbdbd;
+    cursor: pointer;
+    transition: transform 0.15s ease, border 0.15s ease;
+}
+.color-dot:hover {
+    transform: scale(1.08);
+}
+.color-dot.active-dot {
+    border-color: #2a2670;
+}
+
+/* Ensure card text has space (avoid overlap) */
+.card-details {
+    margin-top: 4px;
+}
+
 @media (max-width: 768px) {
     .watches-page .navbar {
         background-color: white;
@@ -117,5 +167,11 @@
     }
     .watches-page .icon {
         content: url("/img/black-cart.svg");
+    }
+    .watches-page footer {
+        background-color: rgba(150, 150, 150, 1);
+    }
+    .watches-page .poweredBy {
+        background-color: rgba(150, 150, 150, 1) !important;
     }
 }

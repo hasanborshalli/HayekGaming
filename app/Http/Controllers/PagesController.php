@@ -84,7 +84,7 @@ $relatedProducts = $relatedProductsQuery->take(5)->get();
         $cart = session('cart_items', []);
         $cartQuantity = count($cart);
         $products=$category->products()->orderBy('created_at','desc')->paginate(24);
-        return view('productsPage', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'category'=>$category,'products'=>$products,'cartQuantity'=>$cartQuantity]);
+        return view('productsPage', ['movingSentence'=>$movingSentence->sentence,'categories' => $categories,'category'=>$category,'products'=>$products,'cartQuantity'=>$cartQuantity,'pageType'=>'product']);
     }
 public function productsBySubPage(SubCategory $subCategory)
 {

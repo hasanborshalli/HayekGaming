@@ -80,20 +80,125 @@
     <script src="/js/navbar.js"></script>
     <script src="/js/order.js"></script>
     <script>
-        function changeWatchImage(dot, id) {
-    const newImg = dot.getAttribute('data-img');
-    const card = dot.closest('.product-card');
-    const imgElement = card.querySelector('img');
-    
-    // Change main image
-    imgElement.src = newImg;
+        (function initWatchCards(){
+  // helper: safely find closest anchor to temporarily disable clicks while swiping
+  function preventClickWhileSwiping(anchor){
+    const onClick = (e)=> {
+      if (anchor.dataset.blockClick === '1') {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      // reset after the event cycle
+      requestAnimationFrame(()=>{ anchor.dataset.blockClick = '0'; });
+    };
+    // only attach once
+    if (!anchor.__clickBound) {
+      anchor.addEventListener('click', onClick, true);
+      anchor.__clickBound = true;
+    }
+  }
 
-    // Highlight active color
-    const allDots = card.querySelectorAll('.color-dot');
-    allDots.forEach(d => d.classList.remove('active-dot'));
-    dot.classList.add('active-dot');
-}
+  // go to slide index
+  function goTo(idx, track, total, dots){
+    const clamped = Math.max(0, Math.min(idx, total-1));
+    track.style.transform = `translateX(-${clamped * 100}%)`;
+    if (dots) {
+      dots.forEach(d => d.classList.remove('active-dot'));
+      if (dots[clamped]) dots[clamped].classList.add('active-dot');
+    }
+    track.__current = clamped;
+  }
+
+  // attach per-card logic
+  document.querySelectorAll('.watch-slider').forEach((slider)=>{
+    const cardId = slider.getAttribute('data-card-id');
+    const track  = slider.querySelector('.watch-track');
+    const slides = track ? track.children.length : 0;
+    if (!track || slides === 0) return;
+
+    // dots bound to this card
+    const dotsWrap = document.querySelector(`.color-dots-container[data-card-id="${cardId}"]`);
+    const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.color-dot')) : null;
+
+    // anchor to block during swipe
+    const anchor = slider.closest('.image-wrapper');
+    if (anchor) preventClickWhileSwiping(anchor);
+
+    // set initial
+    track.__current = 0;
+    goTo(0, track, slides, dots);
+
+    // dot click -> jump
+    if (dots) {
+      dots.forEach(dot => {
+        dot.addEventListener('click', (e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          const targetIdx = parseInt(dot.getAttribute('data-index'),10) || 0;
+          goTo(targetIdx, track, slides, dots);
+        });
+      });
+    }
+
+    // swipe state
+    let startX = 0, currentX = 0, moved = 0, isTouching = false, hasSwiped = false;
+
+    function onStart(clientX){
+      isTouching = true;
+      hasSwiped = false;
+      moved = 0;
+      startX = clientX;
+      currentX = clientX;
+      // temporarily remove transition to follow finger
+      track.style.transition = 'none';
+    }
+    function onMove(clientX){
+      if (!isTouching) return;
+      currentX = clientX;
+      const dx = currentX - startX;
+      moved = dx;
+
+      // block anchor click if finger moved enough
+      if (Math.abs(moved) > 5 && anchor) anchor.dataset.blockClick = '1';
+
+      const width = slider.clientWidth;
+      const progress = dx / width;
+      const base = track.__current * -100;
+      track.style.transform = `translateX(calc(${base}% + ${dx}px))`;
+    }
+    function onEnd(){
+      if (!isTouching) return;
+      isTouching = false;
+
+      // restore transition
+      requestAnimationFrame(()=>{ track.style.transition = 'transform 280ms ease'; });
+
+      const width = slider.clientWidth;
+      const threshold = Math.max(40, width * 0.15); // swipe threshold
+      let next = track.__current;
+
+      if (moved <= -threshold) { next = track.__current + 1; hasSwiped = true; }
+      if (moved >=  threshold) { next = track.__current - 1; hasSwiped = true; }
+
+      goTo(next, track, slides, dots);
+
+      // small delay before re-enabling clicks to avoid ghost-clicks
+      if (anchor) setTimeout(()=>{ anchor.dataset.blockClick = '0'; }, 60);
+    }
+
+    // touch
+    slider.addEventListener('touchstart', (e)=> onStart(e.touches[0].clientX), {passive:true});
+    slider.addEventListener('touchmove',  (e)=> onMove(e.touches[0].clientX),  {passive:true});
+    slider.addEventListener('touchend',   onEnd, {passive:true});
+
+    // mouse (desktop)
+    slider.addEventListener('mousedown', (e)=> { e.preventDefault(); onStart(e.clientX); });
+    window.addEventListener('mousemove', (e)=> onMove(e.clientX));
+    window.addEventListener('mouseup', onEnd);
+  });
+})();
     </script>
+
 
 </body>
 

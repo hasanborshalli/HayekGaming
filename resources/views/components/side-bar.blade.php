@@ -15,6 +15,7 @@
                         <li class="subcategory">{{$subcategory->name}}</li>
                     </a>
                     @endforeach
+
                 </ul>
                 <img src="/img/{{$category->slogan}}.webp" alt="{{$category->slogan}}" class="sidebar-image"
                     loading="lazy" />
@@ -25,6 +26,7 @@
         @endif
 
         @endforeach
-        <li><a href="/coming-soon">Coming Soon</a></li>
+        <li><a href="/watches">Watches</a></li>
+        <li><a href="/bracelets">Bracelets</a></li>
     </ul>
 </div>
