@@ -137,8 +137,8 @@
     margin: 8px 0 4px;
 }
 .color-dot {
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     border: 2px solid #bdbdbd;
     cursor: pointer;
@@ -173,5 +173,8 @@
     }
     .watches-page .poweredBy {
         background-color: rgba(150, 150, 150, 1) !important;
+    }
+    .color-dots-container {
+        margin: 12px 0 4px;
     }
 }
