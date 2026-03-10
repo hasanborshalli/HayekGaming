@@ -37,9 +37,7 @@
 	<link rel="stylesheet" href="/css/toast.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap&family=Archivo+Black&family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-		rel="stylesheet" />
+	<link rel="stylesheet" href="/css/fonts.css" />
 	<title>Hayek Gaming Ground</title>
 </head>
 
@@ -48,8 +46,11 @@
 	<div class="whole-carousel">
 		<div class="carousel-left">
 			@php
+			if($banners->count() > 0){
 			$prevIndex = ($activeIndex - 1 + $banners->count()) % $banners->count();
 			$prevBanner = $banners[$prevIndex];
+			}
+
 			@endphp
 			<img src="/storage/banners/{{$prevBanner->image}}" alt="" id="prevBanner">
 		</div>

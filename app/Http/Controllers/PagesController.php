@@ -17,16 +17,23 @@ class PagesController extends Controller
 {
     public function homePage()
     {
-        $categories=Category::all();
-        $banners = Banner::orderBy('created_at', 'desc')->get();
-        $newproducts = Product::where('isNew',true)
-                               ->where('is_available',true)
-                               ->orderBy('created_at', 'desc') 
-                               ->latest()->take(9)->get();
-        $featuredProducts = Product::where('featured', true)
-                                    ->where('is_available',true)
-                                    ->orderBy('created_at', 'desc') 
-                                    ->take(9)->get();
+        // In homePage():
+$banners = Banner::with('product')->orderBy('created_at', 'desc')->get();
+
+$newproducts = Product::with('category')
+    ->where('isNew', true)
+    ->where('is_available', true)
+    ->orderBy('created_at', 'desc')
+    ->take(9)->get();
+
+$featuredProducts = Product::with('category')
+    ->where('featured', true)
+    ->where('is_available', true)
+    ->orderBy('created_at', 'desc')
+    ->take(9)->get();
+
+// Categories with subcategories (used in navbar on EVERY page)
+$categories = Category::with('subcategories')->get();
         $comingSoon=Coming::first();
         $movingSentence=Sentence::first();
         $cart = session('cart_items', []);
@@ -48,9 +55,10 @@ class PagesController extends Controller
     ->where('id', '!=', $product->id)
     ->orderBy('created_at', 'desc');
 
-if ($product->gameTypes()->exists()) {
+$gameTypes = $product->gameTypes;  // single query
+if ($gameTypes->isNotEmpty()) {
+    $gameTypeIds = $gameTypes->pluck('id')->toArray();
     $hasGameTypes=true;
-    $gameTypeIds = $product->gameTypes->pluck('id')->toArray();
 
     $relatedProductsQuery->whereHas('gameTypes', function ($query) use ($gameTypeIds) {
         $query->whereIn('game_types.id', $gameTypeIds);
@@ -217,8 +225,8 @@ $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
      public function editWatchPage(Watch $watch)
     {
         $types=Type::all();
-$decodedFeatures = json_decode($product->features ?? '[]', true);
-$decodedBox = json_decode($product->box_contents ?? '[]', true);
+$decodedFeatures = json_decode($watch->features ?? '[]', true);
+$decodedBox = json_decode($watch->box_contents ?? '[]', true);
 
 $features = is_array($decodedFeatures) ? implode("\n", $decodedFeatures) : '';
 $boxContents = is_array($decodedBox) ? implode("\n", $decodedBox) : '';
